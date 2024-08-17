@@ -64,7 +64,7 @@ namespace Server.Spells
 
         public virtual bool BlockedByHorrificBeast => true;
         public virtual bool BlockedByAnimalForm => true;
-        public virtual bool BlocksMovement => IsCasting;
+        public virtual bool BlocksMovement => false;
 
         public virtual bool CheckNextSpellTime => Scroll is not BaseWand;
 
