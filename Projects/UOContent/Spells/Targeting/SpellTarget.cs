@@ -29,11 +29,25 @@ public class SpellTarget<T> : Target, ISpellTarget<T> where T : class, IPoint3D
     public ITargetingSpell<T> Spell => _spell;
 
     protected override bool CanTarget(Mobile from, StaticTarget staticTarget, ref Point3D loc, ref Map map)
-        => _canTargetStatic;
+    {
+        loc = staticTarget.Location;
+        map = from.Map;
+        return _canTargetStatic;
+    }
 
-    protected override bool CanTarget(Mobile from, Mobile mobile, ref Point3D loc, ref Map map) => _canTargetMobile;
+    protected override bool CanTarget(Mobile from, Mobile mobile, ref Point3D loc, ref Map map)
+    {
+        loc = mobile.Location;
+        map = mobile.Map;
+        return _canTargetMobile;
+    }
 
-    protected override bool CanTarget(Mobile from, Item item, ref Point3D loc, ref Map map) => _canTargetItem;
+    protected override bool CanTarget(Mobile from, Item item, ref Point3D loc, ref Map map)
+    {
+        loc = item.GetWorldLocation();
+        map = item.Map;
+        return _canTargetItem;
+    }
 
     protected override void OnCantSeeTarget(Mobile from, object o)
     {
@@ -46,6 +60,7 @@ public class SpellTarget<T> : Target, ISpellTarget<T> where T : class, IPoint3D
     {
         if (!_retryOnLos)
         {
+            from.SendLocalizedMessage(500237); // Target can not be seen.
             return;
         }
 
