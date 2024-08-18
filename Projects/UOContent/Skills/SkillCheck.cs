@@ -169,7 +169,7 @@ public static class SkillCheck
         }
 
         var chance = (value - minSkill) / (maxSkill - minSkill);
-
+        from.SendLocalizedMessage(1044057, true, $" {Convert.ToInt32(chance * 100)}%");
         return CheckSkill(from, skill, target, chance);
     }
 
