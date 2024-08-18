@@ -37,6 +37,12 @@ public partial class Bandage : Item, IDyable
 
     public override void OnDoubleClick(Mobile from)
     {
+        if (BandageContext.GetContext(from) != null)
+        {
+            from.SendLocalizedMessage(1049616); // You are too busy to do that at the moment.
+            return;
+        }
+
         if (from.InRange(GetWorldLocation(), Range))
         {
             from.RevealingAction();
