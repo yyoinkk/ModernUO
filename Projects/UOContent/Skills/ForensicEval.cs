@@ -20,7 +20,7 @@ namespace Server.SkillHandlers
 
             m.SendLocalizedMessage(501000); // Show me the crime.
 
-            return TimeSpan.FromSeconds(1.0);
+            return TimeSpan.FromSeconds(5.0);
         }
 
         public class ForensicTarget : Target

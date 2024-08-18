@@ -108,7 +108,7 @@ namespace Server.SkillHandlers
 
                     m.SendLocalizedMessage(502730); // You begin to move quietly.
 
-                    return TimeSpan.FromSeconds(10.0);
+                    return TimeSpan.FromSeconds(5.0);
                 }
                 else
                 {
@@ -117,7 +117,7 @@ namespace Server.SkillHandlers
                 }
             }
 
-            return TimeSpan.FromSeconds(10.0);
+            return TimeSpan.FromSeconds(5.0);
         }
     }
 #pragma warning restore CA1052 // Static holder types should be Static or NotInheritable
