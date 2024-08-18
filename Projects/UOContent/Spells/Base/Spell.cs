@@ -453,7 +453,7 @@ namespace Server.Spells
                 return;
             }
 
-            if (!string.IsNullOrEmpty(Info.Mantra) && Caster.Player)
+            if (!string.IsNullOrEmpty(Info.Mantra)) // && Caster.Player)
             {
                 Caster.PublicOverheadMessage(MessageType.Spell, Caster.SpeechHue, true, Info.Mantra, false);
             }
