@@ -139,7 +139,7 @@ namespace Server.Spells.Third
 
         public override void OnCast()
         {
-            Caster.Target = new SpellTarget<IPoint3D>(this, true);
+            Caster.Target = new SpellTarget<IPoint3D>(this, allowGround: true);
         }
     }
 }
