@@ -453,6 +453,11 @@ public class BandageContext : Timer
 
     public static BandageContext BeginHeal(Mobile healer, Mobile patient)
     {
+        if (GetContext(healer) != null)
+        {
+            return null;
+        }
+
         var creature = patient as BaseCreature;
 
         if (patient is Golem)
