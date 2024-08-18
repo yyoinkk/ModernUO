@@ -526,12 +526,11 @@ public class BandageContext : Timer
                 seconds = 5.0 + resDelay;
             }
 
-            var context = GetContext(healer);
+            healer.SendMessage($"Healing time: {seconds}s");
 
-            context?.StopHeal();
             seconds *= 1000;
+            var context = new BandageContext(healer, patient, TimeSpan.FromMilliseconds(seconds));
 
-            context = new BandageContext(healer, patient, TimeSpan.FromMilliseconds(seconds));
             _table[healer] = context;
             context.Start();
 
