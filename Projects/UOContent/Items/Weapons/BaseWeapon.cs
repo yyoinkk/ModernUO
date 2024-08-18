@@ -1366,7 +1366,14 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
             chance = 0.02;
         }
 
-        return attacker.CheckSkill(atkSkill.SkillName, chance);
+        bool hitResult = attacker.CheckSkill(atkSkill.SkillName, chance);
+        attacker.SendMessage($"To hit: {Convert.ToInt32(chance * 100)}%");
+        if (!hitResult)
+        {
+            attacker.SendLocalizedMessage(500757); // Missed.
+        }
+
+        return hitResult;
     }
 
     public virtual TimeSpan GetDelay(Mobile m)
