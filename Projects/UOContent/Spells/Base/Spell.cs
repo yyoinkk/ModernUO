@@ -510,7 +510,7 @@ namespace Server.Spells
             }
             else if (!ConsumeReagents())
             {
-                Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502630); // More reagents are needed for this spell.
+                Caster.SendLocalizedMessage(502630, hue: 0x2B);// More reagents are needed for this spell.
                 DoFizzle();
             }
             else
@@ -587,7 +587,8 @@ namespace Server.Spells
                 else if (Caster.NetState?.IsKRClient != true && Caster.NetState?.Version >= ClientVersion.Version70654)
                 {
                     // Insufficient mana. You must have at least ~1_MANA_REQUIREMENT~ Mana to use this spell.
-                    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625, requiredMana.ToString());
+                    //Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625, requiredMana.ToString());
+                    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625); // Insufficient mana
                 }
                 else
                 {

@@ -183,10 +183,9 @@ namespace Server.Spells
                 return;
             }
 
-            var root = (to as Item)?.RootParent;
-            if (from != root)
+            if (to is Item item)
             {
-                to = root;
+                to = item.RootParent == from ? from : item.GetWorldLocation();
             }
 
             if (!from.Equals(to))
