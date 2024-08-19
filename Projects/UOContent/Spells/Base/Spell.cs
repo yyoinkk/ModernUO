@@ -508,6 +508,11 @@ namespace Server.Spells
             else if ((Caster as PlayerMobile)?.DuelContext?.AllowSpellCast(Caster, this) == false)
             {
             }
+            else if (!ConsumeReagents())
+            {
+                Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502630); // More reagents are needed for this spell.
+                DoFizzle();
+            }
             else
             {
                 var requiredMana = ScaleMana(GetMana());
@@ -740,10 +745,10 @@ namespace Server.Spells
             {
                 DoFizzle();
             }
-            else if (!ConsumeReagents())
-            {
-                Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502630); // More reagents are needed for this spell.
-            }
+            //else if (!ConsumeReagents())
+            //{
+            //    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502630); // More reagents are needed for this spell.
+            //}
             else if (Caster.Mana < mana)
             {
                 Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625); // Insufficient mana for this spell.
