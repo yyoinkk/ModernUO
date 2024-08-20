@@ -918,6 +918,10 @@ namespace Server.Spells
                         caster.Animate(12, 7, 1, true, false, 0);
                     }
                 }
+                else if (caster.Mounted && caster.Body.IsHuman)
+                {
+                    caster.Animate(24, 5, 1, true, false, 0);
+                }
 
                 if (!Running)
                 {
