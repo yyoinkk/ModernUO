@@ -2044,6 +2044,38 @@ namespace Server.Mobiles
             }
         }
 
+        public override bool CheckSpellCast(ISpell spell)
+        {
+            if (spell is MagerySpell)
+            {
+                return CanCastWithWeapon(spell) && base.CheckSpellCast(spell);
+            }
+            return base.CheckSpellCast(spell);// && weapon check && class check
+        }
+
+        public bool CanCastWithWeapon(ISpell spell)
+        {
+            Item item1h = FindItemOnLayer(Layer.OneHanded);
+            Item item2h = FindItemOnLayer(Layer.TwoHanded);
+
+            return AllowCastWhenEquipped(item1h) && AllowCastWhenEquipped(item2h);
+        }
+
+        public bool AllowCastWhenEquipped(Item item)
+        {
+            if (item is null or Spellbook or Runebook or BaseStaff or BaseKnife or Buckler or BaseWand
+            || Core.AOS && item is BaseWeapon weapon && weapon.Attributes.SpellChanneling != 0)
+            //|| Core.AOS && item is BaseArmor armor && armor.Attributes.SpellChanneling != 0;)
+            {
+                return true;
+            }
+
+            SendLocalizedMessage(502626); // Your hands must be free to cast spells or meditate.
+
+            // return ClassAllowCastWhenEquipped(Item item);
+            return false;
+        }
+
         public override bool CheckEquip(Item item)
         {
             if (!base.CheckEquip(item))

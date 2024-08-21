@@ -583,6 +583,7 @@ namespace Server.Spells
 
                         return true;
                     }
+                    DoFizzle();
                 }
                 else if (Caster.NetState?.IsKRClient != true && Caster.NetState?.Version >= ClientVersion.Version70654)
                 {
