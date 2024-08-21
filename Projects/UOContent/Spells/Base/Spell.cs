@@ -117,7 +117,7 @@ namespace Server.Spells
 
         public virtual bool OnCasterEquipping(Item item)
         {
-            if (IsCasting)
+            if (IsCasting && !Caster.CheckSpellCast(this))
             {
                 Disturb(DisturbType.EquipRequest);
             }

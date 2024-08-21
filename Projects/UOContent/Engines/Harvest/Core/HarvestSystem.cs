@@ -410,10 +410,8 @@ namespace Server.Engines.Harvest
         {
             from.Direction = from.GetDirectionTo(loc);
 
-            if (!from.Mounted)
-            {
-                from.Animate(def.EffectActions.RandomElement(), 5, 1, true, false, 0);
-            }
+            var action = from.Mounted ? def.EffectActions[1] : def.EffectActions[0];
+            from.Animate(action, 5, 1, true, false, 0);
         }
 
         public virtual HarvestDefinition GetDefinition() => Definitions[0];
