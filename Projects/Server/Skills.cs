@@ -76,6 +76,29 @@ public enum SkillName
     Throwing = 57
 }
 
+public enum SkillNotToShowChance
+{
+    Archery = 31,
+    Swords = 40,
+    Macing = 41,
+    Fencing = 42,
+    Wrestling = 43,
+    Focus = 50,
+    Anatomy = 1,
+    Meditation = 46,
+    Tactics = 27,
+    EvalInt = 16,
+    Parry = 5,
+    Necromancy = 49,
+    Chivalry = 51,
+    Bushido = 52,
+    Ninjitsu = 53,
+    Spellweaving = 54,
+    Mysticism = 55,
+    Imbuing = 56,
+    Throwing = 57
+}
+
 public enum Stat
 {
     Str,
