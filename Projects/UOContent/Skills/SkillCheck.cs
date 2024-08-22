@@ -62,6 +62,8 @@ public static class SkillCheck
 
         var chance = (value - minSkill) / (maxSkill - minSkill);
 
+        from.SendLocalizedMessage(1044057, true, $" {skillName} {Convert.ToInt32(chance * 100)}%");
+
         var size = AntiMacroSystem.Settings.LocationSize;
         var loc = new Point2D(from.Location.X / size, from.Location.Y / size);
         return CheckSkill(from, skill, loc, chance);
@@ -84,6 +86,12 @@ public static class SkillCheck
         if (chance >= 1.0)
         {
             return true; // No challenge
+        }
+
+        if (skillName != SkillName.Focus && skillName != SkillName.Meditation)
+        {
+            from.SendLocalizedMessage(1044057, true, $" {skillName} {Convert.ToInt32(chance * 100)}%");
+
         }
 
         var size = AntiMacroSystem.Settings.LocationSize;
@@ -169,7 +177,7 @@ public static class SkillCheck
         }
 
         var chance = (value - minSkill) / (maxSkill - minSkill);
-        from.SendLocalizedMessage(1044057, true, $" {Convert.ToInt32(chance * 100)}%");
+        from.SendLocalizedMessage(1044057, true, $" {skillName} {Convert.ToInt32(chance * 100)}%");
         return CheckSkill(from, skill, target, chance);
     }
 
@@ -191,6 +199,8 @@ public static class SkillCheck
         {
             return true; // No challenge
         }
+
+        from.SendLocalizedMessage(1044057, true, $" {skillName} {Convert.ToInt32(chance * 100)}%");
 
         return CheckSkill(from, skill, target, chance);
     }
