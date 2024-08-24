@@ -420,7 +420,7 @@ public class BandageContext : Timer
                     healerNumber = 500968; // You apply the bandages, but they barely help.
                 }
 
-                Patient.Heal((int)toHeal, Healer, false);
+                Patient.Heal((int)toHeal, Healer, true);
             }
             else
             {
