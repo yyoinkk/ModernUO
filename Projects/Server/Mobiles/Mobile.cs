@@ -781,7 +781,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             return;
         }
 
-        if (InLOS(combatant))
+        if (InLOS(combatant) && !Hidden)
         {
             weapon.OnBeforeSwing(this, combatant);
             RevealingAction();
@@ -3703,7 +3703,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         }
     }
 
-    public virtual bool CheckAttack(Mobile m) => Utility.InUpdateRange(Location, m.Location) && CanSee(m) && InLOS(m);
+    public virtual bool CheckAttack(Mobile m) => Utility.InUpdateRange(Location, m.Location) && CanSee(m) && InLOS(m);// && !Hidden;
 
     /// <summary>
     ///     Overridable. Virtual event invoked after the <see cref="Combatant" /> property has changed.
@@ -7018,6 +7018,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
     public virtual void OnHiddenChanged()
     {
         AllowedStealthSteps = 0;
+
+        NextCombatTime = Core.TickCount + (int)Weapon.GetDelay(this).TotalMilliseconds;
 
         if (m_Map == null)
         {

@@ -24,6 +24,7 @@ public interface IWeapon
     void OnBeforeSwing(Mobile attacker, Mobile defender);
     TimeSpan OnSwing(Mobile attacker, Mobile defender, double damageBonus = 1.0);
     void GetStatusDamage(Mobile from, out int min, out int max);
+    TimeSpan GetDelay(Mobile from);
 }
 
 public interface IHued
