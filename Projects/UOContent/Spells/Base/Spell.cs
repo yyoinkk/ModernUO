@@ -519,6 +519,8 @@ namespace Server.Spells
 
                 if (Caster.Mana >= requiredMana)
                 {
+                    Caster.Mana -= requiredMana;
+
                     if (Caster.Spell == null && Caster.CheckSpellCast(this) && CheckCast() &&
                         Caster.Region.OnBeginSpellCast(Caster, this))
                     {
@@ -588,8 +590,7 @@ namespace Server.Spells
                 else if (Caster.NetState?.IsKRClient != true && Caster.NetState?.Version >= ClientVersion.Version70654)
                 {
                     // Insufficient mana. You must have at least ~1_MANA_REQUIREMENT~ Mana to use this spell.
-                    //Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625, requiredMana.ToString());
-                    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625); // Insufficient mana
+                    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625, requiredMana.ToString());
                 }
                 else
                 {
@@ -735,7 +736,7 @@ namespace Server.Spells
 
         public virtual bool CheckSequence()
         {
-            var mana = ScaleMana(GetMana());
+            //var mana = ScaleMana(GetMana());
 
             if (Caster.Deleted || !Caster.Alive || Caster.Spell != this || State != SpellState.Sequencing)
             {
@@ -751,10 +752,10 @@ namespace Server.Spells
             //{
             //    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502630); // More reagents are needed for this spell.
             //}
-            else if (Caster.Mana < mana)
-            {
-                Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625); // Insufficient mana for this spell.
-            }
+            //else if (Caster.Mana < mana)
+            //{
+            //    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625); // Insufficient mana for this spell.
+            //}
             else if (Core.AOS && (Caster.Frozen || Caster.Paralyzed))
             {
                 Caster.SendLocalizedMessage(502646); // You cannot cast a spell while frozen.
@@ -765,9 +766,9 @@ namespace Server.Spells
                 mobile.SendLocalizedMessage(1072060); // You cannot cast a spell while calmed.
                 DoFizzle();
             }
-            else if (CheckFizzle())
+            else if (this is MagerySpell || CheckFizzle())
             {
-                Caster.Mana -= mana;
+                //Caster.Mana -= mana;
 
                 if (Scroll is SpellScroll)
                 {
@@ -962,7 +963,15 @@ namespace Server.Spells
 
                     var originalTarget = caster.Target;
 
-                    m_Spell.OnCast();
+                    if (!m_Spell.CheckFizzle())
+                    {
+                        m_Spell.FinishSequence();
+                        m_Spell.DoFizzle();
+                    }
+                    else
+                    {
+                        m_Spell.OnCast();
+                    }
 
                     if (caster.Player && caster.Target != originalTarget)
                     {

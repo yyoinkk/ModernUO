@@ -39,7 +39,7 @@ namespace Server.Spells
 
             // Correct algorithm according to OSI for UOR/UOML
             // TODO: Verify this algorithm on OSI for latest expansion.
-            min = _requiredSkill[(int)(Scroll == null ? Circle + 2 : Circle)];
+            min = _requiredSkill[(int)(Scroll == null ? Circle + 1 : Circle)];
             max = min + 40;
         }
 
