@@ -396,6 +396,11 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             Body = m_Race.Body(this);
             UpdateResistances();
 
+            if (m_Body.IsHuman)
+            {
+                Hue = Race.RandomSkinHue();
+            }
+
             Delta(MobileDelta.Race);
 
             OnRaceChange(oldRace);
