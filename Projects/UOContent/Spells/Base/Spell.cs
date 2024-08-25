@@ -963,7 +963,7 @@ namespace Server.Spells
 
                     var originalTarget = caster.Target;
 
-                    if (!m_Spell.CheckFizzle())
+                    if (m_Spell is MagerySpell && !m_Spell.CheckFizzle())
                     {
                         m_Spell.FinishSequence();
                         m_Spell.DoFizzle();
