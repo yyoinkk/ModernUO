@@ -3566,10 +3566,9 @@ namespace Server.Mobiles
 
             if (Hidden && DesignContext.Find(this) == null) // Hidden & NOT customizing a house
             {
+                var running = (d & Direction.Running) != 0;
                 if (!Mounted && Skills.Stealth.Value >= 25.0)
                 {
-                    var running = (d & Direction.Running) != 0;
-
                     if (running)
                     {
                         if ((AllowedStealthSteps -= 2) <= 0)
@@ -3579,7 +3578,20 @@ namespace Server.Mobiles
                     }
                     else if (AllowedStealthSteps-- <= 0)
                     {
-                        Stealth.OnUse(this);
+                        if (!Skills.UseSkill(this, SkillName.Stealth))
+                        {
+                            RevealingAction();
+                        }
+                    }
+                }
+                else if (Mounted && Skills.Hiding.Value >= 100.0 && Skills.Stealth.Value >= 60.0 && !running)
+                {
+                    if (AllowedStealthSteps-- <= 0)
+                    {
+                        if (!Skills.UseSkill(this, SkillName.Stealth))
+                        {
+                            RevealingAction();
+                        }
                     }
                 }
                 else
