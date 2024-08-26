@@ -856,16 +856,16 @@ namespace Server.Mobiles
                 return false;
             }
 
-            if (Core.AOS)
-            {
-                foreach (Mobile m in Map.GetMobilesAt(location))
-                {
-                    if (m.Z >= location.Z && m.Z < location.Z + 16 && (!m.Hidden || m.AccessLevel == AccessLevel.Player))
-                    {
-                        return false;
-                    }
-                }
-            }
+            //if (Core.AOS)
+            //{
+            //    foreach (Mobile m in Map.GetMobilesAt(location))
+            //    {
+            //        if (m.Z >= location.Z && m.Z < location.Z + 16 && (!m.Hidden || m.AccessLevel == AccessLevel.Player))
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
 
             var bi = item.GetBounce();
 
