@@ -539,6 +539,8 @@ public class BandageContext : Timer
                 patient.SendLocalizedMessage(1008078, false, healer.Name); // : Attempting to heal you.
             }
 
+            BuffInfo.AddBuff(patient, new BuffInfo(BuffIcon.Healing, 1044077, 1151400, TimeSpan.FromMilliseconds(seconds), patient, patient.RawName)); //Healing | Target: name
+
             healer.SendLocalizedMessage(500956); // You begin applying the bandages.
             return context;
         }
