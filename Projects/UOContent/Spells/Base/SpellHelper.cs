@@ -371,13 +371,13 @@ namespace Server.Spells
 
         public static TimeSpan GetDuration(Mobile caster, Mobile target) =>
             // TODO: Is this accurate for Curse? Sources say it is magery. Should confirm at least for newest era.
-            TimeSpan.FromSeconds(6 * (Core.AOS ? caster.Skills.EvalInt.Value : caster.Skills.Magery.Value) / 5.0);
+            TimeSpan.FromSeconds(60 * (Core.AOS ? caster.Skills.EvalInt.Value : caster.Skills.Magery.Value) / 5.0);
 
         public static double GetOffsetScalar(Mobile caster, Mobile target, bool curse)
         {
             var percent = curse
                 ? 8 + (caster.Skills.EvalInt.Value - target.Skills.MagicResist.Value) / 10
-                : 1 + caster.Skills.EvalInt.Value / 10;
+                : (4 + caster.Skills.EvalInt.Value / 10) + (6 + caster.Skills.Magery.Value / 10);
 
             percent *= 0.01;
 
