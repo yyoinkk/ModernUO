@@ -8,9 +8,9 @@ public static class PlayerCommand
 {
     public static void Initialize()
     {
-        //CommandHandlers.Register("Cap", AccessLevel.Player, CapStat_OnCommand);
-        CommandHandlers.Register("Bandageself", AccessLevel.Player, BandageSelf_OnCommand);
-        CommandHandlers.Register("Bandage", AccessLevel.Player, Bandage_OnCommand);
+        //CommandSystem.Register("Cap", AccessLevel.Player, CapStat_OnCommand);
+        CommandSystem.Register("Bandageself", AccessLevel.Player, BandageSelf_OnCommand);
+        CommandSystem.Register("Bandage", AccessLevel.Player, Bandage_OnCommand);
 
         HelpInfo.FillTable();
     }
