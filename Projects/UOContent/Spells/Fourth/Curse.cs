@@ -26,7 +26,7 @@ namespace Server.Spells.Fourth
 
         public static bool DoCurse(Mobile caster, Mobile m)
         {
-            var duration = SpellHelper.GetDuration(caster, m);
+            var duration = SpellHelper.GetDuration(caster, m, curse: true);
 
             if (duration == TimeSpan.Zero)
             {

@@ -369,9 +369,13 @@ namespace Server.Spells
             return true;
         }
 
-        public static TimeSpan GetDuration(Mobile caster, Mobile target) =>
+        public static TimeSpan GetDuration(Mobile caster, Mobile target, bool curse = false)
+        {
             // TODO: Is this accurate for Curse? Sources say it is magery. Should confirm at least for newest era.
-            TimeSpan.FromSeconds(60 * (Core.AOS ? caster.Skills.EvalInt.Value : caster.Skills.Magery.Value) / 5.0);
+            // TODO: Scale curse duration during eval / resist
+            var duration = 60 * (Core.AOS ? caster.Skills.EvalInt.Value : caster.Skills.Magery.Value) / 5.0;
+            return TimeSpan.FromSeconds(curse ? duration/10 : duration);
+        }
 
         public static double GetOffsetScalar(Mobile caster, Mobile target, bool curse)
         {
