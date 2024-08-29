@@ -1647,10 +1647,10 @@ namespace Server.Mobiles
 
         public virtual void OnCarve(Mobile from, Corpse corpse, Item with)
         {
-            var feathers = Feathers;
+            var feathers = Feathers > 0 ? (int)Math.Ceiling(Feathers / 5.0) + Utility.RandomMinMax(1, 4) : Feathers;
             var wool = Wool;
             var meat = Meat;
-            var hides = Hides;
+            var hides = Hides > 0 ? (int)Math.Ceiling(Hides / 4.0) + Utility.RandomMinMax(1, 3) : Hides;
             var scales = Scales;
 
             if (feathers == 0 && wool == 0 && meat == 0 && hides == 0 && scales == 0 || Summoned || IsBonded ||
