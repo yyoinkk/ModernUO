@@ -753,14 +753,12 @@ public partial class Corpse : Container, ICarvable
 
     public override void OnSubItemRemoved(Item item)
     {
-        Console.WriteLine("1");
         ClearRestoreInfo(item);
         base.OnSubItemRemoved(item);
     }
 
     public override void OnItemRemoved(Item item)
     {
-        Console.WriteLine("2");
         ClearRestoreInfo(item);
         RemoveFromEquipItems(item);
         RestoreEquip.Remove(item);
