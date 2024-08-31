@@ -106,13 +106,13 @@ namespace Server.SkillHandlers
                         pm.IsStealthing = true;
                     }
 
-                    m.SendLocalizedMessage(502730); // You begin to move quietly.
+                    m.LocalOverheadMessage(MessageType.Regular, 0x1F4, 502730); // You begin to move quietly.
                     m.SendMessage($" Steps: {m.AllowedStealthSteps}");
                     return TimeSpan.FromSeconds(5.0);
                 }
                 else
                 {
-                    m.SendLocalizedMessage(502731); // You fail in your attempt to move unnoticed.
+                    m.LocalOverheadMessage(MessageType.Regular, 0x22, 502731); // You fail in your attempt to move unnoticed.
                     m.RevealingAction();
                 }
             }

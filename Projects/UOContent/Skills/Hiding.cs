@@ -19,7 +19,7 @@ namespace Server.SkillHandlers
             if (m.Spell != null)
             {
                 m.SendLocalizedMessage(501238); // You are busy doing something else and cannot hide.
-                return TimeSpan.FromSeconds(1.0);
+                return TimeSpan.FromSeconds(5.0);
             }
 
             if (Core.ML && m.Target != null)
@@ -79,7 +79,7 @@ namespace Server.SkillHandlers
 
                 m.LocalOverheadMessage(MessageType.Regular, 0x22, 501237); // You can't seem to hide right now.
 
-                return TimeSpan.FromSeconds(1.0);
+                return TimeSpan.FromSeconds(5.0);
             }
 
             if (ok)
