@@ -761,7 +761,7 @@ public partial class Corpse : Container, ICarvable
     {
         ClearRestoreInfo(item);
         RemoveFromEquipItems(item);
-        RestoreEquip.Remove(item);
+        RestoreEquip?.Remove(item);
         base.OnSubItemRemoved(item);
     }
 
