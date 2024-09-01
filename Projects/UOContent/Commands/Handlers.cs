@@ -13,6 +13,7 @@ using Server.Network;
 using Server.Spells;
 using Server.Targeting;
 using Server.Targets;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Server.Commands
 {
@@ -29,6 +30,9 @@ namespace Server.Commands
             Register("AutoPageNotify", AccessLevel.Counselor, APN_OnCommand);
             Register("Animate", AccessLevel.GameMaster, Animate_OnCommand);
             Register("Cast", AccessLevel.Counselor, Cast_OnCommand);
+            Register("CastInd", AccessLevel.Counselor, CastInd_OnCommand);
+            Register("Spell", AccessLevel.Player, CastSpell_OnCommand);
+            Register("SpellInfo", AccessLevel.Player, SpellInfo_OnCommand);
             Register("Stuck", AccessLevel.Counselor, Stuck_OnCommand);
             Register("Help", AccessLevel.Player, Help_OnCommand);
             Register("Move", AccessLevel.GameMaster, Move_OnCommand);
@@ -711,6 +715,102 @@ namespace Server.Commands
                 if (spell != null)
                 {
                     spell.Cast();
+                }
+                else
+                {
+                    e.Mobile.SendMessage("That spell was not found.");
+                }
+            }
+            else
+            {
+                e.Mobile.SendMessage("Format: Cast <name>");
+            }
+        }
+
+        [Usage("CastInd <ind>")]
+        [Description("Casts a spell by index.")]
+        public static void CastInd_OnCommand(CommandEventArgs e)
+        {
+            if (e.Length == 1)
+            {
+                if (!DesignContext.Check(e.Mobile))
+                {
+                    return; // They are customizing
+                }
+
+                var spell = SpellRegistry.NewSpell(e.GetInt32(0), e.Mobile, null);
+
+                if (spell != null)
+                {
+                    spell.Cast();
+                }
+                else
+                {
+                    e.Mobile.SendMessage("That spell was not found.");
+                }
+            }
+            else
+            {
+                e.Mobile.SendMessage("Format: Cast <name>");
+            }
+        }
+
+        [Usage("spell <name>")]
+        [Description("Casts a spell by name.")]
+        public static void CastSpell_OnCommand(CommandEventArgs e)
+        {
+            if (e.Length == 1)
+            {
+                if (!DesignContext.Check(e.Mobile))
+                {
+                    return; // They are customizing
+                }
+
+                var spell = SpellRegistry.NewSpell(e.GetString(0), e.Mobile, null);
+
+                if (spell != null)
+                {
+                    var spellID = SpellRegistry.GetRegistryNumber(spell);
+                    Spellbook.CastSpellRequest(e.Mobile, spellID, null);
+                }
+                else
+                {
+                    e.Mobile.SendMessage("That spell was not found.");
+                }
+            }
+            else
+            {
+                e.Mobile.SendMessage("Format: Cast <name>");
+            }
+        }
+
+        [Usage("Spellinfo <spell>")]
+        [Description("Information about spell.")]
+        public static void SpellInfo_OnCommand(CommandEventArgs e)
+        {
+            if (e.Length == 1)
+            {
+                if (!DesignContext.Check(e.Mobile))
+                {
+                    return; // They are customizing
+                }
+
+                var spell = SpellRegistry.NewSpell(e.GetString(0), e.Mobile, null);
+
+                if (spell != null)
+                {
+                    if (spell is MagerySpell s)
+                    {
+                        string regs = "";
+                        foreach(var reg in s.Reagents)
+                        {
+                            string tmp = reg.ToString();
+                            regs += $" {tmp.Substring(tmp.LastIndexOf(".") + 1)}";
+                        }
+
+                        string msg = $"Spell: {s.Name}\nCircle: {s.Circle}\nMantra: {s.Mantra}\nReagents:{regs}";
+                        e.Mobile.SendMessage(msg);
+                    }
                 }
                 else
                 {
