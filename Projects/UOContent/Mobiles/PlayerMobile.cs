@@ -27,6 +27,7 @@ using Server.Regions;
 using Server.SkillHandlers;
 using Server.Spells;
 using Server.Spells.Bushido;
+using Server.Spells.Dark;
 using Server.Spells.Fifth;
 using Server.Spells.First;
 using Server.Spells.Fourth;
@@ -1145,6 +1146,11 @@ namespace Server.Mobiles
         public override void ComputeBaseLightLevels(out int global, out int personal)
         {
             global = LightCycle.ComputeLevelFor(this);
+
+            if (!CanBeginAction<DarknessSpell>())
+            {
+                global = LightCycle.DungeonLevel;
+            }
 
             var racialNightSight = Core.ML && Race == Race.Elf;
 
@@ -2605,6 +2611,10 @@ namespace Server.Mobiles
 
             EndAction<PolymorphSpell>();
             EndAction<IncognitoSpell>();
+
+            EndAction<DarknessSpell>();
+            EndAction<LightCycle>();
+            LightLevel = LightCycle.ComputeLevelFor(this);
 
             MeerMage.StopEffect(this, false);
 
