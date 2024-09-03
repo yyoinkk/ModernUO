@@ -240,6 +240,144 @@ namespace Server
             return totalDamage;
         }
 
+        public static int CalculateAOSDamage(
+            Mobile m, Mobile from, int damage, bool ignoreArmor, int phys, int fire, int cold, int pois,
+            int nrgy, int chaos = 0, int direct = 0, bool keepAlive = false, bool archer = false, bool deathStrike = false
+        )
+        {
+            if (m?.Deleted != false || !m.Alive || damage <= 0)
+            {
+                return 0;
+            }
+
+            Fix(ref phys);
+            Fix(ref fire);
+            Fix(ref cold);
+            Fix(ref pois);
+            Fix(ref nrgy);
+            Fix(ref chaos);
+            Fix(ref direct);
+
+            if (Core.ML && chaos > 0)
+            {
+                switch (Utility.Random(5))
+                {
+                    case 0:
+                        {
+                            phys += chaos;
+                            break;
+                        }
+                    case 1:
+                        {
+                            fire += chaos;
+                            break;
+                        }
+                    case 2:
+                        {
+                            cold += chaos;
+                            break;
+                        }
+                    case 3:
+                        {
+                            pois += chaos;
+                            break;
+                        }
+                    case 4:
+                        {
+                            nrgy += chaos;
+                            break;
+                        }
+                }
+            }
+
+            BaseQuiver quiver = null;
+
+            if (archer && from != null)
+            {
+                quiver = from.FindItemOnLayer<BaseQuiver>(Layer.Cloak);
+            }
+
+            int totalDamage;
+
+            if (!ignoreArmor)
+            {
+                // Armor Ignore on OSI ignores all defenses, not just physical.
+                var resPhys = m.PhysicalResistance;
+                var resFire = m.FireResistance;
+                var resCold = m.ColdResistance;
+                var resPois = m.PoisonResistance;
+                var resNrgy = m.EnergyResistance;
+
+                totalDamage = damage * phys * (100 - resPhys);
+                totalDamage += damage * fire * (100 - resFire);
+                totalDamage += damage * cold * (100 - resCold);
+                totalDamage += damage * pois * (100 - resPois);
+                totalDamage += damage * nrgy * (100 - resNrgy);
+
+                totalDamage /= 10000;
+
+                if (Core.ML)
+                {
+                    totalDamage += damage * direct / 100;
+
+                    if (quiver != null)
+                    {
+                        totalDamage += totalDamage * quiver.DamageIncrease / 100;
+                    }
+                }
+
+                if (totalDamage < 1)
+                {
+                    totalDamage = 1;
+                }
+            }
+            else if (Core.ML && m is PlayerMobile && from is PlayerMobile)
+            {
+                if (quiver != null)
+                {
+                    damage += damage * quiver.DamageIncrease / 100;
+                }
+
+                if (!deathStrike)
+                {
+                    totalDamage = Math.Min(damage, 35); // Direct Damage cap of 35
+                }
+                else
+                {
+                    totalDamage = Math.Min(damage, 70); // Direct Damage cap of 70
+                }
+            }
+            else
+            {
+                totalDamage = damage;
+
+                if (Core.ML && quiver != null)
+                {
+                    totalDamage += totalDamage * quiver.DamageIncrease / 100;
+                }
+            }
+
+            if (from?.Player != true && m.Player && m.Mount is SwampDragon { HasBarding: true } pet)
+            {
+                var percent = pet.BardingExceptional ? 20 : 10;
+                var absorbed = Scale(totalDamage, percent);
+
+                totalDamage -= absorbed;
+            }
+
+            if (keepAlive && totalDamage > m.Hits)
+            {
+                totalDamage = m.Hits;
+            }
+
+            if (totalDamage <= 0)
+            {
+                return 0;
+            }
+
+            return totalDamage;
+        }
+
         public static void Fix(ref int val)
         {
             if (val < 0)

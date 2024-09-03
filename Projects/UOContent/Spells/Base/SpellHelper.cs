@@ -1042,6 +1042,28 @@ namespace Server.Spells
             }
         }
 
+        public static int CalculateDamage(Spell spell, Mobile target, Mobile from, double damage, int phys, int fire,
+            int cold, int pois, int nrgy, int chaos = 0, DFAlgorithm dfa = DFAlgorithm.Standard)
+        {
+            var dmg = (int)damage;
+
+            var bcFrom = from as BaseCreature;
+            var bcTarget = target as BaseCreature;
+            bcFrom?.AlterSpellDamageTo(target, ref dmg);
+
+            bcTarget?.AlterSpellDamageFrom(from, ref dmg);
+
+            if (Feint.GetDamageReduction(from, target, out int feintReduction))
+            {
+                // example: 35 damage * 50 / 100 = 17 damage
+                dmg -= dmg * feintReduction / 100;
+            }
+
+            StaminaSystem.DFA = dfa;
+
+            return AOS.CalculateAOSDamage(target, from, dmg, false, phys, fire, cold, pois, nrgy, chaos);
+        }
+
         public static void DoLeech(int damageGiven, Mobile from, Mobile target)
         {
             if (target == null)

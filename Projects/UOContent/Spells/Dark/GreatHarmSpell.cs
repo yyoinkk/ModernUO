@@ -23,6 +23,8 @@ namespace Server.Spells.Dark
 
         public int TargetRange = 15;
 
+        public override bool DelayedDamage => false;
+
         public override void OnCast()
         {
             Caster.Target = new SpellTarget<Mobile>(this, TargetFlags.Harmful);
