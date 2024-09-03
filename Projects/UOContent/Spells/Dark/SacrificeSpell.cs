@@ -28,7 +28,25 @@ namespace Server.Spells.Dark
 
         public void Target(Mobile m)
         {
-            Caster.LocalOverheadMessage(MessageType.Regular, 0x22, true, "Not Implemented yet...");
+            if (CheckHSequence(m))
+            {
+                SpellHelper.Turn(Caster, m);
+
+                SpellHelper.CheckReflect((int)Circle, Caster, ref m);
+
+                double damage = GetNewAosDamage(49, 1, 7, m);
+
+                m.FixedParticles(0x3728, 30, 30, 22, 1258, 2, EffectLayer.Head);
+                m.FixedParticles(0x36BD, 20, 20, 22, 1258, 2, EffectLayer.Head);  //Explosion
+
+                m.PlaySound(0x207);
+                m.PlaySound(0x213); 
+
+                int selfDmg = SpellHelper.CalculateDamage(this, m, Caster, damage, 0, 100, 0, 0, 0) / 2;
+
+                SpellHelper.Damage(this, m, damage, 0, 100, 0, 0, 0);
+                Caster.Damage(selfDmg, Caster);
+            }
         }
     }
 }
