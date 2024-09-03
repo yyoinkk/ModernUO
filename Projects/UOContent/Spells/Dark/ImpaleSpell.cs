@@ -38,7 +38,7 @@ namespace Server.Spells.Dark
 
                 if (Core.AOS)
                 {
-                    damage = GetNewAosDamage(18, 1, 5, m);
+                    damage = GetNewAosDamage(18, 1, 8, m);
                 }
                 else
                 {
@@ -57,7 +57,7 @@ namespace Server.Spells.Dark
                 m.FixedParticles(0x37C4, 10, 15, 5013, EffectLayer.Waist);
                 source.PlaySound(Core.AOS ? 0x15E : 0x44B);
 
-                SpellHelper.Damage(this, m, damage, 0, 100, 0, 0, 0);
+                SpellHelper.Damage(this, m, damage, 0, 20, 20, 0, 60);
             }
         }
     }
