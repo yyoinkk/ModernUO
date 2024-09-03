@@ -4828,6 +4828,17 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             Effects.PlaySound(this, sound);
         }
 
+        if (_statMods != null)
+        {
+            for (var i = 0; i < _statMods.Count; i++)
+            {
+                RemoveStatMod(_statMods[i]);
+            }
+            _statMods = null;
+        }
+        
+        ValidateSkillMods();
+
         if (!m_Player)
         {
             Delete();
@@ -8340,10 +8351,10 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             Delta(MobileDelta.Stat | GetStatDelta(mod.Type));
         }
 
-        if (_statMods.Count == 0)
-        {
-            _statMods = null;
-        }
+        //if (_statMods.Count == 0)
+        //{
+        //    _statMods = null;
+        //}
     }
 
     public virtual void RemoveStatMod(string name)
@@ -9143,6 +9154,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
 
     private void Logout()
     {
+        Poison = null;
+
         if (m_Map != Map.Internal)
         {
             EventSink.InvokeLogout(this);
