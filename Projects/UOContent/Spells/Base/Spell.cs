@@ -455,7 +455,7 @@ namespace Server.Spells
 
             if (!string.IsNullOrEmpty(Info.Mantra)) // && Caster.Player)
             {
-                Caster.PublicOverheadMessage(MessageType.Spell, Caster.SpeechHue, true, Info.Mantra, false);
+                Caster.PublicOverheadMessage(MessageType.Spell, 0x3B2, true, Info.Mantra, false);
             }
         }
 
