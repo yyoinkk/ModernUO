@@ -432,7 +432,7 @@ namespace Server.Spells
             return g;
         }
 
-        public static bool ValidIndirectTarget(Mobile from, Mobile to)
+        public static bool ValidIndirectTarget(Mobile from, Mobile to, bool ignoreNotoriety = false)
         {
             if (from == to)
             {
@@ -498,6 +498,8 @@ namespace Server.Spells
                     return false;
                 }
             }
+
+            if (ignoreNotoriety) { return true; }
 
             return bcTarg?.Controlled == false && bcTarg.InitialInnocent ||
                    Notoriety.Compute(from, to) != Notoriety.Innocent || from.Kills >= 5;

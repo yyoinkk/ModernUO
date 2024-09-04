@@ -34,13 +34,13 @@ namespace Server.Spells.Dark
             {
                 SpellHelper.Turn(Caster, m);
 
-                if (!_table.TryGetValue(m, out var timer))
+                if (!HasEffect(m))
                 {
                     int hp = Math.Clamp(1 + (int)(Caster.Skills[CastSkill].Value / 40), 1, 4);
                     int duration = Math.Clamp(60 + (int)(GetDamageSkill(Caster) * 0.6), 60, 180);
                     int interval = 4;
 
-                    timer = new InternalTimer(m, hp, TimeSpan.FromSeconds(duration), TimeSpan.FromSeconds(interval));
+                    var timer = new InternalTimer(m, hp, TimeSpan.FromSeconds(duration), TimeSpan.FromSeconds(interval));
                     _table[m] = timer;
                     timer.Start();
 
