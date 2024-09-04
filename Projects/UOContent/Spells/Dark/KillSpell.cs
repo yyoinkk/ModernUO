@@ -40,7 +40,7 @@ namespace Server.Spells.Dark
                 if (m.Hits <= AOS.Scale(m.HitsMax, 40) && Utility.RandomDouble() > 0.45)
                 {
                     m.Kill();
-                    Caster.PlaySound(0x28E);
+                    Caster.PlaySound(0xFB); //0xFB
                 }
                 else
                 {

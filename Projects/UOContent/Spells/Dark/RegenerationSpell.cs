@@ -38,7 +38,7 @@ namespace Server.Spells.Dark
                 {
                     int hp = Math.Clamp(1 + (int)(Caster.Skills[CastSkill].Value / 40), 1, 4);
                     int duration = Math.Clamp(60 + (int)(GetDamageSkill(Caster) * 0.6), 60, 180);
-                    int interval = 4;
+                    int interval = 3; //4
 
                     var timer = new InternalTimer(m, hp, TimeSpan.FromSeconds(duration), TimeSpan.FromSeconds(interval));
                     _table[m] = timer;

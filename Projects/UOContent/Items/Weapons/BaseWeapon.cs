@@ -13,6 +13,7 @@ using Server.SkillHandlers;
 using Server.Spells;
 using Server.Spells.Bushido;
 using Server.Spells.Chivalry;
+using Server.Spells.Dark;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Sixth;
@@ -2034,7 +2035,11 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
             var propertyBonus = move?.GetPropertyBonus(attacker) ?? 1.0;
 
             // Leech abilities
-            if (Core.AOS)
+            if (GhoulTouchSpell.HasEffect(attacker))
+            {
+                GhoulTouchSpell.Hit(attacker, defender);
+            }
+            else if (Core.AOS)
             {
                 var lifeLeech = 0;
                 var stamLeech = 0;
