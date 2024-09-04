@@ -29,12 +29,16 @@ namespace Server.Spells.Dark
         {
             if (CheckSequence())
             {
-                var damage = Math.Clamp(2 + (int)(Caster.Skills[CastSkill].Value / 10), 0, 16);
-                damage = damage > Caster.Hits ? Caster.Hits -1 : damage;
+                int damage; 
 
                 if (_table.Contains(Caster))
                 {
                     damage = 0;
+                }
+                else
+                {
+                    damage = Math.Clamp(2 + (int)(Caster.Skills[CastSkill].Value / 10), 0, 16);
+                    damage = damage > Caster.Hits ? Caster.Hits - 1 : damage;
                 }
 
                 if (damage > 0)
@@ -66,34 +70,34 @@ namespace Server.Spells.Dark
             _table.Remove(caster);
         }
 
-        public override bool CheckSequence()
-        {
-            if (Caster.Deleted || !Caster.Alive || Caster.Spell != this || State != SpellState.Sequencing)
-            {
-                DoFizzle();
-            }
-            else if (Scroll != null && (Scroll.Amount <= 0 || Scroll.Deleted || Scroll.RootParent != Caster))
-            {
-                DoFizzle();
-            }
-            else if (CheckFizzle())
-            {
-                if (Scroll is SpellScroll)
-                {
-                    Scroll.Consume();
-                }
-                else if (ClearHandsOnCast)
-                {
-                    Caster.ClearHands();
-                }
-                return true;
-            }
-            else
-            {
-                DoFizzle();
-            }
+        //public override bool CheckSequence()
+        //{
+        //    if (Caster.Deleted || !Caster.Alive || Caster.Spell != this || State != SpellState.Sequencing)
+        //    {
+        //        DoFizzle();
+        //    }
+        //    else if (Scroll != null && (Scroll.Amount <= 0 || Scroll.Deleted || Scroll.RootParent != Caster))
+        //    {
+        //        DoFizzle();
+        //    }
+        //    else if (CheckFizzle())
+        //    {
+        //        if (Scroll is SpellScroll)
+        //        {
+        //            Scroll.Consume();
+        //        }
+        //        else if (ClearHandsOnCast)
+        //        {
+        //            Caster.ClearHands();
+        //        }
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        DoFizzle();
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
     }
 }
