@@ -68,11 +68,11 @@ namespace Server.Spells.Dark
                 }
                 else if (m == Caster)
                 {
-                    m.SendLocalizedMessage(502173); // You are already under a similar effect.
+                    Caster.SendLocalizedMessage(502173); // You are already under a similar effect.
                 }
                 else
                 {
-                    m.SendLocalizedMessage(501775); // This spell is already in effect.
+                    Caster.SendLocalizedMessage(501775); // This spell is already in effect.
                 }
 
                 HarmfulSpell(m);
