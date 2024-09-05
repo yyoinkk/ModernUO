@@ -85,7 +85,7 @@ namespace Server.Spells.Dark
             {
                 if (!_owner.Alive || Core.Now >= _endTime)
                 {
-                    RegenerationSpell.ClearEffect(_owner);
+                    ClearEffect(_owner);
                     return;
                 }
 

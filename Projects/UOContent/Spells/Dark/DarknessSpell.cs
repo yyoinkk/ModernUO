@@ -56,7 +56,6 @@ namespace Server.Spells.Dark
                 }
 
                 m.PlaySound(0x229);
-                m.Spell?.OnCasterHurt();
                 HarmfulSpell(m);
             }
         }
