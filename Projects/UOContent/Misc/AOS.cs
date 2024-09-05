@@ -4,6 +4,7 @@ using ModernUO.Serialization;
 using Server.Items;
 using Server.Mobiles;
 using Server.Spells;
+using Server.Spells.Dark;
 using Server.Spells.Fifth;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
@@ -199,6 +200,15 @@ namespace Server
             if (from is { Deleted: false, Alive: true })
             {
                 var reflectPhys = AosAttributes.GetValue(m, AosAttribute.ReflectPhysical);
+
+                if (PainReflectionSpell.HasEffect(m))
+                {
+                    reflectPhys += 50; 
+                }
+
+                //cap reflect on 70%
+                reflectPhys = Math.Min(reflectPhys, 70);
+
                 var reflectPhysAbility = bcFrom
                     ?.GetAbility(MonsterAbilityType.ReflectPhysicalDamage) as ReflectPhysicalDamage;
 
@@ -222,6 +232,8 @@ namespace Server
                     if (reflectDamage > 0)
                     {
                         from.Damage(reflectDamage, m);
+                        m.FixedParticles(0x3728, 12, 12, 0, 0, 0, EffectLayer.Waist); 
+                        m.PlaySound(0x4BB);
                     }
                 }
             }
