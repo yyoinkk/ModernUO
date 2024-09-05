@@ -3135,16 +3135,9 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             var mod = _resistanceMods[i];
             if (mod.Name == name)
             {
-                _resistanceMods.RemoveAt(i);
+                RemoveResistanceMod(mod);
             }
         }
-
-        if (_resistanceMods.Count == 0)
-        {
-            _resistanceMods = null;
-        }
-
-        UpdateResistances();
     }
 
     public virtual void RemoveResistanceMod(ResistanceMod mod)
@@ -3474,6 +3467,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
 
     public virtual void RemoveSkillMod(string name)
     {
+        //RemoveSkillMod(GetSkillMod(name));
+
         if (_skillMods == null || name == null)
         {
             return;
@@ -3484,17 +3479,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             var mod = _skillMods[i];
             if (mod.Name == name)
             {
-                mod.Owner = null;
-                Skills[mod.Skill]?.Update();
-                _skillMods.RemoveAt(i);
+                RemoveSkillMod(mod);
             }
-        }
-
-        ValidateSkillMods();
-
-        if (_skillMods.Count == 0)
-        {
-            _skillMods = null;
         }
     }
 
@@ -3505,11 +3491,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             return;
         }
 
-        if (_skillMods.Remove(mod))
-        {
-            mod.Owner = null;
-            Skills[mod.Skill]?.Update();
-        }
+        mod.Owner = null;
 
         ValidateSkillMods();
 
