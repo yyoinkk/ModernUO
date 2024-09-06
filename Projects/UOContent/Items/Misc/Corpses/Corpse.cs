@@ -992,7 +992,7 @@ public partial class Corpse : Container, ICarvable
             }
             else
             {
-                list.Add(1046414, Name); // the remains of ~1_NAME~
+                list.Add(1070702, Name); // a corpse of of ~1_NAME~
             }
         }
         else // Bone form
