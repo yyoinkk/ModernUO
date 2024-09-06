@@ -2852,6 +2852,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
                         Layer.FacialHair
                     );
                 }
+
                 ourState.Send(facialHairPacket);
             }
 
@@ -2989,6 +2990,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
                         Layer.FacialHair
                     );
                 }
+
                 state.Send(facialHairPacket);
             }
 
@@ -3427,7 +3429,6 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
                 Skills[mod.Skill]?.Update();
             }
         }
-
     }
 
     public virtual void AddSkillMod(SkillMod mod)
@@ -4824,37 +4825,34 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         if (!m_Player)
         {
             Delete();
+            return;
         }
-        else
-        {
-            m_NetState.SendDeathStatus();
 
-            Warmode = false;
+        m_NetState.SendDeathStatus();
 
-            BodyMod = 0;
-            // Body = this.Female ? 0x193 : 0x192;
-            Body = Race.GhostBody(this);
+        Warmode = false;
 
-            var deathShroud = new Item(0x204E) { Movable = false, Layer = Layer.OuterTorso };
+        BodyMod = 0;
+        // Body = this.Female ? 0x193 : 0x192;
+        Body = Race.GhostBody(this);
 
-            AddItem(deathShroud);
+        var deathShroud = new Item(0x204E) { Movable = false, Layer = Layer.OuterTorso };
 
-            Items.Remove(deathShroud);
-            Items.Insert(0, deathShroud);
+        AddItem(deathShroud);
 
-            Poison = null;
-            Combatant = null;
+        Items.Remove(deathShroud);
+        Items.Insert(0, deathShroud);
 
-            Hits = 0;
-            Stam = 0;
-            Mana = 0;
+        Poison = null;
+        Combatant = null;
 
-            EventSink.InvokePlayerDeath(this);
+        Hits = 0;
+        Stam = 0;
+        Mana = 0;
 
-            ProcessDelta();
+        ProcessDelta();
 
-            CheckStatTimers();
-        }
+        CheckStatTimers();
     }
 
     public virtual bool CheckTarget(Mobile from, Target targ, object targeted) => true;
@@ -5068,7 +5066,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
                         {
                             var rootItem = root as Item;
 
-                            Span<byte> buffer = stackalloc byte[OutgoingPlayerPackets.DragEffectPacketLength].InitializePacket();
+                            Span<byte> buffer = stackalloc byte[OutgoingPlayerPackets.DragEffectPacketLength]
+                                .InitializePacket();
 
                             foreach (var ns in map.GetClientsInRange(from.Location))
                             {
@@ -5586,7 +5585,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             ProcessDelta();
 
             Span<byte> regBuffer = stackalloc byte[OutgoingMessagePackets.GetMaxMessageLength(text)].InitializePacket();
-            Span<byte> mutBuffer = stackalloc byte[OutgoingMessagePackets.GetMaxMessageLength(mutatedText)].InitializePacket();
+            Span<byte> mutBuffer =
+                stackalloc byte[OutgoingMessagePackets.GetMaxMessageLength(mutatedText)].InitializePacket();
 
             // TODO: Should this be sorted like onSpeech is below?
             for (var i = 0; i < hears.Count; ++i)
@@ -5596,7 +5596,16 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
                 if (mutatedArgs == null || !CheckHearsMutatedSpeech(heard, mutateContext))
                 {
                     var length = OutgoingMessagePackets.CreateMessage(
-                        regBuffer, Serial, Body, type, hue, 3, false, m_Language, Name, text
+                        regBuffer,
+                        Serial,
+                        Body,
+                        type,
+                        hue,
+                        3,
+                        false,
+                        m_Language,
+                        Name,
+                        text
                     );
 
                     if (length != regBuffer.Length)
@@ -5610,7 +5619,16 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
                 else
                 {
                     var length = OutgoingMessagePackets.CreateMessage(
-                        mutBuffer, Serial, Body, type, hue, 3, false, m_Language, Name, mutatedText
+                        mutBuffer,
+                        Serial,
+                        Body,
+                        type,
+                        hue,
+                        3,
+                        false,
+                        m_Language,
+                        Name,
+                        mutatedText
                     );
 
                     if (length != mutBuffer.Length)
@@ -6897,10 +6915,12 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             }
         }
 
-        var range = new Rectangle2D(m_Location.X - Core.GlobalMaxUpdateRange,
+        var range = new Rectangle2D(
+            m_Location.X - Core.GlobalMaxUpdateRange,
             m_Location.Y - Core.GlobalMaxUpdateRange,
             Core.GlobalMaxUpdateRange * 2 + 1,
-            Core.GlobalMaxUpdateRange * 2 + 1);
+            Core.GlobalMaxUpdateRange * 2 + 1
+        );
 
         foreach (var multi in m_Map.GetMultisInBounds(range))
         {
@@ -8072,7 +8092,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         m_Map == null ? Map.MobileBoundsEnumerable<T>.Empty : m_Map.GetMobilesInRange<T>(m_Location, range);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Map.ClientAtEnumerable GetClientsAt() => m_Map == null ? Map.ClientAtEnumerable.Empty : Map.GetClientsAt(m_Location);
+    public Map.ClientAtEnumerable GetClientsAt() =>
+        m_Map == null ? Map.ClientAtEnumerable.Empty : Map.GetClientsAt(m_Location);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Map.ClientBoundsEnumerable GetClientsInRange(int range) =>
@@ -8852,7 +8873,16 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             )
             {
                 var length = OutgoingMessagePackets.CreateMessage(
-                    buffer, Serial, Body, type, hue, 3, ascii, Language, Name, text
+                    buffer,
+                    Serial,
+                    Body,
+                    type,
+                    hue,
+                    3,
+                    ascii,
+                    Language,
+                    Name,
+                    text
                 );
 
                 if (length != buffer.Length)
@@ -8879,7 +8909,15 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             if (state.Mobile.CanSee(this) && (noLineOfSight || state.Mobile.InLOS(this)))
             {
                 var length = OutgoingMessagePackets.CreateMessageLocalized(
-                    buffer, Serial, Body, type, hue, 3, number, Name, args
+                    buffer,
+                    Serial,
+                    Body,
+                    type,
+                    hue,
+                    3,
+                    number,
+                    Name,
+                    args
                 );
 
                 if (length != buffer.Length)
@@ -8915,7 +8953,17 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             )
             {
                 var length = OutgoingMessagePackets.CreateMessageLocalizedAffix(
-                    buffer, Serial, Body, type, hue, 3, number, Name, affixType, affix, args
+                    buffer,
+                    Serial,
+                    Body,
+                    type,
+                    hue,
+                    3,
+                    number,
+                    Name,
+                    affixType,
+                    affix,
+                    args
                 );
 
                 if (length != buffer.Length)
@@ -8959,7 +9007,15 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             if (state != m_NetState && state.Mobile.CanSee(this))
             {
                 var length = OutgoingMessagePackets.CreateMessageLocalized(
-                    buffer, Serial, Body, type, hue, 3, number, Name, args
+                    buffer,
+                    Serial,
+                    Body,
+                    type,
+                    hue,
+                    3,
+                    number,
+                    Name,
+                    args
                 );
 
                 if (length != buffer.Length)
@@ -8986,7 +9042,16 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             if (state != m_NetState && state.Mobile.CanSee(this))
             {
                 var length = OutgoingMessagePackets.CreateMessage(
-                    buffer, Serial, Body, type, hue, 3, ascii, Language, Name, text
+                    buffer,
+                    Serial,
+                    Body,
+                    type,
+                    hue,
+                    3,
+                    ascii,
+                    Language,
+                    Name,
+                    text
                 );
 
                 if (length != buffer.Length)

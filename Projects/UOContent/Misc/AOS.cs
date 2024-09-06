@@ -1398,7 +1398,7 @@ namespace Server
 
                 if (m.Skills.Ninjitsu.Value < AnimalForm.Entries[i].ReqSkill)
                 {
-                    AnimalForm.RemoveContext(m, true);
+                    AnimalForm.RemoveContext(m);
                 }
             }
 
