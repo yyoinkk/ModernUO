@@ -50,6 +50,8 @@ namespace Server.Mobiles
         }
 
         public override string DefaultName => "a ghost dragon";
+        public override bool BleedImmune => true;
+        public override Poison PoisonImmune => Poison.Lethal;
 
         public override bool DeleteCorpseOnDeath => true;
 
