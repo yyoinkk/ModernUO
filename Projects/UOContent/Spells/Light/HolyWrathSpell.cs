@@ -26,7 +26,20 @@ namespace Server.Spells.Light
 
         public void Target(Mobile m)
         {
-            Caster.LocalOverheadMessage(MessageType.Regular, 0x22, true, "Not Implemented yet...");
+            if (CheckHSequence(m))
+            {
+                SpellHelper.Turn(Caster, m);
+
+                SpellHelper.CheckReflect((int)Circle, Caster, ref m);
+
+                double damage = GetNewAosDamage(40, 2, 4, m);
+ 
+                m.BoltEffect(2049);
+                m.PlaySound(0x1E9);
+                m.FixedEffect(0x374A, 20, 5, 2066, 0);
+
+                SpellHelper.Damage(this, m, damage, 0, 0, 40, 0, 60);
+            }
         }
     }
 }
