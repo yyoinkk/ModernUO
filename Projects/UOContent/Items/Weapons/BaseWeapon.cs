@@ -1794,6 +1794,12 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
          */
         var percentageBonus = 0;
 
+        //In Ort check here for now, just 20% of additional bonus if attackers karma higher than targets
+        if (SacredWeaponSpell.HasEffect(this))
+        {
+            percentageBonus += SacredWeaponSpell.Apply(attacker, defender, this);
+        }
+
         var a = WeaponAbility.GetCurrentAbility(attacker);
         var move = SpecialMove.GetCurrentMove(attacker);
 
@@ -2566,6 +2572,7 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
         var anatomyBonus = GetBonus(attacker.Skills.Anatomy.Value, 0.500, 100.0, 5.00);
         var tacticsBonus = GetBonus(attacker.Skills.Tactics.Value, 0.625, 100.0, 6.25);
 
+        //PrayerSpell 35% amplify, for now here
         var prayerBonus = PrayerSpell.HasEffect(attacker) ? 0.35 : 0;
 
         var lumberBonus = Type == WeaponType.Axe
