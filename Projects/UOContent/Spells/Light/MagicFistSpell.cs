@@ -1,3 +1,4 @@
+using Server.Items;
 using Server.Targeting;
 
 namespace Server.Spells.Light
@@ -26,7 +27,20 @@ namespace Server.Spells.Light
 
         public void Target(Mobile m)
         {
-            Caster.LocalOverheadMessage(MessageType.Regular, 0x22, true, "Not Implemented yet...");
+            if (CheckHSequence(m))
+            {
+                SpellHelper.Turn(Caster, m);
+
+                SpellHelper.CheckReflect((int)Circle, Caster, ref m);
+
+                double damage = GetNewAosDamage(24, 1, 5, m);
+
+                new Blood().MoveToWorld(m.Location, m.Map);
+
+                m.PlaySound(Utility.RandomList(0x3B2, 0x3A2, 0x3A5, 0x3AE, 0x3B1, 0x3B0));
+                m.FixedEffect(0xA652, 5, 12, 2733, 0);
+                SpellHelper.Damage(this, m, damage, 100, 0, 0, 0, 0);
+            }
         }
     }
 }
