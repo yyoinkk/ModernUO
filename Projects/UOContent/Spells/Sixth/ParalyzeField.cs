@@ -134,7 +134,7 @@ public partial class ParalyzeField : Item
     public override bool OnMoveOver(Mobile m)
     {
         if (Visible && _caster != null && (!Core.AOS || m != _caster) &&
-            SpellHelper.ValidIndirectTarget(_caster, m) && _caster.CanBeHarmful(m, false))
+            SpellHelper.ValidIndirectTarget(_caster, m, ignoreNotoriety: true) && _caster.CanBeHarmful(m, false))
         {
             if (SpellHelper.CanRevealCaster(m))
             {
@@ -162,10 +162,16 @@ public partial class ParalyzeField : Item
                 duration = 7.0 + _caster.Skills.Magery.Value / 5;
             }
 
-            m.Paralyze(TimeSpan.FromSeconds(duration));
-
-            m.PlaySound(0x204);
-            m.FixedEffect(0x376A, 10, 16);
+            if (SpellHelper.Paralyze(m, TimeSpan.FromSeconds(duration)))
+            {
+                m.PlaySound(0x204);
+                m.FixedEffect(0x374A, 8, 13);
+            }
+            else
+            {
+                m.PlaySound(0x201);
+                m.FixedEffect(0x376A, 6, 12);
+            }
 
             (m as BaseCreature)?.OnHarmfulSpell(_caster);
         }

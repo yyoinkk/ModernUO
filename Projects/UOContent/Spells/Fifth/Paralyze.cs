@@ -71,10 +71,16 @@ namespace Server.Spells.Fifth
                     duration = 120;
                 }
 
-                m.Paralyze(TimeSpan.FromSeconds(duration));
-
-                m.PlaySound(0x204);
-                m.FixedEffect(0x376A, 6, 1);
+                if (SpellHelper.Paralyze(m, TimeSpan.FromSeconds(duration)))
+                {
+                    m.PlaySound(0x204);
+                    m.FixedEffect(0x374A, 8, 13);
+                }
+                else
+                {
+                    m.PlaySound(0x201);
+                    m.FixedEffect(0x376A, 6, 12);
+                }
 
                 HarmfulSpell(m);
             }

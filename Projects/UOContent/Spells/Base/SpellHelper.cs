@@ -11,6 +11,7 @@ using Server.Mobiles;
 using Server.Multis;
 using Server.Regions;
 using Server.Spells.Fifth;
+using Server.Spells.Light;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
@@ -918,6 +919,18 @@ namespace Server.Spells
             }
 
             return reflect;
+        }
+
+        public static bool Paralyze(Mobile m, TimeSpan duration)
+        {
+            if (FreeActionSpell.HasEffect(m))
+            {
+                FreeActionSpell.StartCD(m);
+                return false;
+            }
+
+            m.Paralyze(duration);
+            return true;
         }
 
         public static void Damage(Spell spell, Mobile target, double damage)
