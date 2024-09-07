@@ -80,6 +80,7 @@ namespace Server.Spells.Light
 
         public GlyphTrap(int itemID, Spell spell, Mobile caster, Point3D location, int duration) : base(itemID)
         {
+            Name = "Glyph of Guarding";
             _spell = spell;
             _caster = caster;
             _location = location;
