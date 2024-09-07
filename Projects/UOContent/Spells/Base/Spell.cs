@@ -5,6 +5,7 @@ using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Spells.Bushido;
+using Server.Spells.Light;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Second;
@@ -247,6 +248,13 @@ namespace Server.Spells
             damage = AOS.Scale(damage, 100 + damageBonus);
 
             var evalSkill = GetDamageFixed(Caster);
+
+            if (CelestialPowerSpell.HasEffect(Caster))
+            {
+                evalSkill = (int)(evalSkill * 1.15);
+                Caster.SendMessage("Empowered!");
+            }
+
             var evalScale = 30 + 9 * evalSkill / 100;
 
             damage = AOS.Scale(damage, evalScale);
