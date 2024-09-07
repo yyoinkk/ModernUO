@@ -1041,6 +1041,8 @@ namespace Server.Spells
                 var damageGiven = AOS.Damage(target, from, dmg, phys, fire, cold, pois, nrgy, chaos);
                 Mysticism.SpellPlagueSpell.OnMobileDamaged(target);
 
+                SpiritArmorSpell.OnDamage(target, damageGiven);
+
                 StaminaSystem.DFA = DFAlgorithm.Standard;
 
                 bcFrom?.OnDamageSpell(target, damageGiven);
