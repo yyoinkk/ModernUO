@@ -1147,7 +1147,7 @@ namespace Server.Mobiles
         {
             global = LightCycle.ComputeLevelFor(this);
 
-            if (!CanBeginAction<DarknessSpell>())
+            if (DarknessSpell.HasEffect(this))
             {
                 global = LightCycle.DungeonLevel;
             }
@@ -2606,9 +2606,8 @@ namespace Server.Mobiles
             SavagePaintExpiration = TimeSpan.Zero;
             SetHairMods(-1, -1);
 
-            EndAction<DarknessSpell>();
-            EndAction<LightCycle>();
-            LightLevel = LightCycle.ComputeLevelFor(this);
+            //EndAction<DarknessSpell>();
+            //EndAction<LightCycle>();
 
             if (Flying)
             {

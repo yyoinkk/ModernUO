@@ -1,5 +1,7 @@
 
+using ModernUO.CodeGeneratedEvents;
 using Server.Collections;
+using Server.Mobiles;
 using System;
 using System.Collections.Generic;
 using static Server.Timer;
@@ -48,12 +50,19 @@ namespace Server.Spells.Dark
             }
         }
 
+        [OnEvent(nameof(PlayerMobile.PlayerDeathEvent))]
+        public static void OnPlayerDeathEvent(Mobile m)
+        {
+            ClearEffect(m);
+        }
+
         public static void ClearEffect(Mobile m)
         {
-            _table.Remove(m, out var timer);
-            timer.Stop();
-
-            m.SendMessage("Wraith Aura faded.");
+            if (_table.Remove(m, out var timer))
+            {
+                timer.Stop();
+                m.SendMessage("Wraith Aura faded.");
+            }
         }
 
         public static bool HasEffect(Mobile m) => _table.ContainsKey(m);
@@ -77,7 +86,7 @@ namespace Server.Spells.Dark
             {
                 if (!_owner.Alive || Core.Now >= _endTime || _owner.Map == null)
                 {
-                    WraithAuraSpell.ClearEffect(_owner);
+                    ClearEffect(_owner);
                     return;
                 }
 

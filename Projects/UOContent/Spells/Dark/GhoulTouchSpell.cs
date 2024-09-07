@@ -1,4 +1,6 @@
 
+using ModernUO.CodeGeneratedEvents;
+using Server.Mobiles;
 using System;
 using System.Collections.Generic;
 
@@ -56,6 +58,12 @@ namespace Server.Spells.Dark
             caster.PlaySound(0x180);
 
             ClearEffect(caster);
+        }
+
+        [OnEvent(nameof(PlayerMobile.PlayerDeathEvent))]
+        public static void OnPlayerDeathEvent(Mobile m)
+        {
+            ClearEffect(m);
         }
 
         public static void ClearEffect(Mobile m) => _table.Remove(m);

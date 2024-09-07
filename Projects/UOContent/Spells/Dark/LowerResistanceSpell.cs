@@ -21,7 +21,7 @@ namespace Server.Spells.Dark
 
         public override SpellCircle Circle => SpellCircle.Second;
 
-        private static readonly HashSet<Mobile> _table = new();
+        private static readonly Dictionary<Mobile, TimerExecutionToken> _table = new();
 
         public override void OnCast()
         {
@@ -52,19 +52,17 @@ namespace Server.Spells.Dark
 
                     //var poisResMod = new ResistanceMod(ResistanceType.Poison, "LowerResistance", resistLoss, m);
 
-                    _table.Add(m);
-
                     m.AddSkillMod(resistMod);
                     m.AddResistanceMod(fireResMod);
                     m.AddResistanceMod(coldResMod);
                     m.AddResistanceMod(enrgResMod);
                     //m.AddResistanceMod(poisResMod);
 
-                    Timer.StartTimer(duration, () => ClearEffect(m));
+                    Timer.StartTimer(duration, () => ClearEffect(m), out var token);
+                    _table[m] = token;
 
                     m.FixedParticles(0x3818, 9, 20, 5016, EffectLayer.CenterFeet);
                     m.PlaySound(0x28e);
-
                 }
                 else if (m == Caster)
                 {
@@ -81,15 +79,16 @@ namespace Server.Spells.Dark
 
         public static void ClearEffect(Mobile m)
         {
-            if (HasEffect(m))
+            if (_table.Remove(m, out var token))
             {
-                _table.Remove(m);
+                token.Cancel();
+
                 m.RemoveSkillMod("LowerResistance");
                 m.RemoveResistanceMod("LowerResistance");
             }
         }
 
-        public static bool HasEffect(Mobile m) => _table.Contains(m);
+        public static bool HasEffect(Mobile m) => _table.ContainsKey(m);
 
     }
 }

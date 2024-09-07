@@ -1,3 +1,5 @@
+using ModernUO.CodeGeneratedEvents;
+using Server.Mobiles;
 using Server.Targeting;
 using System;
 using System.Collections.Generic;
@@ -58,12 +60,19 @@ namespace Server.Spells.Dark
             }
         }
 
+        [OnEvent(nameof(PlayerMobile.PlayerDeathEvent))]
+        public static void OnPlayerDeathEvent(Mobile m)
+        {
+            ClearEffect(m);
+        }
+
         public static void ClearEffect(Mobile m)
         {
-            _table.Remove(m, out var timer);
-            timer.Stop();
-
-            m.SendMessage("Regeneration is over.");
+            if (_table.Remove(m, out var timer))
+            {
+                timer.Stop();
+                m.SendMessage("Regeneration is over.");
+            }
         }
 
         public static bool HasEffect(Mobile m) => _table.ContainsKey(m);
@@ -89,8 +98,8 @@ namespace Server.Spells.Dark
                     return;
                 }
 
-                _owner.Hits += _hp;
                 //_owner.SendMessage($"Healed: {_hp} hp.");
+                _owner.Hits += _hp;
             }
         }
     }

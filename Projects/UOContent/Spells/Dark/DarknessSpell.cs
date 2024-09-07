@@ -1,5 +1,8 @@
+using ModernUO.CodeGeneratedEvents;
+using Server.Mobiles;
 using Server.Targeting;
 using System;
+using System.Collections.Generic;
 
 namespace Server.Spells.Dark
 {
@@ -25,6 +28,8 @@ namespace Server.Spells.Dark
             Caster.Target = new SpellTarget<Mobile>(this, TargetFlags.Harmful);
         }
 
+        private static readonly Dictionary<Mobile, TimerExecutionToken> _table = new();
+
         public void Target(Mobile m)
         {
             if (CheckHSequence(m))
@@ -34,14 +39,17 @@ namespace Server.Spells.Dark
                 SpellHelper.Turn(source, m);
 
                 SpellHelper.CheckReflect((int)Circle, ref source, ref m);
-                if (m.BeginAction<DarknessSpell>())
+                if (!HasEffect(m))
                 {
                     m.CheckLightLevels(true);
 
                     var length = SpellHelper.GetDuration(Caster, m, curse: true);
 
-                    m.AddSkillMod(new TimedSkillMod(SkillName.Parry, $"{Name}", true, m.Skills[SkillName.Parry].Base * -0.28, length));
-                    new DarknessTimer(m, length).Start();
+                    var parryLossMod = new DefaultSkillMod(SkillName.Parry, "Darkness", true, m.Skills[SkillName.Parry].Base * -0.28);
+                    m.AddSkillMod(parryLossMod);
+
+                    Timer.StartTimer(length, () => ClearEffect(m), out var token);
+                    _table[m] = token;
 
                     BuffInfo.AddBuff(m, new BuffInfo(BuffIcon.SpellPlague, 1077773, 1060393, length, m)); // 1077773 - The Darkness 1060393 -  ""
                     m.FixedEffect(0x376A, 10, 16, 1197, 16);
@@ -60,19 +68,24 @@ namespace Server.Spells.Dark
             }
         }
 
-        private class DarknessTimer : Timer
+        [OnEvent(nameof(PlayerMobile.PlayerDeathEvent))]
+        public static void OnPlayerDeathEvent(Mobile m)
         {
-            private readonly Mobile m_Owner;
+            ClearEffect(m);
+        }
 
-            public DarknessTimer(Mobile owner, TimeSpan duration) : base(duration)
+        public static void ClearEffect(Mobile m)
+        {
+            if (_table.Remove(m, out var token))
             {
-                m_Owner = owner;
-            }
+                token.Cancel();
 
-            protected override void OnTick()
-            {
-                m_Owner.EndAction<DarknessSpell>();
+                m.RemoveSkillMod("Darkness");
+                m.CheckLightLevels(false);
+                BuffInfo.RemoveBuff(m, BuffIcon.SpellPlague);
             }
         }
+
+        public static bool HasEffect(Mobile m) => _table.ContainsKey(m);
     }
 }
