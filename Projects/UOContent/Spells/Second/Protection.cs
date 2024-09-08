@@ -2,9 +2,7 @@ using Server.Mobiles;
 using Server.Targeting;
 using System.Collections.Generic;
 using ModernUO.CodeGeneratedEvents;
-using Org.BouncyCastle.Asn1.X509;
-using Server.Engines.MLQuests.Definitions;
-using System;
+using Server.Spells.Light;
 
 namespace Server.Spells.Second
 {
@@ -84,7 +82,7 @@ namespace Server.Spells.Second
         {
             if (CheckBSequence(m))
             {
-                if (!HasEffect(m))
+                if (!HasEffect(m) && !DayOfGodsSpell.HasEffect(m))
                 {
                     SpellHelper.Turn(Caster, m);
 

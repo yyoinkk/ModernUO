@@ -285,12 +285,12 @@ namespace Server.Spells
                 ? AddStatBonus(m, m, type, offset, duration)
                 : offset >= 0 || AddStatCurse(m, m, type, -offset, duration);
 
-        public static bool AddStatBonus(Mobile caster, Mobile target, StatType type, TimeSpan duration, bool skillCheck = true) =>
+        public static bool AddStatBonus(Mobile caster, Mobile target, StatType type, TimeSpan duration, bool skillCheck = true, int additionalOffset = 0) =>
             AddStatBonus(
                 caster,
                 target,
                 type,
-                GetOffset(caster, target, type, false),
+                additionalOffset + GetOffset(caster, target, type, false),
                 duration,
                 skillCheck
             );
