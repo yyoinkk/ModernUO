@@ -42,13 +42,16 @@ namespace Server.Spells.Druid
                 {
                     m.CheckLightLevels(true);
 
-                    var length = SpellHelper.GetDuration(Caster, m, curse: true);
+                    var length = SpellHelper.GetDuration(Caster, m, curse: true) * 0.25;
+                    var toLoss = (int)m.Skills[SkillName.Tactics].Base * -0.28;
 
-                    var tacticLossMod = new DefaultSkillMod(SkillName.Tactics, "Disease", true, m.Skills[SkillName.Tactics].Base * -0.28);
+                    var tacticLossMod = new DefaultSkillMod(SkillName.Tactics, "Disease", true, toLoss);
                     m.AddSkillMod(tacticLossMod);
 
                     Timer.StartTimer(length, () => ClearEffect(m), out var token);
                     _table[m] = token;
+
+                    Caster.SendMessage($"To loss: {toLoss}, duration: {length:mm\\:ss}s.");
 
                     m.FixedEffect(0x374A, 5, 6, 1285, 0);
                 }
