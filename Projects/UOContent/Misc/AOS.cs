@@ -5,6 +5,7 @@ using Server.Items;
 using Server.Mobiles;
 using Server.Spells;
 using Server.Spells.Dark;
+using Server.Spells.Druid;
 using Server.Spells.Fifth;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
@@ -123,6 +124,12 @@ namespace Server
                 var resCold = m.ColdResistance;
                 var resPois = m.PoisonResistance;
                 var resNrgy = m.EnergyResistance;
+
+                //StoneSkin reduces Phisical only, and under !ignoreArmor now
+                if (StoneSkinSpell.HasEffect(m))
+                {
+                    phys /= 2;
+                }
 
                 totalDamage = damage * phys * (100 - resPhys);
                 totalDamage += damage * fire * (100 - resFire);

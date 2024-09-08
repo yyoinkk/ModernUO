@@ -25,7 +25,18 @@ namespace Server.Spells.Druid
 
         public void Target(Mobile m)
         {
-            Caster.LocalOverheadMessage(MessageType.Regular, 0x22, true, "Not Implemented yet...");
+            if (CheckHSequence(m))
+            {
+                SpellHelper.Turn(Caster, m);
+
+                SpellHelper.CheckReflect((int)Circle, Caster, ref m);
+
+                double damage = GetNewAosDamage(19, 1, 5, m);
+
+                m.BoltEffect(0);
+
+                SpellHelper.Damage(this, m, damage, 0, 0, 0, 0, 100);
+            }
         }
     }
 }
