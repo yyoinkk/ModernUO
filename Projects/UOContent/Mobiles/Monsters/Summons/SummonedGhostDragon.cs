@@ -1,7 +1,5 @@
-using ModernUO.CodeGeneratedEvents;
 using ModernUO.Serialization;
 using Server.Items;
-using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
@@ -39,8 +37,6 @@ namespace Server.Mobiles
 
             VirtualArmor = 40;
             ControlSlots = 4;
-
-            AddItem(new LightSource());
         }
 
         public override void OnDeath(Container c)
