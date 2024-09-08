@@ -87,11 +87,11 @@ namespace Server.Spells
             // Confirm: Monsters and pets cannot be disturbed.
             if (Caster.Player && IsCasting)
             {
-                var hasProtection = ProtectionSpell.Registry.TryGetValue(Caster, out var d);
-                if (!hasProtection || d < 1000 && d < Utility.Random(1000))
-                {
+                //var hasProtection = ProtectionSpell.Registry.TryGetValue(Caster, out var d);
+                //if (!hasProtection || d < 1000 && d < Utility.Random(1000))
+                //{
                     Disturb(DisturbType.Hurt, false, true);
-                }
+                //}
             }
         }
 
@@ -718,10 +718,11 @@ namespace Server.Spells
 
             var fc = Math.Min(AosAttributes.GetValue(Caster, AosAttribute.CastSpeed), fcMax);
 
-            if (ProtectionSpell.Registry.ContainsKey(Caster))
-            {
-                fc -= 2;
-            }
+            // Use this for Slow Magic ab
+            //if (ProtectionSpell.Registry.ContainsKey(Caster))
+            //{
+            //    fc -= 2;
+            //}
 
             if (EssenceOfWindSpell.IsDebuffed(Caster))
             {

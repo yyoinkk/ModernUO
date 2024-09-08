@@ -3429,7 +3429,7 @@ namespace Server.Mobiles
             // Spells
             MagicReflectSpell.EndReflect(this);
             ReactiveArmorSpell.EndArmor(this);
-            ProtectionSpell.EndProtection(this);
+            ProtectionSpell.ClearEffect(this);
             StoneFormSpell.RemoveEffects(this);
             AnimateDeadSpell.RemoveEffects(this);
             SummonFamiliarSpell.RemoveEffects(this);
