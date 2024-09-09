@@ -22,7 +22,7 @@ namespace Server.Spells.Eighth
 
         public override SpellCircle Circle => SpellCircle.Eighth;
 
-        public int TargetRange => 1;
+        public int TargetRange => 10;
 
         public void Target(Mobile m)
         {
@@ -38,7 +38,7 @@ namespace Server.Spells.Eighth
             {
                 Caster.SendLocalizedMessage(501041); // Target is not dead.
             }
-            else if (!Caster.InRange(m, 1))
+            else if (!Caster.InRange(m, TargetRange))
             {
                 Caster.SendLocalizedMessage(501042); // Target is not close enough.
             }

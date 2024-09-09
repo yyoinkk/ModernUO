@@ -96,7 +96,7 @@ namespace Server.Engines.Harvest
                 MaxRange = 2,
                 ConsumedPerHarvest = 1,
                 ConsumedPerFeluccaHarvest = 2,
-                EffectActions = new[] { 11 },
+                EffectActions = new[] { 11, 26 },
                 EffectSounds = new[] { 0x125, 0x126 },
                 EffectCounts = new[] { 1 },
                 EffectDelay = TimeSpan.FromSeconds(1.6),
@@ -297,11 +297,11 @@ namespace Server.Engines.Harvest
                 return false;
             }
 
-            if (from.Mounted)
-            {
-                from.SendLocalizedMessage(501864); // You can't mine while riding.
-                return false;
-            }
+            //if (from.Mounted)
+            //{
+            //    from.SendLocalizedMessage(501864); // You can't mine while riding.
+            //    return false;
+            //}
 
             if (from.IsBodyMod && !from.Body.IsHuman)
             {
@@ -338,11 +338,11 @@ namespace Server.Engines.Harvest
                 return false;
             }
 
-            if (from.Mounted)
-            {
-                from.SendLocalizedMessage(501864); // You can't mine while riding.
-                return false;
-            }
+            //if (from.Mounted)
+            //{
+            //    from.SendLocalizedMessage(501864); // You can't mine while riding.
+            //    return false;
+            //}
 
             if (from.IsBodyMod && !from.Body.IsHuman)
             {

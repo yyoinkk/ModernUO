@@ -13,6 +13,8 @@ using Server.SkillHandlers;
 using Server.Spells;
 using Server.Spells.Bushido;
 using Server.Spells.Chivalry;
+using Server.Spells.Dark;
+using Server.Spells.Light;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Sixth;
@@ -1366,7 +1368,14 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
             chance = 0.02;
         }
 
-        return attacker.CheckSkill(atkSkill.SkillName, chance);
+        bool hitResult = attacker.CheckSkill(atkSkill.SkillName, chance);
+        attacker.SendLocalizedMessage(1116526, true, $": {Convert.ToInt32(chance * 100)}%");
+        if (!hitResult)
+        {
+            attacker.SendLocalizedMessage(500757); // Missed.
+        }
+
+        return hitResult;
     }
 
     public virtual TimeSpan GetDelay(Mobile m)
@@ -1785,6 +1794,12 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
          */
         var percentageBonus = 0;
 
+        //In Ort check here for now, just 20% of additional bonus if attackers karma higher than targets
+        if (SacredWeaponSpell.HasEffect(this))
+        {
+            percentageBonus += SacredWeaponSpell.Apply(attacker, defender, this);
+        }
+
         var a = WeaponAbility.GetCurrentAbility(attacker);
         var move = SpecialMove.GetCurrentMove(attacker);
 
@@ -2027,7 +2042,11 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
             var propertyBonus = move?.GetPropertyBonus(attacker) ?? 1.0;
 
             // Leech abilities
-            if (Core.AOS)
+            if (GhoulTouchSpell.HasEffect(attacker))
+            {
+                GhoulTouchSpell.Hit(attacker, defender);
+            }
+            else if (Core.AOS)
             {
                 var lifeLeech = 0;
                 var stamLeech = 0;
@@ -2552,6 +2571,10 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
         var strengthBonus = GetBonus(attacker.Str, 0.300, 100.0, 5.00);
         var anatomyBonus = GetBonus(attacker.Skills.Anatomy.Value, 0.500, 100.0, 5.00);
         var tacticsBonus = GetBonus(attacker.Skills.Tactics.Value, 0.625, 100.0, 6.25);
+
+        //PrayerSpell 35% amplify, for now here
+        var prayerBonus = PrayerSpell.HasEffect(attacker) ? 0.35 : 0;
+
         var lumberBonus = Type == WeaponType.Axe
             ? GetBonus(attacker.Skills.Lumberjacking.Value, 0.200, 100.0, 10.00)
             : 0.0;
@@ -2593,7 +2616,7 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
         }
 
         var totalBonus = strengthBonus + anatomyBonus + tacticsBonus + lumberBonus +
-                         (damageBonus + GetDamageBonus()) / 100.0;
+                         prayerBonus + (damageBonus + GetDamageBonus()) / 100.0;
 
         return damage + damage * totalBonus;
     }

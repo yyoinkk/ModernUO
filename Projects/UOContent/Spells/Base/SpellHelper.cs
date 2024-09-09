@@ -11,6 +11,7 @@ using Server.Mobiles;
 using Server.Multis;
 using Server.Regions;
 using Server.Spells.Fifth;
+using Server.Spells.Light;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Seventh;
@@ -183,10 +184,9 @@ namespace Server.Spells
                 return;
             }
 
-            var root = (to as Item)?.RootParent;
-            if (from != root)
+            if (to is Item item)
             {
-                to = root;
+                to = item.RootParent == from ? from : item.GetWorldLocation();
             }
 
             if (!from.Equals(to))
@@ -285,12 +285,12 @@ namespace Server.Spells
                 ? AddStatBonus(m, m, type, offset, duration)
                 : offset >= 0 || AddStatCurse(m, m, type, -offset, duration);
 
-        public static bool AddStatBonus(Mobile caster, Mobile target, StatType type, TimeSpan duration, bool skillCheck = true) =>
+        public static bool AddStatBonus(Mobile caster, Mobile target, StatType type, TimeSpan duration, bool skillCheck = true, int additionalOffset = 0) =>
             AddStatBonus(
                 caster,
                 target,
                 type,
-                GetOffset(caster, target, type, false),
+                additionalOffset + GetOffset(caster, target, type, false),
                 duration,
                 skillCheck
             );
@@ -370,15 +370,19 @@ namespace Server.Spells
             return true;
         }
 
-        public static TimeSpan GetDuration(Mobile caster, Mobile target) =>
+        public static TimeSpan GetDuration(Mobile caster, Mobile target, bool curse = false)
+        {
             // TODO: Is this accurate for Curse? Sources say it is magery. Should confirm at least for newest era.
-            TimeSpan.FromSeconds(6 * (Core.AOS ? caster.Skills.EvalInt.Value : caster.Skills.Magery.Value) / 5.0);
+            // TODO: Scale curse duration during eval / resist
+            var duration = 60 * (Core.AOS ? caster.Skills.EvalInt.Value : caster.Skills.Magery.Value) / 5.0;
+            return TimeSpan.FromSeconds(curse ? duration/10 : duration);
+        }
 
         public static double GetOffsetScalar(Mobile caster, Mobile target, bool curse)
         {
             var percent = curse
                 ? 8 + (caster.Skills.EvalInt.Value - target.Skills.MagicResist.Value) / 10
-                : 1 + caster.Skills.EvalInt.Value / 10;
+                : (4 + caster.Skills.EvalInt.Value / 10) + (6 + caster.Skills.Magery.Value / 10);
 
             percent *= 0.01;
 
@@ -429,7 +433,7 @@ namespace Server.Spells
             return g;
         }
 
-        public static bool ValidIndirectTarget(Mobile from, Mobile to)
+        public static bool ValidIndirectTarget(Mobile from, Mobile to, bool ignoreNotoriety = false)
         {
             if (from == to)
             {
@@ -495,6 +499,8 @@ namespace Server.Spells
                     return false;
                 }
             }
+
+            if (ignoreNotoriety) { return true; }
 
             return bcTarg?.Controlled == false && bcTarg.InitialInnocent ||
                    Notoriety.Compute(from, to) != Notoriety.Innocent || from.Kills >= 5;
@@ -915,6 +921,18 @@ namespace Server.Spells
             return reflect;
         }
 
+        public static bool Paralyze(Mobile m, TimeSpan duration)
+        {
+            if (FreeActionSpell.HasEffect(m))
+            {
+                FreeActionSpell.StartCD(m);
+                return false;
+            }
+
+            m.Paralyze(duration);
+            return true;
+        }
+
         public static void Damage(Spell spell, Mobile target, double damage)
         {
             var ts = GetDamageDelayForSpell(spell);
@@ -1023,6 +1041,8 @@ namespace Server.Spells
                 var damageGiven = AOS.Damage(target, from, dmg, phys, fire, cold, pois, nrgy, chaos);
                 Mysticism.SpellPlagueSpell.OnMobileDamaged(target);
 
+                SpiritArmorSpell.OnDamage(target, damageGiven);
+
                 StaminaSystem.DFA = DFAlgorithm.Standard;
 
                 bcFrom?.OnDamageSpell(target, damageGiven);
@@ -1037,6 +1057,28 @@ namespace Server.Spells
             {
                 new SpellDamageTimerAOS(spell, delay, target, from, dmg, phys, fire, cold, pois, nrgy, chaos, dfa).Start();
             }
+        }
+
+        public static int CalculateDamage(Spell spell, Mobile target, Mobile from, double damage, int phys, int fire,
+            int cold, int pois, int nrgy, int chaos = 0, DFAlgorithm dfa = DFAlgorithm.Standard)
+        {
+            var dmg = (int)damage;
+
+            var bcFrom = from as BaseCreature;
+            var bcTarget = target as BaseCreature;
+            bcFrom?.AlterSpellDamageTo(target, ref dmg);
+
+            bcTarget?.AlterSpellDamageFrom(from, ref dmg);
+
+            if (Feint.GetDamageReduction(from, target, out int feintReduction))
+            {
+                // example: 35 damage * 50 / 100 = 17 damage
+                dmg -= dmg * feintReduction / 100;
+            }
+
+            StaminaSystem.DFA = dfa;
+
+            return AOS.CalculateAOSDamage(target, from, dmg, false, phys, fire, cold, pois, nrgy, chaos);
         }
 
         public static void DoLeech(int damageGiven, Mobile from, Mobile target)

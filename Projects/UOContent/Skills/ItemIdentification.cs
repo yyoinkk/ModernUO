@@ -16,7 +16,7 @@ namespace Server.Items
             from.SendLocalizedMessage(500343); // What do you wish to appraise and identify?
             from.Target = new InternalTarget();
 
-            return TimeSpan.FromSeconds(1.0);
+            return TimeSpan.FromSeconds(10.0);
         }
 
         [PlayerVendorTarget]

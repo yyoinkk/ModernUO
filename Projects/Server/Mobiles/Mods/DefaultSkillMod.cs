@@ -28,5 +28,5 @@ public partial class DefaultSkillMod : SkillMod
     {
     }
 
-    public override bool CheckCondition() => true;
+    public override bool CheckCondition() => Owner != null;
 }

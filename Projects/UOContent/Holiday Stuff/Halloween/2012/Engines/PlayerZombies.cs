@@ -67,7 +67,7 @@ namespace Server.Engines.Events
         [OnEvent(nameof(PlayerMobile.PlayerDeathEvent))]
         public static void OnPlayerDeathEvent(PlayerMobile pm)
         {
-            if (_timer.Running && !_deathQueue.Contains(pm) && _deathQueue.Count < m_DeathQueueLimit)
+            if (_timer?.Running == true && !_deathQueue.Contains(pm) && _deathQueue.Count < m_DeathQueueLimit)
             {
                 _deathQueue.Add(pm);
             }

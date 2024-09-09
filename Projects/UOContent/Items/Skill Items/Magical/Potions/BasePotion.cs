@@ -55,7 +55,7 @@ public abstract partial class BasePotion : Item, ICraftable, ICommodity
 
     public override int LabelNumber => 1041314 + (int)_potionEffect;
 
-    public virtual bool RequireFreeHand => true;
+    public virtual bool RequireFreeHand => false;
 
     public virtual bool IsThrowablePotion => false;
 

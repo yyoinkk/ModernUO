@@ -76,7 +76,7 @@ namespace Server.Spells.Fourth
             {
                 Caster.SendLocalizedMessage(502359, "", 0x22); // Thou art too encumbered to move.
             }
-            else if (!map.CanSpawnMobile(loc.X, loc.Y, loc.Z))
+            else if (!map.CanSpawnMobile(loc.X, loc.Y, loc.Z, checkMobiles: false))
             {
                 Caster.SendLocalizedMessage(501942); // That location is blocked.
             }

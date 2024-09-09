@@ -2,6 +2,7 @@ using ModernUO.Serialization;
 using Server.Engines.Craft;
 using Server.Mobiles;
 using Server.Targeting;
+using System;
 
 namespace Server.Items;
 
@@ -47,6 +48,8 @@ public abstract partial class BaseOre : Item
             return 1042853; // iron ore;
         }
     }
+
+    public override double DefaultWeight => base.DefaultWeight / 7 + Math.Min((double)Resource, 7.0);
 
     public abstract BaseIngot GetIngot();
 

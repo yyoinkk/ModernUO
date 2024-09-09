@@ -28,6 +28,7 @@ using Server.Regions;
 using Server.SkillHandlers;
 using Server.Spells;
 using Server.Spells.Bushido;
+using Server.Spells.Dark;
 using Server.Spells.Fifth;
 using Server.Spells.First;
 using Server.Spells.Fourth;
@@ -856,16 +857,16 @@ namespace Server.Mobiles
                 return false;
             }
 
-            if (Core.AOS)
-            {
-                foreach (Mobile m in Map.GetMobilesAt(location))
-                {
-                    if (m.Z >= location.Z && m.Z < location.Z + 16 && (!m.Hidden || m.AccessLevel == AccessLevel.Player))
-                    {
-                        return false;
-                    }
-                }
-            }
+            //if (Core.AOS)
+            //{
+            //    foreach (Mobile m in Map.GetMobilesAt(location))
+            //    {
+            //        if (m.Z >= location.Z && m.Z < location.Z + 16 && (!m.Hidden || m.AccessLevel == AccessLevel.Player))
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
 
             var bi = item.GetBounce();
 
@@ -1145,6 +1146,11 @@ namespace Server.Mobiles
         public override void ComputeBaseLightLevels(out int global, out int personal)
         {
             global = LightCycle.ComputeLevelFor(this);
+
+            if (DarknessSpell.HasEffect(this))
+            {
+                global = LightCycle.DungeonLevel;
+            }
 
             var racialNightSight = Core.ML && Race == Race.Elf;
 
@@ -2044,6 +2050,38 @@ namespace Server.Mobiles
             }
         }
 
+        public override bool CheckSpellCast(ISpell spell)
+        {
+            if (spell is MagerySpell)
+            {
+                return CanCastWithWeapon(spell) && base.CheckSpellCast(spell);
+            }
+            return base.CheckSpellCast(spell);// && weapon check && class check
+        }
+
+        public bool CanCastWithWeapon(ISpell spell)
+        {
+            Item item1h = FindItemOnLayer(Layer.OneHanded);
+            Item item2h = FindItemOnLayer(Layer.TwoHanded);
+
+            return AllowCastWhenEquipped(item1h) && AllowCastWhenEquipped(item2h);
+        }
+
+        public bool AllowCastWhenEquipped(Item item)
+        {
+            if (item is null or Spellbook or Runebook or BaseStaff or BaseKnife or Buckler or BaseWand
+            || Core.AOS && item is BaseWeapon weapon && weapon.Attributes.SpellChanneling != 0)
+            //|| Core.AOS && item is BaseArmor armor && armor.Attributes.SpellChanneling != 0;)
+            {
+                return true;
+            }
+
+            SendLocalizedMessage(502626); // Your hands must be free to cast spells or meditate.
+
+            // return ClassAllowCastWhenEquipped(Item item);
+            return false;
+        }
+
         public override bool CheckEquip(Item item)
         {
             if (!base.CheckEquip(item))
@@ -2567,6 +2605,9 @@ namespace Server.Mobiles
             NameMod = null;
             SavagePaintExpiration = TimeSpan.Zero;
             SetHairMods(-1, -1);
+
+            //EndAction<DarknessSpell>();
+            //EndAction<LightCycle>();
 
             if (Flying)
             {
@@ -3388,7 +3429,7 @@ namespace Server.Mobiles
             // Spells
             MagicReflectSpell.EndReflect(this);
             ReactiveArmorSpell.EndArmor(this);
-            ProtectionSpell.EndProtection(this);
+            ProtectionSpell.ClearEffect(this);
             StoneFormSpell.RemoveEffects(this);
             AnimateDeadSpell.RemoveEffects(this);
             SummonFamiliarSpell.RemoveEffects(this);
@@ -3522,10 +3563,9 @@ namespace Server.Mobiles
 
             if (Hidden && DesignContext.Find(this) == null) // Hidden & NOT customizing a house
             {
+                var running = (d & Direction.Running) != 0;
                 if (!Mounted && Skills.Stealth.Value >= 25.0)
                 {
-                    var running = (d & Direction.Running) != 0;
-
                     if (running)
                     {
                         if ((AllowedStealthSteps -= 2) <= 0)
@@ -3535,7 +3575,20 @@ namespace Server.Mobiles
                     }
                     else if (AllowedStealthSteps-- <= 0)
                     {
-                        Stealth.OnUse(this);
+                        if (!Skills.UseSkill(this, SkillName.Stealth))
+                        {
+                            RevealingAction();
+                        }
+                    }
+                }
+                else if (Mounted && Skills.Hiding.Value >= 100.0 && Skills.Stealth.Value >= 60.0 && !running)
+                {
+                    if (AllowedStealthSteps-- <= 0)
+                    {
+                        if (!Skills.UseSkill(this, SkillName.Stealth))
+                        {
+                            RevealingAction();
+                        }
                     }
                 }
                 else

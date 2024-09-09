@@ -55,7 +55,7 @@ namespace Server.SkillHandlers
                 m.CanHearGhosts = false;
             }
 
-            return TimeSpan.FromSeconds(1.0);
+            return TimeSpan.FromSeconds(10.0);
         }
 
         private class SpiritSpeakTimer : Timer

@@ -3712,7 +3712,7 @@ public class Item : IHued, IComparable<Item>, ISpawnable, IObjectPropertyListEnt
 
             if (okay)
             {
-                z += i;
+                //z += i;
                 break;
             }
         }
@@ -3767,7 +3767,7 @@ public class Item : IHued, IComparable<Item>, ISpawnable, IObjectPropertyListEnt
 
             if (item.Z + id.CalcHeight > z && z + height > item.Z)
             {
-                return false;
+                //return false;
             }
         }
 
