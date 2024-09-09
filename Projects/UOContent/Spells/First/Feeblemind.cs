@@ -32,10 +32,6 @@ namespace Server.Spells.First
                 var length = SpellHelper.GetDuration(Caster, m, curse: true);
                 SpellHelper.AddStatCurse(Caster, m, StatType.Int, length, false);
 
-                m.Spell?.OnCasterHurt();
-
-                m.Paralyzed = false;
-
                 m.FixedParticles(0x3779, 10, 15, 5004, EffectLayer.Head);
                 m.PlaySound(0x1E4);
 

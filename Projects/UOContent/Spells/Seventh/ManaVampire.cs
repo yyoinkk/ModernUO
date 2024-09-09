@@ -1,4 +1,5 @@
 using System;
+using Server.Spells.Druid;
 using Server.Targeting;
 
 namespace Server.Spells.Seventh
@@ -30,7 +31,10 @@ namespace Server.Spells.Seventh
 
                 SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
-                m.Spell?.OnCasterHurt();
+                if (!NatureBlessingSpell.HasEffect(m))
+                {
+                    m.Spell?.OnCasterHurt();
+                }
 
                 m.Paralyzed = false;
 

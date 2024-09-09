@@ -70,10 +70,6 @@ namespace Server.Spells.Fourth
             m.UpdateResistances();
             _table[m] = Timer.DelayCall(duration, mob => RemoveEffect(mob), m);
 
-            m.Spell?.OnCasterHurt();
-
-            m.Paralyzed = false;
-
             m.FixedParticles(0x374A, 10, 15, 5028, EffectLayer.Waist);
             m.PlaySound(0x1E1);
 

@@ -32,10 +32,6 @@ namespace Server.Spells.Fourth
 
                 SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
-                m.Spell?.OnCasterHurt();
-
-                m.Paralyzed = false;
-
                 if (Core.AOS)
                 {
                     var toDrain = Math.Clamp(40 + (int)(GetDamageSkill(Caster) - GetResistSkill(m)), 0, m.Mana);

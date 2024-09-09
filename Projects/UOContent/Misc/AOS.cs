@@ -38,8 +38,8 @@ namespace Server
 
         public static int Damage(
             Mobile m, Mobile from, int damage, int phys, int fire, int cold, int pois, int nrgy,
-            int chaos
-        ) => Damage(m, from, damage, false, phys, fire, cold, pois, nrgy, chaos);
+            int chaos, Spell spell = null
+        ) => Damage(m, from, damage, false, phys, fire, cold, pois, nrgy, chaos, spell: spell);
 
         public static int Damage(
             Mobile m, Mobile from, int damage, int phys, int fire, int cold, int pois, int nrgy,
@@ -48,7 +48,8 @@ namespace Server
 
         public static int Damage(
             Mobile m, Mobile from, int damage, bool ignoreArmor, int phys, int fire, int cold, int pois,
-            int nrgy, int chaos = 0, int direct = 0, bool keepAlive = false, bool archer = false, bool deathStrike = false
+            int nrgy, int chaos = 0, int direct = 0, bool keepAlive = false, bool archer = false, bool deathStrike = false,
+            Spell spell = null
         )
         {
             if (m?.Deleted != false || !m.Alive || damage <= 0)
@@ -255,7 +256,13 @@ namespace Server
                 SpellHelper.DoLeech(totalDamage, from, m);
             }
 
-            m.Damage(totalDamage, from);
+            bool spellDisturb = true;
+            if (spell != null && NatureBlessingSpell.HasEffect(m))
+            {
+                spellDisturb = false;
+            }
+
+            m.Damage(totalDamage, from, spellDisturb: spellDisturb);
             return totalDamage;
         }
 

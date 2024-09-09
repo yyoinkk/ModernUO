@@ -5870,7 +5870,12 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
 
     public virtual bool CanBeDamaged() => !m_Blessed;
 
-    public virtual void Damage(int amount, Mobile from = null, bool informMount = true, bool ignoreEvilOmen = false)
+    public virtual void Damage(
+        int amount,
+        Mobile from = null,
+        bool informMount = true,
+        bool ignoreEvilOmen = false,
+        bool spellDisturb = true)
     {
         if (amount <= 0)
         {
@@ -5890,7 +5895,10 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         var oldHits = Hits;
         var newHits = oldHits - amount;
 
-        m_Spell?.OnCasterHurt();
+        if (spellDisturb)
+        {
+            m_Spell?.OnCasterHurt();
+        }
 
         // if (m_Spell != null && m_Spell.State == SpellState.Casting)
         // m_Spell.Disturb( DisturbType.Hurt, false, true );

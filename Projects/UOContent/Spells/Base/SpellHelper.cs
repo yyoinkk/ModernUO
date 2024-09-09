@@ -1038,7 +1038,7 @@ namespace Server.Spells
 
                 StaminaSystem.DFA = dfa;
 
-                var damageGiven = AOS.Damage(target, from, dmg, phys, fire, cold, pois, nrgy, chaos);
+                var damageGiven = AOS.Damage(target, from, dmg, phys, fire, cold, pois, nrgy, chaos, spell: spell);
                 Mysticism.SpellPlagueSpell.OnMobileDamaged(target);
 
                 SpiritArmorSpell.OnDamage(target, damageGiven);

@@ -2819,7 +2819,7 @@ namespace Server.Mobiles
             }
         }
 
-        public override void Damage(int amount, Mobile from = null, bool informMount = true, bool ignoreEvilOmen = false)
+        public override void Damage(int amount, Mobile from = null, bool informMount = true, bool ignoreEvilOmen = false, bool spellDisturb = true)
         {
             var damageBonus = 1.0;
 
@@ -2846,7 +2846,7 @@ namespace Server.Mobiles
                 }
             }
 
-            base.Damage((int)(amount * damageBonus), from, informMount);
+            base.Damage((int)(amount * damageBonus), from, informMount, spellDisturb: spellDisturb);
 
             // If the blood oath caster will die then damage is not reflected back to the attacker
             if (hasBloodOath && Alive && !Deleted && !IsDeadBondedPet)

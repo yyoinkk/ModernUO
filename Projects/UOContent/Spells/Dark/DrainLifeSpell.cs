@@ -1,3 +1,4 @@
+using Server.Spells.Druid;
 using Server.Targeting;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,11 @@ namespace Server.Spells.Dark
 
                 SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
-                m.Spell?.OnCasterHurt();
+                if (!NatureBlessingSpell.HasEffect(m))
+                {
+                    m.Spell?.OnCasterHurt();
+                }
+
                 HarmfulSpell(m);
                 m.Paralyzed = false;
 

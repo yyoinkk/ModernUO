@@ -222,7 +222,7 @@ namespace Server.Mobiles
         {
             DoHarmful(m);
 
-            m.Spell?.OnCasterHurt();
+            //m.Spell?.OnCasterHurt();
 
             m.Paralyzed = false;
 

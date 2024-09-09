@@ -10,7 +10,7 @@ namespace Server.Spells.Druid
     {
         private static readonly SpellInfo _info = new(
             "Nature Blessing",
-            "In Ylem Sanct",
+            "Ort Rel Sanct",
             203,
             9051,
             Reagent.Ginseng,
@@ -39,8 +39,9 @@ namespace Server.Spells.Druid
 
                     Caster.SendMessage($"Nature Blessing duration: {duration}s.");
 
-                    Caster.FixedParticles(0x3763, 15, 16, 0, 0, 0, EffectLayer.Head);
-                    Caster.PlaySound(0x1E7);
+                    Caster.FixedParticles(0x376A, 11, 26, 0, 1265, 0, EffectLayer.Head);
+                    Caster.FixedParticles(0x376A, 11, 26, 0, 2064, 0, EffectLayer.Head);
+                    Caster.PlaySound(0x1F7);
                 }
                 else
                 {

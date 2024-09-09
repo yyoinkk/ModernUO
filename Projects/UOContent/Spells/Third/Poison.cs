@@ -1,5 +1,6 @@
 using System;
 using Server.Mobiles;
+using Server.Spells.Druid;
 using Server.Targeting;
 
 namespace Server.Spells.Third
@@ -28,7 +29,10 @@ namespace Server.Spells.Third
 
                 SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
-                m.Spell?.OnCasterHurt();
+                if (!NatureBlessingSpell.HasEffect(m))
+                {
+                    m.Spell?.OnCasterHurt(); 
+                }
 
                 m.Paralyzed = false;
 
