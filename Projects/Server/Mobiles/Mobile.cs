@@ -3693,9 +3693,9 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         ClearHand(FindItemOnLayer(Layer.TwoHanded));
     }
 
-    public virtual void ClearHand(Item item)
+    public virtual void ClearHand(Item item, bool clearAnyway = false)
     {
-        if (item?.Movable == true && !item.AllowEquippedCast(this))
+        if (item?.Movable == true && (clearAnyway || !item.AllowEquippedCast(this)))
         {
             var pack = Backpack;
 

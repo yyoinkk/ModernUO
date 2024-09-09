@@ -110,4 +110,30 @@ public partial class BaseShield : BaseArmor
             Delete();
         }
     }
+
+    public override bool CanEquip(Mobile from)
+    {
+        return base.CanEquip(from) && from.CanBeginAction<BaseShield>();
+    }
+
+    public static void BlockEquip(Mobile m, TimeSpan duration)
+    {
+        if (m.BeginAction<BaseShield>())
+        {
+            new ResetEquipTimer(m, duration).Start();
+        }
+    }
+
+    private class ResetEquipTimer : Timer
+    {
+        private readonly Mobile m_Mobile;
+
+        public ResetEquipTimer(Mobile m, TimeSpan duration) : base(duration) => m_Mobile = m;
+
+        protected override void OnTick()
+        {
+            m_Mobile.EndAction<BaseShield>();
+        }
+    }
+
 }
