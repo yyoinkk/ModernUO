@@ -919,8 +919,8 @@ public sealed partial class Map : IComparable<Map>, ISpanFormattable, ISpanParsa
 
     public bool CanSpawnMobile(Point2D p, int z) => CanSpawnMobile(p.m_X, p.m_Y, z);
 
-    public bool CanSpawnMobile(int x, int y, int z, bool checkMobiles = true) =>
-        Region.Find(new Point3D(x, y, z), this).AllowSpawn() && CanFit(x, y, z, 16, checkMobiles: checkMobiles);
+    public bool CanSpawnMobile(int x, int y, int z) =>
+        Region.Find(new Point3D(x, y, z), this).AllowSpawn() && CanFit(x, y, z, 16);
 
     private class ZComparer : IComparer<Item>
     {

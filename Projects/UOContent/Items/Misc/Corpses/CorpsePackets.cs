@@ -40,7 +40,7 @@ public static class CorpsePackets
         {
             var item = list[i];
 
-            if (item != null && !item.Deleted && beholder.CanSee(item) && item.Parent == beheld)
+            if (!item.Deleted && beholder.CanSee(item) && item.Parent == beheld)
             {
                 writer.Write((byte)(item.Layer + 1));
                 writer.Write(item.Serial);
@@ -100,7 +100,7 @@ public static class CorpsePackets
         {
             var child = list[i];
 
-            if (child != null && !child.Deleted && child.Parent == beheld && beholder.CanSee(child))
+            if (!child.Deleted && child.Parent == beheld && beholder.CanSee(child))
             {
                 writer.Write(child.Serial);
                 writer.Write((ushort)child.ItemID);

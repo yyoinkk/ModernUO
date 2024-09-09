@@ -52,7 +52,6 @@ public class SpellTarget<T> : Target, ISpellTarget<T> where T : class, IPoint3D
     {
         if (!_retryOnLos)
         {
-            from.SendLocalizedMessage(500237); // Target can not be seen.
             return;
         }
 

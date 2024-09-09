@@ -20,10 +20,7 @@ public enum SpellbookType
     Ninja,
     Samurai,
     Arcanist,
-    Mystic,
-    Dark,
-    Druid,
-    Light
+    Mystic
 }
 
 public enum BookQuality
@@ -378,21 +375,6 @@ public partial class Spellbook : Item, ICraftable, ISlayer, IAosItem
         if (spellID >= 677 && spellID < 693)
         {
             return SpellbookType.Mystic;
-        }
-        
-        if (spellID >= 700 && spellID < 716)
-        {
-            return SpellbookType.Dark;
-        }
-                
-        if (spellID >= 800 && spellID < 816)
-        {
-            return SpellbookType.Druid;
-        }
-                
-        if (spellID >= 900 && spellID < 916)
-        {
-            return SpellbookType.Light;
         }
 
         return SpellbookType.Invalid;

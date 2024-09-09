@@ -23,8 +23,7 @@ namespace Server.Spells
         public abstract SpellCircle Circle { get; }
 
         public override TimeSpan CastDelayBase => TimeSpan.FromSeconds((3 + (int)Circle) * CastDelaySecondsPerTick);
-        public override bool ClearHandsOnCast => false;
-        public override bool BlocksMovement => false;
+
         public override bool ConsumeReagents() =>
             base.ConsumeReagents() || ArcaneGem.ConsumeCharges(Caster, Core.SE ? 1 : 1 + (int)Circle);
 
@@ -39,7 +38,7 @@ namespace Server.Spells
 
             // Correct algorithm according to OSI for UOR/UOML
             // TODO: Verify this algorithm on OSI for latest expansion.
-            min = _requiredSkill[(int)(Scroll == null ? Circle + 1 : Circle)];
+            min = _requiredSkill[(int)(Scroll == null ? Circle + 2 : Circle)];
             max = min + 40;
         }
 

@@ -5,7 +5,7 @@ namespace Server.Spells
 {
     public static class SpellRegistry
     {
-        private static readonly Type[] m_Types = new Type[1000];
+        private static readonly Type[] m_Types = new Type[700];
         private static int m_Count;
 
         private static readonly Dictionary<Type, int> m_IDsFromTypes = new(m_Types.Length);
@@ -28,10 +28,6 @@ namespace Server.Spells
             "Ninjitsu",
             "Spellweaving"
         };
-
-        private static readonly string[] m_darkSpell = new string[16];
-        private static readonly string[] m_druidSpell = new string[16];
-        private static readonly string[] m_lightSpell = new string[16];
 
         public static Type[] Types
         {
@@ -106,19 +102,6 @@ namespace Server.Spells
                     SpecialMoves.Add(spellID, spm);
                 }
             }
-
-            if (700 <= spellID && spellID < 800)
-            {
-                m_darkSpell[spellID - 700] = type.Name.ToLower();
-            }
-            else if (800 <= spellID && spellID < 900)
-            {
-                m_druidSpell[spellID - 800] = type.Name.ToLower();
-            }
-            else if (900 <= spellID && spellID < 1000)
-            {
-                m_lightSpell[spellID - 900] = type.Name.ToLower();
-            }
         }
 
         public static SpecialMove GetSpecialMove(int spellID)
@@ -170,37 +153,6 @@ namespace Server.Spells
         {
             name = name.RemoveOrdinal(" ");
 
-            m_Params[0] = caster;
-            m_Params[1] = scroll;
-
-            string? color = null;
-
-            if (Array.IndexOf(m_druidSpell, $"{name}spell") > -1)
-            {
-                color = "Druid";
-            }
-            else if (Array.IndexOf(m_darkSpell, $"{name}spell") > -1)
-            {
-                color = "Dark";
-            }
-            else if (Array.IndexOf(m_lightSpell, $"{name}spell") > -1)
-            {
-                color = "Light";
-            }
-
-            if (color != null)
-            {
-                var tt = AssemblyHandler.FindTypeByFullName($"Server.Spells.{color}.{name}Spell");
-                try
-                {
-                    return tt.CreateInstance<Spell>(m_Params);
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-
             for (var i = 0; i < m_CircleNames.Length; ++i)
             {
                 var t = name.InsensitiveEndsWith("spell") ?
@@ -209,6 +161,9 @@ namespace Server.Spells
 
                 if (t?.IsSubclassOf(typeof(SpecialMove)) == false)
                 {
+                    m_Params[0] = caster;
+                    m_Params[1] = scroll;
+
                     try
                     {
                         return t.CreateInstance<Spell>(m_Params);

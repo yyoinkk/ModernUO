@@ -24,18 +24,17 @@ public partial class TimedSkillMod : SkillMod
     [SerializableField(0, setter: "private")]
     private DateTime _expire;
 
-    [SerializableField(1, setter: "private")]
-    private bool _removeOnDeath;
-
     public TimedSkillMod(Mobile owner) : base(owner)
     {
     }
 
-    public TimedSkillMod(SkillName skill, string name, bool relative, double value, TimeSpan delay, bool removeOnDeath = true)
-        : this(skill, name, relative, value, Core.Now + delay) => _removeOnDeath = removeOnDeath;
+    public TimedSkillMod(SkillName skill, string name, bool relative, double value, TimeSpan delay)
+        : this(skill, name, relative, value, Core.Now + delay)
+    {
+    }
 
     public TimedSkillMod(SkillName skill, string name, bool relative, double value, DateTime expire)
         : base(skill, name, relative, value) => _expire = expire;
 
-    public override bool CheckCondition() => Core.Now < _expire && (!_removeOnDeath || Owner.Alive);
+    public override bool CheckCondition() => Core.Now < _expire;
 }

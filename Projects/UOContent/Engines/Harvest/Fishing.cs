@@ -82,7 +82,7 @@ namespace Server.Engines.Harvest
                 MaxRange = 4,
                 ConsumedPerHarvest = 1,
                 ConsumedPerFeluccaHarvest = 1,
-                EffectActions = new[] { 12 , 26 },
+                EffectActions = new[] { 12 },
                 EffectSounds = Array.Empty<int>(),
                 EffectCounts = new[] { 1 },
                 EffectDelay = TimeSpan.Zero,
@@ -503,11 +503,11 @@ namespace Server.Engines.Harvest
                 return false;
             }
 
-            //if (from.Mounted)
-            //{
-            //    from.SendLocalizedMessage(500971); // You can't fish while riding!
-            //    return false;
-            //}
+            if (from.Mounted)
+            {
+                from.SendLocalizedMessage(500971); // You can't fish while riding!
+                return false;
+            }
 
             return true;
         }
@@ -519,21 +519,13 @@ namespace Server.Engines.Harvest
                 return false;
             }
 
-            //if (from.Mounted)
-            //{
-            //    from.SendLocalizedMessage(500971); // You can't fish while riding!
-            //    return false;
-            //}
+            if (from.Mounted)
+            {
+                from.SendLocalizedMessage(500971); // You can't fish while riding!
+                return false;
+            }
 
             return true;
-        }
-
-        public override void FinishHarvesting(Mobile from, Item tool, HarvestDefinition def, object toHarvest, object locked)
-        {
-            var action = from.Mounted ? def.EffectActions[1] : def.EffectActions[0];
-            from.Animate(action, 5, 1, false, false, 0);
-
-            base.FinishHarvesting(from, tool, def, toHarvest, locked);
         }
 
         private class MutateEntry

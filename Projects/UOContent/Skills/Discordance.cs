@@ -21,7 +21,7 @@ namespace Server.SkillHandlers
 
             BaseInstrument.PickInstrument(m, OnPickedInstrument);
 
-            return TimeSpan.FromSeconds(5.0); // Cannot use another skill for 1 second
+            return TimeSpan.FromSeconds(1.0); // Cannot use another skill for 1 second
         }
 
         public static void OnPickedInstrument(Mobile from, BaseInstrument instrument)

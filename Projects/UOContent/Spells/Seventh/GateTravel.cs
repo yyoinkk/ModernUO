@@ -64,7 +64,7 @@ public class GateTravelSpell : MagerySpell, IRecallSpell
         {
             Caster.SendLocalizedMessage(1005564, "", 0x22); // Wouldst thou flee during the heat of battle??
         }
-        else if (!map.CanSpawnMobile(loc.X, loc.Y, loc.Z, checkMobiles: false))
+        else if (!map.CanSpawnMobile(loc.X, loc.Y, loc.Z))
         {
             Caster.SendLocalizedMessage(501942); // That location is blocked.
         }

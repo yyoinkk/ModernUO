@@ -18,7 +18,7 @@ namespace Server.SkillHandlers
 
             m.SendLocalizedMessage(502807); // What would you like to taste?
 
-            return TimeSpan.FromSeconds(10.0);
+            return TimeSpan.FromSeconds(1.0);
         }
 
         [PlayerVendorTarget]

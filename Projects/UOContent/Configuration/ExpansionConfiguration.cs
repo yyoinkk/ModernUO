@@ -13,7 +13,7 @@ namespace Server
             Mobile.GuildClickMessage = ServerConfiguration.GetSetting("guildClickMessage", !Core.AOS);
             Mobile.AsciiClickMessage = ServerConfiguration.GetSetting("asciiClickMessage", !Core.AOS);
 
-            Mobile.ActionDelay = ServerConfiguration.GetSetting("actionDelay", Core.AOS ? 100 : 500);
+            Mobile.ActionDelay = ServerConfiguration.GetSetting("actionDelay", Core.AOS ? 1000 : 500);
 
             if (Core.AOS)
             {

@@ -751,20 +751,6 @@ public partial class Corpse : Container, ICarvable
         this.MarkDirty();
     }
 
-    public override void OnSubItemRemoved(Item item)
-    {
-        ClearRestoreInfo(item);
-        base.OnSubItemRemoved(item);
-    }
-
-    public override void OnItemRemoved(Item item)
-    {
-        ClearRestoreInfo(item);
-        RemoveFromEquipItems(item);
-        RestoreEquip?.Remove(item);
-        base.OnSubItemRemoved(item);
-    }
-
     public void ClearRestoreInfo(Item item)
     {
         if (_restoreTable == null || item == null)
@@ -992,7 +978,7 @@ public partial class Corpse : Container, ICarvable
             }
             else
             {
-                list.Add(1070702, Name); // a corpse of of ~1_NAME~
+                list.Add(1046414, Name); // the remains of ~1_NAME~
             }
         }
         else // Bone form

@@ -5,7 +5,6 @@ using Server.Items;
 using Server.Misc;
 using Server.Mobiles;
 using Server.Spells.Bushido;
-using Server.Spells.Light;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
 using Server.Spells.Second;
@@ -87,11 +86,11 @@ namespace Server.Spells
             // Confirm: Monsters and pets cannot be disturbed.
             if (Caster.Player && IsCasting)
             {
-                //var hasProtection = ProtectionSpell.Registry.TryGetValue(Caster, out var d);
-                //if (!hasProtection || d < 1000 && d < Utility.Random(1000))
-                //{
+                var hasProtection = ProtectionSpell.Registry.TryGetValue(Caster, out var d);
+                if (!hasProtection || d < 1000 && d < Utility.Random(1000))
+                {
                     Disturb(DisturbType.Hurt, false, true);
-                //}
+                }
             }
         }
 
@@ -118,7 +117,7 @@ namespace Server.Spells
 
         public virtual bool OnCasterEquipping(Item item)
         {
-            if (IsCasting && !Caster.CheckSpellCast(this))
+            if (IsCasting)
             {
                 Disturb(DisturbType.EquipRequest);
             }
@@ -248,13 +247,6 @@ namespace Server.Spells
             damage = AOS.Scale(damage, 100 + damageBonus);
 
             var evalSkill = GetDamageFixed(Caster);
-
-            if (CelestialPowerSpell.HasEffect(Caster))
-            {
-                evalSkill = (int)(evalSkill * 1.15);
-                Caster.SendMessage("Empowered!");
-            }
-
             var evalScale = 30 + 9 * evalSkill / 100;
 
             damage = AOS.Scale(damage, evalScale);
@@ -461,9 +453,9 @@ namespace Server.Spells
                 return;
             }
 
-            if (!string.IsNullOrEmpty(Info.Mantra)) // && Caster.Player)
+            if (!string.IsNullOrEmpty(Info.Mantra) && Caster.Player)
             {
-                Caster.PublicOverheadMessage(MessageType.Spell, 0x3B2, true, Info.Mantra, false);
+                Caster.PublicOverheadMessage(MessageType.Spell, Caster.SpeechHue, true, Info.Mantra, false);
             }
         }
 
@@ -516,19 +508,12 @@ namespace Server.Spells
             else if ((Caster as PlayerMobile)?.DuelContext?.AllowSpellCast(Caster, this) == false)
             {
             }
-            else if (!ConsumeReagents())
-            {
-                Caster.SendLocalizedMessage(502630, hue: 0x2B);// More reagents are needed for this spell.
-                DoFizzle();
-            }
             else
             {
                 var requiredMana = ScaleMana(GetMana());
 
                 if (Caster.Mana >= requiredMana)
                 {
-                    Caster.Mana -= requiredMana;
-
                     if (Caster.Spell == null && Caster.CheckSpellCast(this) && CheckCast() &&
                         Caster.Region.OnBeginSpellCast(Caster, this))
                     {
@@ -593,7 +578,6 @@ namespace Server.Spells
 
                         return true;
                     }
-                    DoFizzle();
                 }
                 else if (Caster.NetState?.IsKRClient != true && Caster.NetState?.Version >= ClientVersion.Version70654)
                 {
@@ -718,11 +702,10 @@ namespace Server.Spells
 
             var fc = Math.Min(AosAttributes.GetValue(Caster, AosAttribute.CastSpeed), fcMax);
 
-            // Use this for Slow Magic ab
-            //if (ProtectionSpell.Registry.ContainsKey(Caster))
-            //{
-            //    fc -= 2;
-            //}
+            if (ProtectionSpell.Registry.ContainsKey(Caster))
+            {
+                fc -= 2;
+            }
 
             if (EssenceOfWindSpell.IsDebuffed(Caster))
             {
@@ -745,7 +728,7 @@ namespace Server.Spells
 
         public virtual bool CheckSequence()
         {
-            //var mana = ScaleMana(GetMana());
+            var mana = ScaleMana(GetMana());
 
             if (Caster.Deleted || !Caster.Alive || Caster.Spell != this || State != SpellState.Sequencing)
             {
@@ -757,14 +740,14 @@ namespace Server.Spells
             {
                 DoFizzle();
             }
-            //else if (!ConsumeReagents())
-            //{
-            //    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502630); // More reagents are needed for this spell.
-            //}
-            //else if (Caster.Mana < mana)
-            //{
-            //    Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625); // Insufficient mana for this spell.
-            //}
+            else if (!ConsumeReagents())
+            {
+                Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502630); // More reagents are needed for this spell.
+            }
+            else if (Caster.Mana < mana)
+            {
+                Caster.LocalOverheadMessage(MessageType.Regular, 0x22, 502625); // Insufficient mana for this spell.
+            }
             else if (Core.AOS && (Caster.Frozen || Caster.Paralyzed))
             {
                 Caster.SendLocalizedMessage(502646); // You cannot cast a spell while frozen.
@@ -775,9 +758,9 @@ namespace Server.Spells
                 mobile.SendLocalizedMessage(1072060); // You cannot cast a spell while calmed.
                 DoFizzle();
             }
-            else if (this is MagerySpell || CheckFizzle())
+            else if (CheckFizzle())
             {
-                //Caster.Mana -= mana;
+                Caster.Mana -= mana;
 
                 if (Scroll is SpellScroll)
                 {
@@ -929,10 +912,6 @@ namespace Server.Spells
                         caster.Animate(12, 7, 1, true, false, 0);
                     }
                 }
-                else if (caster.Mounted && caster.Body.IsHuman)
-                {
-                    caster.Animate(24, 5, 1, true, false, 0);
-                }
 
                 if (!Running)
                 {
@@ -972,15 +951,7 @@ namespace Server.Spells
 
                     var originalTarget = caster.Target;
 
-                    if (m_Spell is MagerySpell && !m_Spell.CheckFizzle())
-                    {
-                        m_Spell.FinishSequence();
-                        m_Spell.DoFizzle();
-                    }
-                    else
-                    {
-                        m_Spell.OnCast();
-                    }
+                    m_Spell.OnCast();
 
                     if (caster.Player && caster.Target != originalTarget)
                     {

@@ -1080,7 +1080,7 @@ public partial class BaseTalisman : Item, IAosItem
 
                     MagicReflectSpell.EndReflect(target);
                     ReactiveArmorSpell.EndArmor(target);
-                    ProtectionSpell.ClearEffect(target);
+                    ProtectionSpell.EndProtection(target);
 
                     target.SendLocalizedMessage(1072402); // Your wards have been removed!
 

@@ -9,14 +9,6 @@
       "ruleArguments": [
         ""
       ]
-    },
-    {
-      "name": "RemoveOnDeath",
-      "type": "bool",
-      "rule": "PrimitiveTypeMigrationRule",
-      "ruleArguments": [
-        ""
-      ]
     }
   ]
 }

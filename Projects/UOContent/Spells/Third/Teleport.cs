@@ -26,8 +26,6 @@ namespace Server.Spells.Third
 
         public override SpellCircle Circle => SpellCircle.Third;
 
-        public int TargetRange = 15;
-
         public void Target(IPoint3D p)
         {
             var orig = p;

@@ -27,7 +27,7 @@ namespace Server.Spells.First
 
                 SpellHelper.CheckReflect((int)Circle, Caster, ref m);
 
-                var length = SpellHelper.GetDuration(Caster, m, curse: true);
+                var length = SpellHelper.GetDuration(Caster, m);
                 SpellHelper.AddStatCurse(Caster, m, StatType.Dex, length, false);
 
                 m.Spell?.OnCasterHurt();

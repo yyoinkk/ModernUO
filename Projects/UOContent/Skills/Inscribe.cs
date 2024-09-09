@@ -21,7 +21,7 @@ namespace Server.SkillHandlers
             m.SendLocalizedMessage(1046295); // Target the book you wish to copy.
             target.BeginTimeout(m, 60000); // 1 minute
 
-            return TimeSpan.FromSeconds(10.0);
+            return TimeSpan.FromSeconds(1.0);
         }
 
         private static void SetUser(BaseBook book, Mobile mob)

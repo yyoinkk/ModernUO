@@ -29,7 +29,7 @@ namespace Server.Spells.First
 
                 // TODO: StoneForm immunity
 
-                var length = SpellHelper.GetDuration(Caster, m, curse: true);
+                var length = SpellHelper.GetDuration(Caster, m);
                 SpellHelper.AddStatCurse(Caster, m, StatType.Int, length, false);
 
                 m.Spell?.OnCasterHurt();

@@ -33,19 +33,13 @@ public abstract class Race : ISpanParsable<Race>
     public static Race Human => Races[0];
     public static Race Elf => Races[1];
     public static Race Gargoyle => Races[2];
-    public static Race Drow => Races[3];
-    public static Race Orc => Races[4];
-    public static Race Dwarf => Races[5];
 
     public static List<Race> AllRaces { get; } = new();
 
-    public const int AllowAllRaces = 0x3f;     // Race.Human.RaceFlag | Race.Elf.RaceFlag | Race.Gargoyle.RaceFlag | Race.Drow.RaceFlag
+    public const int AllowAllRaces = 0x7;      // Race.Human.RaceFlag | Race.Elf.RaceFlag | Race.Gargoyle.RaceFlag
     public const int AllowHumanOrElves = 0x3;  // Race.Human.RaceFlag | Race.Elf.RaceFlag
     public const int AllowElvesOnly = 0x2;     // Race.Elf.RaceFlag
     public const int AllowGargoylesOnly = 0x4; // Race.Gargoyle.RaceFlag
-    public const int AllowDrowesOnly = 0x8;    // Race.Drow.RaceFlag
-    public const int AllowOrcsOnly = 0x10;     // Race.Orc.RaceFlag
-    public const int AllowDwarvesOnly = 0x20;  // Race.Dwarf.RaceFlag
 
     public Expansion RequiredExpansion { get; }
 

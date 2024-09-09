@@ -52,7 +52,7 @@ namespace Server.Engines.Harvest
                 MaxRange = 2,
                 ConsumedPerHarvest = 10,
                 ConsumedPerFeluccaHarvest = 20,
-                EffectActions = new[] { 13, 29 },
+                EffectActions = new[] { 13 },
                 EffectSounds = new[] { 0x13E },
                 EffectCounts = Core.AOS ? new[] { 1 } : new[] { 1, 2, 2, 2, 3 },
                 EffectDelay = TimeSpan.FromSeconds(1.6),

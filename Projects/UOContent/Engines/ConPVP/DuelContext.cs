@@ -1839,7 +1839,7 @@ namespace Server.Engines.ConPVP
             {
                 mob.MagicDamageAbsorb = 0;
                 mob.MeleeDamageAbsorb = 0;
-                //ProtectionSpell.Registry.Remove(mob);
+                ProtectionSpell.Registry.Remove(mob);
 
                 ArchProtectionSpell.RemoveEntry(mob);
 

@@ -1,13 +1,10 @@
 using System;
 using Server.Spells.Bushido;
 using Server.Spells.Chivalry;
-using Server.Spells.Dark;
-using Server.Spells.Druid;
 using Server.Spells.Eighth;
 using Server.Spells.Fifth;
 using Server.Spells.First;
 using Server.Spells.Fourth;
-using Server.Spells.Light;
 using Server.Spells.Mysticism;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
@@ -202,60 +199,6 @@ namespace Server.Spells
                     // Register(692, typeof(RisingColossusSpell));
                 }
             }
-
-            //Dark Magic
-            Register(700, typeof(DeadFleshSpell));
-            Register(701, typeof(DarknessSpell));
-            Register(702, typeof(DrainLifeSpell));
-            Register(703, typeof(LowerResistanceSpell));
-            Register(704, typeof(ImpaleSpell));
-            Register(705, typeof(VulnerabilitySpell));
-            Register(706, typeof(GhoulTouchSpell));
-            Register(707, typeof(PainReflectionSpell));
-            Register(708, typeof(RegenerationSpell));
-            Register(709, typeof(UnholySpiritismSpell));
-            Register(710, typeof(WraithAuraSpell));
-            Register(711, typeof(GreatHarmSpell));
-            Register(712, typeof(RaiseDeadSpell));
-            Register(713, typeof(SacrificeSpell));
-            Register(714, typeof(GhostDragonSpell));
-            Register(715, typeof(KillSpell));
-
-            //Druid Magic
-            Register(800, typeof(PoisonProtectionSpell));
-            Register(801, typeof(DiseaseSpell));
-            Register(802, typeof(CallWoodlandSpell));
-            Register(803, typeof(StoneSkinSpell));
-            Register(804, typeof(CallLightningSpell));
-            Register(805, typeof(RemoveMagicSpell));
-            Register(806, typeof(BurnedHandsSpell));
-            Register(807, typeof(EntangleSpell));
-            Register(808, typeof(NatureBlessingSpell));
-            Register(809, typeof(GustSpell));
-            Register(810, typeof(MiscastMagicSpell));
-            Register(811, typeof(InsectPlagueSpell));
-            Register(812, typeof(TurnToStoneSpell));
-            Register(813, typeof(IceStrikeSpell));
-            Register(814, typeof(AcidCloudSpell));
-            Register(815, typeof(WyvernCallSpell));
-
-            //Light Magic
-            Register(900, typeof(BleedProtectionSpell));
-            Register(901, typeof(SacredWeaponSpell));
-            Register(902, typeof(SpiritArmorSpell));
-            Register(903, typeof(CelestialPowerSpell));
-            Register(904, typeof(FreeActionSpell));
-            Register(905, typeof(RayOfLightSpell));
-            Register(906, typeof(MagicFistSpell));
-            Register(907, typeof(PrayerSpell));
-            Register(908, typeof(HealDeathWoundsSpell));
-            Register(909, typeof(DayOfGodsSpell));
-            Register(910, typeof(GreaterCureSpell));
-            Register(911, typeof(HolyWrathSpell));
-            Register(912, typeof(GlyphOfGuardingSpell));
-            Register(913, typeof(LightElementalSpell));
-            Register(914, typeof(BoltOfGlorySpell));
-            Register(915, typeof(DivineInterventionSpell));
         }
 
         public static void Register(int spellId, Type type)

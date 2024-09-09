@@ -396,11 +396,6 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             Body = m_Race.Body(this);
             UpdateResistances();
 
-            if (m_Body.IsHuman)
-            {
-                Hue = Race.RandomSkinHue();
-            }
-
             Delta(MobileDelta.Race);
 
             OnRaceChange(oldRace);
@@ -781,7 +776,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             return;
         }
 
-        if (InLOS(combatant) && !Hidden)
+        if (InLOS(combatant))
         {
             weapon.OnBeforeSwing(this, combatant);
             RevealingAction();
@@ -3137,9 +3132,16 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             var mod = _resistanceMods[i];
             if (mod.Name == name)
             {
-                RemoveResistanceMod(mod);
+                _resistanceMods.RemoveAt(i);
             }
         }
+
+        if (_resistanceMods.Count == 0)
+        {
+            _resistanceMods = null;
+        }
+
+        UpdateResistances();
     }
 
     public virtual void RemoveResistanceMod(ResistanceMod mod)
@@ -3468,8 +3470,6 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
 
     public virtual void RemoveSkillMod(string name)
     {
-        //RemoveSkillMod(GetSkillMod(name));
-
         if (_skillMods == null || name == null)
         {
             return;
@@ -3480,8 +3480,17 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             var mod = _skillMods[i];
             if (mod.Name == name)
             {
-                RemoveSkillMod(mod);
+                mod.Owner = null;
+                Skills[mod.Skill]?.Update();
+                _skillMods.RemoveAt(i);
             }
+        }
+
+        ValidateSkillMods();
+
+        if (_skillMods.Count == 0)
+        {
+            _skillMods = null;
         }
     }
 
@@ -3492,7 +3501,11 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             return;
         }
 
-        mod.Owner = null;
+        if (_skillMods.Remove(mod))
+        {
+            mod.Owner = null;
+            Skills[mod.Skill]?.Update();
+        }
 
         ValidateSkillMods();
 
@@ -3686,7 +3699,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         }
     }
 
-    public virtual bool CheckAttack(Mobile m) => Utility.InUpdateRange(Location, m.Location) && CanSee(m) && InLOS(m);// && !Hidden;
+    public virtual bool CheckAttack(Mobile m) => Utility.InUpdateRange(Location, m.Location) && CanSee(m) && InLOS(m);
 
     /// <summary>
     ///     Overridable. Virtual event invoked after the <see cref="Combatant" /> property has changed.
@@ -4810,17 +4823,6 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         {
             Effects.PlaySound(this, sound);
         }
-
-        if (_statMods != null)
-        {
-            for (var i = 0; i < _statMods.Count; i++)
-            {
-                RemoveStatMod(_statMods[i]);
-            }
-            _statMods = null;
-        }
-        
-        ValidateSkillMods();
 
         if (!m_Player)
         {
@@ -7032,8 +7034,6 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
     {
         AllowedStealthSteps = 0;
 
-        NextCombatTime = Core.TickCount + (int)Weapon.GetDelay(this).TotalMilliseconds;
-
         if (m_Map == null)
         {
             return;
@@ -8354,10 +8354,10 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             Delta(MobileDelta.Stat | GetStatDelta(mod.Type));
         }
 
-        //if (_statMods.Count == 0)
-        //{
-        //    _statMods = null;
-        //}
+        if (_statMods.Count == 0)
+        {
+            _statMods = null;
+        }
     }
 
     public virtual void RemoveStatMod(string name)
@@ -9201,8 +9201,6 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
 
     private void Logout()
     {
-        Poison = null;
-
         if (m_Map != Map.Internal)
         {
             EventSink.InvokeLogout(this);

@@ -42,7 +42,7 @@ namespace Server.Spells.Sixth
 
                         Caster.DoHarmful(m);
 
-                        var length = SpellHelper.GetDuration(Caster, m, curse: true);
+                        var length = SpellHelper.GetDuration(Caster, m);
                         SpellHelper.AddStatCurse(Caster, m, StatType.Str, length, false);
                         SpellHelper.AddStatCurse(Caster, m, StatType.Dex, length);
                         SpellHelper.AddStatCurse(Caster, m, StatType.Int, length);

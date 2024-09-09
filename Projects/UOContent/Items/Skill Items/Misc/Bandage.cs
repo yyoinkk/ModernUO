@@ -37,12 +37,6 @@ public partial class Bandage : Item, IDyable
 
     public override void OnDoubleClick(Mobile from)
     {
-        if (BandageContext.GetContext(from) != null)
-        {
-            from.SendLocalizedMessage(1049616); // You are too busy to do that at the moment.
-            return;
-        }
-
         if (from.InRange(GetWorldLocation(), Range))
         {
             from.RevealingAction();
@@ -420,7 +414,7 @@ public class BandageContext : Timer
                     healerNumber = 500968; // You apply the bandages, but they barely help.
                 }
 
-                Patient.Heal((int)toHeal, Healer, true);
+                Patient.Heal((int)toHeal, Healer, false);
             }
             else
             {
@@ -453,11 +447,6 @@ public class BandageContext : Timer
 
     public static BandageContext BeginHeal(Mobile healer, Mobile patient)
     {
-        if (GetContext(healer) != null)
-        {
-            return null;
-        }
-
         var creature = patient as BaseCreature;
 
         if (patient is Golem)
@@ -526,11 +515,12 @@ public class BandageContext : Timer
                 seconds = 5.0 + resDelay;
             }
 
-            healer.SendMessage($"Healing time: {seconds}s");
+            var context = GetContext(healer);
 
+            context?.StopHeal();
             seconds *= 1000;
-            var context = new BandageContext(healer, patient, TimeSpan.FromMilliseconds(seconds));
 
+            context = new BandageContext(healer, patient, TimeSpan.FromMilliseconds(seconds));
             _table[healer] = context;
             context.Start();
 
@@ -538,8 +528,6 @@ public class BandageContext : Timer
             {
                 patient.SendLocalizedMessage(1008078, false, healer.Name); // : Attempting to heal you.
             }
-
-            BuffInfo.AddBuff(patient, new BuffInfo(BuffIcon.Healing, 1044077, 1151400, TimeSpan.FromMilliseconds(seconds), patient, patient.RawName)); //Healing | Target: name
 
             healer.SendLocalizedMessage(500956); // You begin applying the bandages.
             return context;

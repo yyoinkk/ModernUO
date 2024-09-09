@@ -17,7 +17,7 @@ namespace Server.SkillHandlers
 
             m.SendLocalizedMessage(500321); // Whom shall I examine?
 
-            return TimeSpan.FromSeconds(10.0);
+            return TimeSpan.FromSeconds(1.0);
         }
 
         private class InternalTarget : Target
