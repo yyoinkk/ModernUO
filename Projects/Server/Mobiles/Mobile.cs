@@ -269,6 +269,10 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
     private Direction m_Direction;
     private bool m_DisplayGuildTitle;
 
+    private bool _entangled;
+    private TimerExecutionToken _entangleTimerToken;
+    private DateTime _entangledMessageTime;
+
     private TimerExecutionToken _expireAggrTimerToken;
     private TimerExecutionToken _expireCombatantTimerToken;
     private TimerExecutionToken _expireCriminalTimerToken;
@@ -596,6 +600,20 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
 
     [CommandProperty(AccessLevel.GameMaster)]
     public bool StunReady { get; set; }
+
+    [CommandProperty(AccessLevel.GameMaster)]
+    public bool Entangled
+    {
+        get => _entangled;
+        set
+        {
+            if (_entangled != value)
+            {
+                _entangled = value;
+                _entangleTimerToken.Cancel();
+            }
+        }
+    }
 
     [CommandProperty(AccessLevel.GameMaster)]
     public bool Frozen
@@ -3628,6 +3646,20 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
             Timer.StartTimer(duration, ExpireFrozen, out _frozenTimerToken);
         }
     }
+    
+    private void ExplireEntangle()
+    {
+        Entangled = false;
+    }
+
+    public virtual void Entangle(TimeSpan duration)
+    {
+        if (!_entangled)
+        {
+            Entangled = true;
+            Timer.StartTimer(duration, ExplireEntangle, out _entangleTimerToken);
+        }
+    }
 
     public override string ToString() => $"{Serial} \"{Name}\"";
 
@@ -4088,6 +4120,16 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         {
             SendLocalizedMessage(500111); // You are frozen and can not move.
 
+            return false;
+        }
+
+        if (_entangled)
+        {
+            if (_entangledMessageTime < Core.Now)
+            {
+                SendMessage("You are entangled and can not move.");
+                _entangledMessageTime = Core.Now + TimeSpan.FromSeconds(3);
+            }
             return false;
         }
 
@@ -4614,6 +4656,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         _expireCriminalTimerToken.Cancel();
         _paraTimerToken.Cancel();
         _frozenTimerToken.Cancel();
+        _entangleTimerToken.Cancel();
         _autoManifestTimerToken.Cancel();
     }
 
@@ -4689,6 +4732,11 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         if (Frozen)
         {
             Frozen = false;
+        }
+        
+        if (Entangled)
+        {
+            Entangled = false;
         }
 
         var content = new List<Item>();
@@ -7999,7 +8047,7 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
     public static TimeSpan GetManaRegenRate(Mobile m) => ManaRegenRateHandler?.Invoke(m) ?? DefaultManaRate;
 
     public static char[] DefaultGhostChars = { 'o', 'O' };
-
+    
     public Prompt BeginPrompt(PromptCallback callback, PromptCallback cancelCallback) =>
         Prompt = new SimplePrompt(callback, cancelCallback);
 

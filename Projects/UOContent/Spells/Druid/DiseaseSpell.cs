@@ -40,8 +40,6 @@ namespace Server.Spells.Druid
 
                 if (!HasEffect(m))
                 {
-                    m.CheckLightLevels(true);
-
                     var length = SpellHelper.GetDuration(Caster, m, curse: true) * 0.25;
                     var toLoss = (int)m.Skills[SkillName.Tactics].Base * -0.28;
 

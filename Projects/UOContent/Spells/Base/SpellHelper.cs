@@ -932,6 +932,18 @@ namespace Server.Spells
             m.Paralyze(duration);
             return true;
         }
+        
+        public static bool Entangle(Mobile m, TimeSpan duration)
+        {
+            if (FreeActionSpell.HasEffect(m))
+            {
+                FreeActionSpell.StartCD(m);
+                return false;
+            }
+
+            m.Entangle(duration);
+            return true;
+        }
 
         public static void Damage(Spell spell, Mobile target, double damage)
         {
