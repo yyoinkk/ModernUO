@@ -72,6 +72,60 @@ namespace Server
             return newPoison ?? oldPoison;
         }
 
+        public static int GetPoisonLevel(Mobile caster, Mobile target)
+        {
+            var total = caster.Skills.Magery.Value;
+
+            if (caster is PlayerMobile pm)
+            {
+                if (pm.DuelContext?.Started != true || pm.DuelContext.Finished ||
+                    pm.DuelContext.Ruleset.GetOption("Skills", "Poisoning"))
+                {
+                    total += pm.Skills.Poisoning.Value;
+                }
+            }
+            else
+            {
+                total += caster.Skills.Poisoning.Value;
+            }
+
+            var dist = caster.GetDistanceToSqrt(target);
+            int level;
+
+            if (Core.AOS && dist >= 3)
+            {
+                level = 0;
+            }
+            else
+            {
+                if (!Core.AOS && dist >= 3.0)
+                {
+                    total -= (dist - 3.0) * 10.0;
+                }
+
+                if (Core.SA && dist >= 2.0)
+                {
+                    total -= (dist - 2) * 31; // 240 -
+                }
+
+                level = total switch
+                {
+                    > 200.0 when Core.SA && dist <= 2.0 => Utility.Random(10) == 0 ? 4 : 3,
+                    > 199.8 => Core.AOS || Utility.Random(10) == 0 ? 3 : 2,
+                    > 170.2 => 2,
+                    > 130.2 => 1,
+                    _ => 0
+                };
+
+                if (Core.SA && dist > 2.0)
+                {
+                    level -= (int)dist / 3;
+                }
+            }
+
+            return level;
+        }
+
         public override Timer ConstructTimer(Mobile m) => new PoisonTimer(m, this);
 
         public class PoisonTimer : Timer

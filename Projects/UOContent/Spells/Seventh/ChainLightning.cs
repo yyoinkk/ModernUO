@@ -27,7 +27,7 @@ namespace Server.Spells.Seventh
         public void Target(IPoint3D p)
         {
             var loc = (p as Item)?.GetWorldLocation() ?? new Point3D(p);
-            if (SpellHelper.CheckTown(loc, Caster) && CheckSequence())
+            if (CheckSequence())
             {
                 SpellHelper.Turn(Caster, p);
 
@@ -40,7 +40,7 @@ namespace Server.Spells.Seventh
                     foreach (var m in map.GetMobilesInRange(loc, 2))
                     {
                         if (Core.AOS && (m == Caster || !Caster.InLOS(m)) ||
-                            !SpellHelper.ValidIndirectTarget(Caster, m) ||
+                            !SpellHelper.ValidIndirectTarget(Caster, m, ignoreNotoriety: true) ||
                             !Caster.CanBeHarmful(m, false))
                         {
                             continue;
