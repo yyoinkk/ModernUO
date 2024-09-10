@@ -39,7 +39,7 @@ namespace Server.Spells.Dark
                     int duration = 70 + AOS.Scale((int)GetDamageSkill(Caster), 50);
                     int dmg = AOS.Scale((int)GetDamageSkill(Caster), 10) + Utility.RandomMinMax(3, 6);
 
-                    var timer = new InternalTimer(Caster, dmg, range, TimeSpan.FromSeconds(duration), TimeSpan.FromSeconds(interval));
+                    var timer = new InternalTimer(this, Caster, dmg, range, TimeSpan.FromSeconds(duration), TimeSpan.FromSeconds(interval));
                     _table[Caster] = timer;
                     timer.Start();
                 }
@@ -69,13 +69,15 @@ namespace Server.Spells.Dark
 
         private class InternalTimer : Timer
         {
+            private readonly Spell _spell;
             private readonly Mobile _owner;
             private readonly int _dmg;
             private readonly int _range;
             private readonly DateTime _endTime;
 
-            public InternalTimer(Mobile owner, int dmg, int range, TimeSpan duration, TimeSpan interval) : base(interval, interval)
+            public InternalTimer(Spell spell, Mobile owner, int dmg, int range, TimeSpan duration, TimeSpan interval) : base(interval, interval)
             {
+                _spell = spell;
                 _owner = owner;
                 _dmg = dmg;
                 _range = range;
@@ -104,7 +106,7 @@ namespace Server.Spells.Dark
                 {
                     var m = queue.Dequeue();
                     _owner.DoHarmful(m);
-                    SpellHelper.Damage(TimeSpan.Zero, m, _owner, _dmg, 0, 0, 0, 0, 100);
+                    SpellHelper.Damage(_spell, TimeSpan.Zero, m, _owner, _dmg, 0, 0, 0, 0, 100);
                     _owner.RevealingAction();
 
                     m.FixedParticles(0x374A, 20, 10, 0, EffectLayer.Waist);
