@@ -119,7 +119,7 @@ public partial class Spellbook : Item, ICraftable, ISlayer, IAosItem
         _attributes = new AosAttributes(this);
         _skillBonuses = new AosSkillBonuses(this);
 
-        Weight = 3.0;
+        Weight = 1.0;
         Layer = Layer.OneHanded;
         LootType = LootType.Blessed;
 

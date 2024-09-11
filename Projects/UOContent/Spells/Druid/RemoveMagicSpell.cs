@@ -1,5 +1,6 @@
 using Server.Spells.Dark;
 using Server.Spells.Light;
+using Server.Spells.Second;
 using Server.Targeting;
 using System;
 
@@ -46,7 +47,7 @@ namespace Server.Spells.Druid
                 FreeActionSpell.ClearEffect(m);
                 CelestialPowerSpell.ClearEffect(m);
 
-                //also cleares protection & bless statmodes
+                ProtectionSpell.ClearEffect(m);
                 DayOfGodsSpell.ClearEffect(m);
 
                 m.FixedParticles(0x374A, 10, 12, 5016, EffectLayer.CenterFeet);

@@ -31,7 +31,7 @@ namespace Server.Spells.Druid
             {
                 if (!HasEffect(Caster))
                 {
-                    TimeSpan duration = TimeSpan.FromSeconds(GetDamageFixed(Caster));
+                    TimeSpan duration = TimeSpan.FromSeconds(GetDamageFixed(Caster) / 2.5);
 
                     Timer.StartTimer(duration, () => ClearEffect(Caster), out var token);
                     _table[Caster] = token;

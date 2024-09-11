@@ -21,7 +21,7 @@ public partial class Bandage : Item, IDyable
         Amount = amount;
     }
 
-    public override double DefaultWeight => 0.1;
+    public override double DefaultWeight => 0.05;
 
     public virtual bool Dye(Mobile from, DyeTub sender)
     {

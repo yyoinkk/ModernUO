@@ -38,7 +38,7 @@ namespace Server.Spells.Druid
 
                 m.Freeze(TimeSpan.FromSeconds(duration));
 
-                m.FixedParticles(0x36FE, 10, 30, 5052, EffectLayer.LeftFoot);
+                m.FixedParticles(0x3789, 10, 30, 5052, EffectLayer.Head);
                 m.PlaySound(0x212);
 
                 SpellHelper.Damage(this, m, damage, 0, 0, 100, 0, 0);

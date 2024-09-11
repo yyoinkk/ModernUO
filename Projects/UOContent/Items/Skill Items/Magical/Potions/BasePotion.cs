@@ -50,7 +50,7 @@ public abstract partial class BasePotion : Item, ICraftable, ICommodity
         _potionEffect = effect;
 
         Stackable = Core.ML;
-        Weight = 1.0;
+        Weight = 0.4;
     }
 
     public override int LabelNumber => 1041314 + (int)_potionEffect;
