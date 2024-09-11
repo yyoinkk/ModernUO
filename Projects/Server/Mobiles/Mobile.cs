@@ -5923,7 +5923,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         Mobile from = null,
         bool informMount = true,
         bool ignoreEvilOmen = false,
-        bool spellDisturb = true)
+        bool spellDisturb = true,
+        ResistanceType maxDealt = ResistanceType.Physical)
     {
         if (amount <= 0)
         {
@@ -5979,6 +5980,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
                 }
         }
 
+        ShowDamageReceiced(amount, maxDealt);
+
         OnDamage(amount, from, newHits < 0);
 
         if (informMount)
@@ -6001,6 +6004,19 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         {
             Hits = newHits;
         }
+    }
+
+    protected void ShowDamageReceiced(int damage, ResistanceType type)
+    {
+        int[] colors = {
+            915,
+            50,
+            95,
+            75,
+            20
+        };
+
+        PublicOverheadMessage(MessageType.Regular, colors[(int)type], false, damage.ToString(), noLineOfSight: false);
     }
 
     public void SendVisibleDamageRelated(Mobile from, int amount)

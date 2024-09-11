@@ -115,7 +115,8 @@ namespace Server
                 quiver = from.FindItemOnLayer<BaseQuiver>(Layer.Cloak);
             }
 
-            int totalDamage;
+            int totalDamage = 0;
+            ResistanceType maxDealt = ResistanceType.Physical;
 
             if (!ignoreArmor)
             {
@@ -132,11 +133,22 @@ namespace Server
                     phys /= 2;
                 }
 
-                totalDamage = damage * phys * (100 - resPhys);
-                totalDamage += damage * fire * (100 - resFire);
-                totalDamage += damage * cold * (100 - resCold);
-                totalDamage += damage * pois * (100 - resPois);
-                totalDamage += damage * nrgy * (100 - resNrgy);
+                int physDealt = damage * phys * (100 - resPhys);
+                totalDamage += physDealt;
+
+                int fireDealt = damage * fire * (100 - resFire);
+                totalDamage += fireDealt;
+
+                int coldDealt = damage * cold * (100 - resCold);
+                totalDamage += coldDealt;
+
+                int poisDealt = damage * pois * (100 - resPois);
+                totalDamage += poisDealt;
+
+                int nrgDealt = damage * nrgy * (100 - resNrgy);
+                totalDamage += nrgDealt;
+
+                maxDealt = MaxResistDealt(physDealt, fireDealt, coldDealt, poisDealt, nrgDealt);
 
                 totalDamage /= 10000;
 
@@ -262,8 +274,34 @@ namespace Server
                 spellDisturb = false;
             }
 
-            m.Damage(totalDamage, from, spellDisturb: spellDisturb);
+            m.Damage(totalDamage, from, spellDisturb: spellDisturb, maxDealt: maxDealt);
             return totalDamage;
+        }
+
+        private static ResistanceType MaxResistDealt(int phys, int fire, int cold, int pois, int nrg)
+        {
+            //ResistanceType res = ResistanceType.Physical;
+
+            int max = Math.Max(phys, Math.Max(fire, Math.Max(cold, Math.Max(pois, nrg))));
+
+            if (max == fire)
+            {
+                return ResistanceType.Fire;
+            }
+            else if (max == cold)
+            {
+                return ResistanceType.Cold;
+            }
+            else if(max == pois)
+            {
+                return ResistanceType.Poison;
+            }
+            else if (max == nrg)
+            {
+                return ResistanceType.Energy;
+            }
+
+            return ResistanceType.Physical;
         }
 
         public static int CalculateAOSDamage(

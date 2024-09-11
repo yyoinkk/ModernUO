@@ -1465,7 +1465,7 @@ namespace Server.Mobiles
             return chance / 1000.0;
         }
 
-        public override void Damage(int amount, Mobile from = null, bool informMount = true, bool ignoreEvilOmen = false, bool spellDisturb = true)
+        public override void Damage(int amount, Mobile from = null, bool informMount = true, bool ignoreEvilOmen = false, bool spellDisturb = true, ResistanceType maxDealt = ResistanceType.Physical)
         {
             var oldHits = Hits;
 
@@ -1485,7 +1485,7 @@ namespace Server.Mobiles
                 from.Damage(amount, from);
             }
 
-            base.Damage(amount, from, informMount, spellDisturb: spellDisturb);
+            base.Damage(amount, from, informMount, spellDisturb: spellDisturb, maxDealt: maxDealt);
 
             if (SubdueBeforeTame && !Controlled && oldHits > HitsMax / 10 && Hits <= HitsMax / 10)
             {
