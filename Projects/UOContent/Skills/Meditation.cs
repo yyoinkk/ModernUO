@@ -12,7 +12,7 @@ namespace Server.SkillHandlers
         }
 
         public static bool CheckOkayHolding(Item item) =>
-            item is null or Spellbook or Runebook
+            item is null or Spellbook or Runebook or BaseStaff or BaseKnife or Buckler or BaseWand
             || Core.AOS && item is BaseWeapon weapon && weapon.Attributes.SpellChanneling != 0
             || Core.AOS && item is BaseArmor armor && armor.Attributes.SpellChanneling != 0;
 
@@ -27,7 +27,7 @@ namespace Server.SkillHandlers
                 return TimeSpan.FromSeconds(5.0);
             }
 
-            if (!Core.AOS && m.Hits < m.HitsMax / 10) // Less than 10% health
+            if (m.Hits < m.HitsMax / 10) // Less than 10% health
             {
                 m.SendLocalizedMessage(501849); // The mind is strong but the body is weak.
 
@@ -38,14 +38,14 @@ namespace Server.SkillHandlers
             {
                 m.SendLocalizedMessage(501846); // You are at peace.
 
-                return TimeSpan.FromSeconds(Core.AOS ? 10.0 : 5.0);
+                return TimeSpan.FromSeconds(5);
             }
 
-            if (Core.AOS && RegenRates.GetArmorOffset(m) > 0)
+            if (Core.AOS && RegenRates.GetArmorOffset(m) > 2)
             {
                 m.SendLocalizedMessage(500135); // Regenerative forces cannot penetrate your armor!
 
-                return TimeSpan.FromSeconds(10.0);
+                return TimeSpan.FromSeconds(5.0);
             }
 
             var oneHanded = m.FindItemOnLayer(Layer.OneHanded);
