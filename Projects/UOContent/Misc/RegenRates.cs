@@ -153,7 +153,7 @@ namespace Server.Misc
 
                 var focusPoints = from.Skills.Focus.Value * 0.05;
 
-                if (armorPenalty > 0)
+                if (armorPenalty > 2)
                 {
                     medPoints = 0; // In AOS, wearing any meditation-blocking armor completely removes meditation bonus
                 }
