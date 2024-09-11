@@ -43,7 +43,7 @@ namespace Server.Spells.Druid
                 var direction = Caster == m ? oppositeDir : dir;
                 m.Location = GetNewPoint(m, direction);
 
-                SpellHelper.Damage(this, m, damage, 0, 50, 0, 0, 50);
+                SpellHelper.Damage(this, m, damage, 0, 0, 50, 0, 50);
             }
         }
 
