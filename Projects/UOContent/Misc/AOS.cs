@@ -1322,7 +1322,7 @@ namespace Server
                 m_Mods ??= new HashSet<SkillMod>();
 
                 SkillMod sk = new DefaultSkillMod(skill, $"{GetHashCode()}{skill}", true, bonus);
-                sk.ObeyCap = true;
+                sk.ObeyCap = false;
                 m.AddSkillMod(sk);
                 m_Mods.Add(sk);
             }
