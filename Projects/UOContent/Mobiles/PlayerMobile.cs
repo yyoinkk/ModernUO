@@ -589,7 +589,7 @@ namespace Server.Mobiles
             {
                 if (Core.ML && AccessLevel == AccessLevel.Player)
                 {
-                    return Math.Min(base.Str, 150);
+                    return Math.Min(base.Str, 250);
                 }
 
                 return base.Str;
@@ -604,7 +604,7 @@ namespace Server.Mobiles
             {
                 if (Core.ML && AccessLevel == AccessLevel.Player)
                 {
-                    return Math.Min(base.Int, 150);
+                    return Math.Min(base.Int, 250);
                 }
 
                 return base.Int;
@@ -619,7 +619,7 @@ namespace Server.Mobiles
             {
                 if (Core.ML && AccessLevel == AccessLevel.Player)
                 {
-                    return Math.Min(base.Dex, 150);
+                    return Math.Min(base.Dex, 250);
                 }
 
                 return base.Dex;
