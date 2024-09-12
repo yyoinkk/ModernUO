@@ -1,3 +1,4 @@
+using Server.Mobiles;
 using Server.Regions;
 using Server.Targeting;
 
@@ -40,8 +41,11 @@ namespace Server.Spells.Druid
                 m.FixedParticles(0x37CC, 10, 30, 5052, EffectLayer.LeftFoot);
                 m.PlaySound(0x212);
 
-                var direction = Caster == m ? oppositeDir : dir;
-                m.Location = GetNewPoint(m, direction);
+                if (!(m is BaseCreature creature && creature.DisallowAllMoves))
+                {
+                    var direction = Caster == m ? oppositeDir : dir;
+                    m.Location = GetNewPoint(m, direction);
+                }
 
                 SpellHelper.Damage(this, m, damage, 0, 0, 50, 0, 50);
             }
