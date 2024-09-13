@@ -35,7 +35,11 @@ public enum PotionEffect
     ConfusionBlastGreater,
     Invisibility,
     Parasitic,
-    Darkglow
+    Darkglow,
+
+    ManaLesser = 60,
+    Mana,
+    ManaGreater
 }
 
 [SerializationGenerator(2, false)]
@@ -184,7 +188,7 @@ public abstract partial class BasePotion : Item, ICraftable, ICommodity
 
     public abstract void Drink(Mobile from);
 
-    public void PlayDrinkEffect(Mobile m)
+    public void PlayDrinkEffect(Mobile m, int sound = 0x2D6)
     {
         m.RevealingAction();
         m.PlaySound(0x2D6);

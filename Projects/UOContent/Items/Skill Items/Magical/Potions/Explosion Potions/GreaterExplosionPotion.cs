@@ -10,6 +10,6 @@ public partial class GreaterExplosionPotion : BaseExplosionPotion
     {
     }
 
-    public override int MinDamage => Core.AOS ? 20 : 15;
-    public override int MaxDamage => Core.AOS ? 40 : 30;
+    public override int MinDamage => 25;
+    public override int MaxDamage => 40;
 }

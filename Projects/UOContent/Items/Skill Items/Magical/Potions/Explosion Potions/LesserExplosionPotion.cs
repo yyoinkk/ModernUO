@@ -10,6 +10,6 @@ public partial class LesserExplosionPotion : BaseExplosionPotion
     {
     }
 
-    public override int MinDamage => 5;
-    public override int MaxDamage => 10;
+    public override int MinDamage => 7;
+    public override int MaxDamage => 12;
 }

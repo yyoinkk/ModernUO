@@ -1,18 +1,26 @@
-using ModernUO.Serialization;
 using System;
+using ModernUO.Serialization;
 
 namespace Server.Items;
 
 [SerializationGenerator(0, false)]
-public abstract partial class BaseRefreshPotion : BasePotion
+public abstract partial class BaseManaPotion : BasePotion
 {
-    public BaseRefreshPotion(PotionEffect effect) : base(0xF0B, effect)
+    public BaseManaPotion(PotionEffect effect) : base(0xF0E, effect)
     {
     }
 
-    public abstract double Refresh { get; }
-
+    public abstract int MinMana { get; }
+    public abstract int MaxMana { get; }
     public abstract double Delay { get; }
+
+    public void DoMana(Mobile from)
+    {
+        var min = Scale(from, MinMana);
+        var max = Scale(from, MaxMana);
+
+        from.Mana += Utility.RandomMinMax(min, max);
+    }
 
     public override bool CanDrink(Mobile from)
     {
@@ -21,9 +29,9 @@ public abstract partial class BaseRefreshPotion : BasePotion
             return false;
         }
 
-        if (from.Stam >= from.StamMax)
+        if (from.Mana >= from.ManaMax)
         {
-            from.SendMessage("You decide against drinking this potion, as you are already at full stamina.");
+            from.LocalOverheadMessage(MessageType.Regular, 0x22, false, "You are already at full mana.");
             return false;
         }
 
@@ -38,9 +46,9 @@ public abstract partial class BaseRefreshPotion : BasePotion
 
     public override void Drink(Mobile from)
     {
-        from.Stam += Scale(from, (int)(Refresh * from.StamMax));
+        DoMana(from);
 
-        PlayDrinkEffect(from);
+        PlayDrinkEffect(from, 0x50);
 
         Timer.StartTimer(TimeSpan.FromSeconds(Delay), from.EndAction<BaseHealPotion>);
     }

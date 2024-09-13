@@ -10,7 +10,7 @@ public partial class LesserHealPotion : BaseHealPotion
     {
     }
 
-    public override int MinHeal => Core.AOS ? 6 : 3;
-    public override int MaxHeal => Core.AOS ? 8 : 10;
-    public override double Delay => Core.AOS ? 3.0 : 10.0;
+    public override int MinHeal => 8;
+    public override int MaxHeal => 12;
+    public override double Delay => 5;
 }

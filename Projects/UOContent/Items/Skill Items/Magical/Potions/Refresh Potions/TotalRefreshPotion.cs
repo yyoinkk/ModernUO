@@ -11,4 +11,6 @@ public partial class TotalRefreshPotion : BaseRefreshPotion
     }
 
     public override double Refresh => 1.0;
+
+    public override double Delay => 30.0;
 }

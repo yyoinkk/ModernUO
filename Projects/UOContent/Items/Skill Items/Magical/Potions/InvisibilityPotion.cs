@@ -53,7 +53,7 @@ public partial class InvisibilityPotion : BasePotion
             5045
         );
 
-        m.PlaySound(0x3C4);
+        m.PlaySound(0x203);
 
         m.Hidden = true;
 

@@ -11,6 +11,6 @@ public partial class GreaterAgilityPotion : BaseAgilityPotion
     {
     }
 
-    public override int DexOffset => 20;
+    public override int DexOffset => 25;
     public override TimeSpan Duration => TimeSpan.FromMinutes(2.0);
 }

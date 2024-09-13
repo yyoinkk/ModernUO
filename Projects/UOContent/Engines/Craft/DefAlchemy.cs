@@ -137,6 +137,14 @@ public class DefAlchemy : CraftSystem
         AddRes(index, typeof(Bottle), 1044529, 1, 500315);
         index = AddCraft(typeof(GreaterHealPotion), 1044533, 1044545, 55.0, 105.0, typeof(Ginseng), 1044356, 7, 1044364);
         AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+        
+        // Mana Potion 
+        index = AddCraft(typeof(LesserManaPotion), 1049580, "Lesser Mana Potion", -25.0, 25.0, typeof(GraveDust), 1023983, 1, 1042081); //1042081 - You do not have enough resources to make that item.
+        AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+        index = AddCraft(typeof(ManaPotion), 1049580, "Mana Potion", 15.0, 65.0, typeof(GraveDust), 1023983, 3, 1042081); // 1116339 - You do not have enough ~1_INGREDIENT~ to make that.
+        AddRes(index, typeof(Bottle), 1044529, 1, 500315);
+        index = AddCraft(typeof(GreaterManaPotion), 1049580, "Greater Mana Potion", 55.0, 105.0, typeof(GraveDust), 1023983, 7, 1042081);
+        AddRes(index, typeof(Bottle), 1044529, 1, 500315);
 
         // Strength Potion
         index = AddCraft(

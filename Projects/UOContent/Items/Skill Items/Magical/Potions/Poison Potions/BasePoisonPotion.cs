@@ -23,6 +23,6 @@ public abstract partial class BasePoisonPotion : BasePotion
     {
         DoPoison(from);
 
-        PlayDrinkEffect(from);
+        PlayDrinkEffect(from, 0x246);
     }
 }

@@ -57,7 +57,7 @@ public abstract partial class BaseHealPotion : BasePotion
     {
         DoHeal(from);
 
-        PlayDrinkEffect(from);
+        PlayDrinkEffect(from, 0x50);
 
         Timer.StartTimer(TimeSpan.FromSeconds(Delay), from.EndAction<BaseHealPotion>);
     }
