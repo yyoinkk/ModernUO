@@ -9,7 +9,6 @@ namespace Server.Spells.Dark
             "An Vas Mani",
             203,
             9051,
-            Reagent.BlackPearl,
             Reagent.SulfurousAsh,
             Reagent.SpidersSilk,
             Reagent.BatWing

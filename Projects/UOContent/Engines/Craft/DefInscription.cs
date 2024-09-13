@@ -221,6 +221,45 @@ public class DefInscription : CraftSystem
         SetManaReq(index, mana, 1042403);
     }
 
+    private void AddDarkSpell(string spell, int circle, Type type, params Type[] regs) => AddColorSpell("Dark Magic", spell, circle, type, regs);
+    private void AddDruidSpell(string spell, int circle, Type type, params Type[] regs) => AddColorSpell("Druid Magic", spell, circle, type, regs);
+    private void AddLightSpell(string spell, int circle, Type type, params Type[] regs) => AddColorSpell("Light Magic", spell, circle, type, regs);
+
+    private void AddColorSpell(string color, string spell, int circle, Type type, params Type[] regs)
+    {
+        int mana = circle switch
+        {
+            1 => 4,
+            2 => 6,
+            3 => 9,
+            4 => 11,
+            5 => 14,
+            6 => 20,
+            7 => 40,
+            8 => 50,
+        };
+
+        var index = AddCraft(
+            type,
+            color,
+            spell,
+            circle * 10,
+            circle * 10 + 45.0,
+            regs[0],
+            null,
+            1,
+            501627
+        );
+
+        for (var i = 1; i < regs.Length; ++i)
+        {
+            AddRes(index, regs[i], null, 1, 501627);
+        }
+
+        AddRes(index, typeof(BlankScroll), 1044377, 1, 1044378);
+        SetManaReq(index, mana, 1042403);
+    }
+
     private void AddMysticismSpell(int spell, int mana, double minSkill, double maxSkill, Type type, params Type[] regs)
     {
         var index = AddCraft(
@@ -394,6 +433,68 @@ public class DefInscription : CraftSystem
             AddNecroSpell(15, 17, 79.6, typeof(WraithFormScroll), Reagent.NoxCrystal, Reagent.PigIron);
             AddNecroSpell(16, 40, 79.6, typeof(ExorcismScroll), Reagent.NoxCrystal, Reagent.GraveDust);
         }
+
+        //AddDarkSpell("Dead Flesh", 1, typeof(DeadFleshScroll), Reagent.MandrakeRoot);
+        AddDarkSpell("Darkness", 1, typeof(DarknessScroll), Reagent.SpidersSilk, Reagent.FertileDirt);
+        AddDarkSpell("Drain Life", 2, typeof(DrainLifeScroll), Reagent.Ginseng, Reagent.Bone);
+        AddDarkSpell("Lower Resistance", 2, typeof(LowerResistanceScroll), Reagent.SpidersSilk, Reagent.BlackPearl);
+        
+        AddDarkSpell("Impale", 3, typeof(ImpaleScroll), Reagent.BlackPearl, Reagent.Bone);
+        AddDarkSpell("Vulnerability", 3, typeof(VulnerabilityScroll), Reagent.Bloodmoss, Reagent.FertileDirt);
+        AddDarkSpell("Ghoul Touch", 4, typeof(GhoulTouchScroll), Reagent.Nightshade, Reagent.Bone);
+        AddDarkSpell("Pain Reflection", 4, typeof(PainReflectionScroll), Reagent.SpidersSilk, Reagent.Bone, Reagent.Ginseng);
+        
+        AddDarkSpell("Regeneration", 5, typeof(RegenerationScroll), Reagent.BlackPearl, Reagent.Bone);
+        AddDarkSpell("Unholy Spiritism", 5, typeof(UnholySpiritismScroll), Reagent.BlackPearl, Reagent.Bone, Reagent.Nightshade);
+        AddDarkSpell("Wraith Aura", 6, typeof(WraithAuraScroll), Reagent.BlackPearl, Reagent.FertileDirt, Reagent.Bone);
+        AddDarkSpell("Great Harm", 6, typeof(GreatHarmScroll), Reagent.SulfurousAsh, Reagent.SpidersSilk, Reagent.BatWing);
+        
+        //AddDarkSpell("Raise Dead", 7, typeof(RaiseDeadScroll), Reagent.Bone, Reagent.Bloodmoss, Reagent.BatWing);
+        AddDarkSpell("Sacrifice", 7, typeof(SacrificeScroll), Reagent.MandrakeRoot, Reagent.SulfurousAsh, Reagent.Bone, Reagent.FertileDirt);
+        AddDarkSpell("Ghost Dragon", 8, typeof(GhostDragonScroll), Reagent.Bone, Reagent.Nightshade, Reagent.BatWing, Reagent.FertileDirt);
+        AddDarkSpell("Kill", 8, typeof(KillScroll), Reagent.SpidersSilk, Reagent.SulfurousAsh, Reagent.Bloodmoss, Reagent.FertileDirt);
+
+        
+        AddDruidSpell("Poison Protection", 1, typeof(PoisonProtectionScroll), Reagent.Garlic);
+        AddDruidSpell("Disease", 1, typeof(DiseaseScroll), Reagent.Nightshade, Reagent.BlackPearl);
+        //AddDruidSpell("Call Woodland", 2, typeof(CallWoodlandScroll), Reagent.BlackPearl, Reagent.Garlic);
+        AddDruidSpell("Stone Skin", 2, typeof(StoneSkinScroll), Reagent.SpidersSilk, Reagent.Bloodmoss);
+        
+        AddDruidSpell("Call Lightning", 3, typeof(CallLightningScroll), Reagent.BlackPearl);
+        AddDruidSpell("Remove Magic", 3, typeof(RemoveMagicScroll), Reagent.SpidersSilk, Reagent.Bloodmoss);
+        AddDruidSpell("Burned Hands", 4, typeof(BurnedHandsScroll), Reagent.SpidersSilk, Reagent.SulfurousAsh);
+        AddDruidSpell("Entangle", 4, typeof(EntangleScroll), Reagent.Ginseng, Reagent.BlackPearl, Reagent.MandrakeRoot);
+        
+        AddDruidSpell("Nature Blessing", 5, typeof(NatureBlessingScroll), Reagent.Ginseng, Reagent.Bloodmoss, Reagent.BlackPearl);
+        AddDruidSpell("Gust", 5, typeof(GustScroll), Reagent.SpidersSilk, Reagent.Bloodmoss);
+        AddDruidSpell("Miscast Magic", 6, typeof(MiscastMagicScroll), Reagent.BlackPearl, Reagent.Bloodmoss);
+        AddDruidSpell("Insect Plague", 6, typeof(InsectPlagueScroll), Reagent.BlackPearl, Reagent.Bloodmoss);
+        
+        //AddDruidSpell("Turn To Stone", 7, typeof(TurnToStoneScroll), Reagent.MandrakeRoot, Reagent.Bloodmoss, Reagent.SpidersSilk);
+        AddDruidSpell("Ice Strike", 7, typeof(IceStrikeScroll), Reagent.MandrakeRoot, Reagent.SulfurousAsh);
+        AddDruidSpell("Acid Cloud", 8, typeof(AcidCloudScroll), Reagent.Nightshade, Reagent.Nightshade);
+        AddDruidSpell("Wyvern Call", 8, typeof(WyvernCallScroll), Reagent.MandrakeRoot, Reagent.SpidersSilk, Reagent.Bloodmoss);
+
+                
+        //AddLightSpell("Bleed Protection", 1, typeof(BleedProtectionScroll), Reagent.Ginseng, Reagent.Garlic);
+        AddLightSpell("Sacred Weapon", 1, typeof(SacredWeaponScroll), Reagent.Ginseng, Reagent.SulfurousAsh);
+        AddLightSpell("Spirit Armor", 2, typeof(SpiritArmorScroll), Reagent.Garlic, Reagent.SpidersSilk);
+        AddLightSpell("Celestial Power", 2, typeof(CelestialPowerScroll), Reagent.SpidersSilk, Reagent.SulfurousAsh);
+        
+        AddLightSpell("Free Action", 3, typeof(FreeActionScroll), Reagent.BlackPearl, Reagent.Ginseng);
+        AddLightSpell("Ray Of Light", 3, typeof(RayOfLightScroll), Reagent.SulfurousAsh, Reagent.BlackPearl);
+        AddLightSpell("Magic Fist", 4, typeof(MagicFistScroll), Reagent.SulfurousAsh, Reagent.MandrakeRoot);
+        AddLightSpell("Prayer", 4, typeof(PrayerScroll), Reagent.Garlic, Reagent.SpidersSilk, Reagent.MandrakeRoot);
+        
+        //AddLightSpell("Heal Death Wounds", 5, typeof(HealDeathWoundsScroll), Reagent.Ginseng, Reagent.Garlic, Reagent.SulfurousAsh);
+        AddLightSpell("Day Of Gods", 5, typeof(DayOfGodsScroll), Reagent.MandrakeRoot, Reagent.SulfurousAsh, Reagent.SpidersSilk);
+        //AddLightSpell("Greater Cure", 6, typeof(GreaterCureScroll), Reagent.SulfurousAsh, Reagent.Garlic);
+        AddLightSpell("Holy Wrath", 6, typeof(HolyWrathScroll), Reagent.SulfurousAsh, Reagent.BlackPearl);
+        
+        AddLightSpell("Glyph Of Guarding", 7, typeof(GlyphOfGuardingScroll), Reagent.SulfurousAsh, Reagent.SpidersSilk, Reagent.Nightshade);
+        AddLightSpell("Light Elemental", 7, typeof(LightElementalScroll), Reagent.BlackPearl, Reagent.SulfurousAsh, Reagent.MandrakeRoot);
+        AddLightSpell("Bolt Of Glory", 8, typeof(BoltOfGloryScroll), Reagent.SulfurousAsh, Reagent.MandrakeRoot);
+        AddLightSpell("Divine Intervention", 8, typeof(DivineInterventionScroll), Reagent.Ginseng, Reagent.Garlic, Reagent.MandrakeRoot, Reagent.SpidersSilk);
 
         int index;
 

@@ -13,7 +13,7 @@ namespace Server.Spells.Light
             203,
             9051,
             Reagent.Ginseng,
-            Reagent.Garlic
+            Reagent.SulfurousAsh
         );
 
         public SacredWeaponSpell(Mobile caster, Item scroll) : base(caster, scroll, _info)

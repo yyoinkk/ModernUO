@@ -3,10 +3,10 @@ using ModernUO.Serialization;
 namespace Server.Items;
 
 [SerializationGenerator(0, false)]
-public partial class BleedProtectionSpell : SpellScroll
+public partial class BleedProtectionScroll : SpellScroll
 {
     [Constructible]
-    public BleedProtectionSpell(int amount = 1) : base(900, 0x1F5A, amount)
+    public BleedProtectionScroll(int amount = 1) : base(900, 0x1F5A, amount)
     {
         Name = "Bleed Protection";
         Hue = 0x065;

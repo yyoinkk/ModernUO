@@ -30,13 +30,13 @@ namespace Server.Spells.Druid
             if (CheckSequence())
             {
                 if (!HasEffect(Caster))
-                {
-                    TimeSpan duration = TimeSpan.FromSeconds(GetDamageFixed(Caster) / 2.5);
+                { 
+                    TimeSpan duration = TimeSpan.FromSeconds(GetDamageFixed(Caster) / 25);
 
                     Timer.StartTimer(duration, () => ClearEffect(Caster), out var token);
                     _table[Caster] = token;
 
-                    Caster.SendMessage($"StoneSkin Duration: {duration:mm\\:ss}s.");
+                    Caster.SendMessage($"Stone skin Duration: {duration:mm\\:ss}s.");
 
                     Caster.FixedParticles(0x3740, 15, 16, 0, 0, 0, EffectLayer.Head);
                     Caster.PlaySound(0x1ED);

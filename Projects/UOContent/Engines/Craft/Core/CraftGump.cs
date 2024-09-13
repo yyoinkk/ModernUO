@@ -40,17 +40,17 @@ public class CraftGump : DynamicGump
     protected override void BuildLayout(ref DynamicGumpBuilder builder)
     {
         var context = _craftSystem.GetContext(_from);
-
+        var addHeight = 90;
         builder.AddPage();
 
-        builder.AddBackground(0, 0, 530, 437, 5054);
+        builder.AddBackground(0, 0, 530, 437 + addHeight, 5054);
         builder.AddImageTiled(10, 10, 510, 22, 2624);
-        builder.AddImageTiled(10, 292, 150, 45, 2624);
-        builder.AddImageTiled(165, 292, 355, 45, 2624);
-        builder.AddImageTiled(10, 342, 510, 85, 2624);
-        builder.AddImageTiled(10, 37, 200, 250, 2624);
-        builder.AddImageTiled(215, 37, 305, 250, 2624);
-        builder.AddAlphaRegion(10, 10, 510, 417);
+        builder.AddImageTiled(10, 37, 200, 250 + addHeight, 2624);
+        builder.AddImageTiled(215, 37, 305, 250 + addHeight, 2624);
+        builder.AddImageTiled(10, 292 + addHeight, 150, 45 , 2624);
+        builder.AddImageTiled(165, 292 + addHeight, 355, 45 , 2624);
+        builder.AddImageTiled(10, 342 + addHeight, 510, 85, 2624);
+        builder.AddAlphaRegion(10, 10, 510, 417 + addHeight);
 
         if (_craftSystem.GumpTitle.Number > 0)
         {
@@ -63,21 +63,21 @@ public class CraftGump : DynamicGump
 
         builder.AddHtmlLocalized(10, 37, 200, 22, 1044010, LabelColor);  // <CENTER>CATEGORIES</CENTER>
         builder.AddHtmlLocalized(215, 37, 305, 22, 1044011, LabelColor); // <CENTER>SELECTIONS</CENTER>
-        builder.AddHtmlLocalized(10, 302, 150, 25, 1044012, LabelColor); // <CENTER>NOTICES</CENTER>
+        builder.AddHtmlLocalized(10, 302 + addHeight, 150, 25, 1044012, LabelColor); // <CENTER>NOTICES</CENTER>
 
-        builder.AddButton(15, 402, 4017, 4019, 0);
-        builder.AddHtmlLocalized(50, 405, 150, 18, 1011441, LabelColor); // EXIT
+        builder.AddButton(15, 402 + addHeight, 4017, 4019, 0);
+        builder.AddHtmlLocalized(50, 405 + addHeight, 150, 18, 1011441, LabelColor); // EXIT
 
-        builder.AddButton(270, 402, 4005, 4007, GetButtonID(6, 2));
-        builder.AddHtmlLocalized(305, 405, 150, 18, 1044013, LabelColor); // MAKE LAST
+        builder.AddButton(270, 402 + addHeight, 4005, 4007, GetButtonID(6, 2));
+        builder.AddHtmlLocalized(305, 405 + addHeight, 150, 18, 1044013, LabelColor); // MAKE LAST
 
         // Mark option
         if (_craftSystem.MarkOption)
         {
-            builder.AddButton(270, 362, 4005, 4007, GetButtonID(6, 6));
+            builder.AddButton(270, 362 + addHeight, 4005, 4007, GetButtonID(6, 6));
             builder.AddHtmlLocalized(
                 305,
-                365,
+                365 + addHeight,
                 150,
                 18,
                 1044017 + (int)(context?.MarkOption ?? CraftMarkOption.MarkItem), // MARK ITEM
@@ -110,7 +110,7 @@ public class CraftGump : DynamicGump
         }
         // ****************************************
 
-        _notice.AddHtmlText(ref builder, 170, 295, 350, 40, numberColor: LabelColor, stringColor: FontColor);
+        _notice.AddHtmlText(ref builder, 170, 295 + addHeight, 350, 40, numberColor: LabelColor, stringColor: FontColor);
 
         // If the system has more than one resource
         if (_craftSystem.CraftSubRes.Init)
