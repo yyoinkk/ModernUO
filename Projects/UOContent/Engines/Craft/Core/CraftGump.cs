@@ -89,24 +89,24 @@ public class CraftGump : DynamicGump
         // Resmelt option
         if (_craftSystem.Resmelt)
         {
-            builder.AddButton(15, 342, 4005, 4007, GetButtonID(6, 1));
-            builder.AddHtmlLocalized(50, 345, 150, 18, 1044259, LabelColor); // SMELT ITEM
+            builder.AddButton(15, 342 + addHeight, 4005, 4007, GetButtonID(6, 1));
+            builder.AddHtmlLocalized(50, 345 + addHeight, 150, 18, 1044259, LabelColor); // SMELT ITEM
         }
         // ****************************************
 
         // Repair option
         if (_craftSystem.Repair)
         {
-            builder.AddButton(270, 342, 4005, 4007, GetButtonID(6, 5));
-            builder.AddHtmlLocalized(305, 345, 150, 18, 1044260, LabelColor); // REPAIR ITEM
+            builder.AddButton(270, 342 + addHeight, 4005, 4007, GetButtonID(6, 5));
+            builder.AddHtmlLocalized(305, 345 + addHeight, 150, 18, 1044260, LabelColor); // REPAIR ITEM
         }
         // ****************************************
 
         // Enhance option
         if (_craftSystem.CanEnhance)
         {
-            builder.AddButton(270, 382, 4005, 4007, GetButtonID(6, 8));
-            builder.AddHtmlLocalized(305, 385, 150, 18, 1061001, LabelColor); // ENHANCE ITEM
+            builder.AddButton(270, 382 + addHeight, 4005, 4007, GetButtonID(6, 8));
+            builder.AddHtmlLocalized(305, 385 + addHeight, 150, 18, 1061001, LabelColor); // ENHANCE ITEM
         }
         // ****************************************
 
@@ -144,15 +144,15 @@ public class CraftGump : DynamicGump
                 }
             }
 
-            builder.AddButton(15, 362, 4005, 4007, GetButtonID(6, 0));
+            builder.AddButton(15, 362 + addHeight, 4005, 4007, GetButtonID(6, 0));
 
             if (nameNumber > 0)
             {
-                builder.AddHtmlLocalized(50, 365, 250, 18, nameNumber, resourceCount.ToString(), LabelColor);
+                builder.AddHtmlLocalized(50, 365 + addHeight, 250, 18, nameNumber, resourceCount.ToString(), LabelColor);
             }
             else
             {
-                builder.AddLabel(50, 362, LabelHue, $"{nameString} ({resourceCount} Available)");
+                builder.AddLabel(50, 362 + addHeight, LabelHue, $"{nameString} ({resourceCount} Available)");
             }
         }
         // ****************************************
@@ -189,15 +189,15 @@ public class CraftGump : DynamicGump
                 }
             }
 
-            builder.AddButton(15, 382, 4005, 4007, GetButtonID(6, 7));
+            builder.AddButton(15, 382 + addHeight, 4005, 4007, GetButtonID(6, 7));
 
             if (nameNumber > 0)
             {
-                builder.AddHtmlLocalized(50, 385, 250, 18, nameNumber, resourceCount.ToString(), LabelColor);
+                builder.AddHtmlLocalized(50, 385 + addHeight, 250, 18, nameNumber, resourceCount.ToString(), LabelColor);
             }
             else
             {
-                builder.AddLabel(50, 385, LabelHue, $"{nameString} ({resourceCount} Available)");
+                builder.AddLabel(50, 385 + addHeight, LabelHue, $"{nameString} ({resourceCount} Available)");
             }
         }
         // ****************************************
@@ -242,17 +242,17 @@ public class CraftGump : DynamicGump
                     builder.AddButton(455, 260, 4014, 4015, 0, GumpButtonType.Page, i / 10);
                 }
 
-                var context = _craftSystem.GetContext(_from);
+                //var context = _craftSystem.GetContext(_from);
 
-                builder.AddButton(220, 260, 4005, 4007, GetButtonID(6, 4));
-                builder.AddHtmlLocalized(
-                    255,
-                    263,
-                    200,
-                    18,
-                    context?.DoNotColor != true ? 1061591 : 1061590,
-                    LabelColor
-                );
+                //builder.AddButton(220, 260, 4005, 4007, GetButtonID(6, 4));
+                //builder.AddHtmlLocalized(
+                //    255,
+                //    263,
+                //    200,
+                //    18,
+                //    context?.DoNotColor != true ? 1061591 : 1061590,
+                //    LabelColor
+                //);
             }
 
             var resourceCount = 0;
