@@ -10,7 +10,7 @@ using Server.Targeting;
 namespace Server.Items;
 
 [SerializationGenerator(0, false)]
-public partial class Bandage : Item, IDyable
+public partial class Bandage : Item
 {
     public static int Range = Core.AOS ? 2 : 1;
 
@@ -22,18 +22,6 @@ public partial class Bandage : Item, IDyable
     }
 
     public override double DefaultWeight => 0.05;
-
-    public virtual bool Dye(Mobile from, DyeTub sender)
-    {
-        if (Deleted)
-        {
-            return false;
-        }
-
-        Hue = sender.DyedHue;
-
-        return true;
-    }
 
     public override void OnDoubleClick(Mobile from)
     {

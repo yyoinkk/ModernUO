@@ -14,8 +14,6 @@ public partial class EnhancedBandage : Bandage
 
     public override int LabelNumber => 1152441; // enhanced bandage
 
-    public override bool Dye(Mobile from, DyeTub sender) => false;
-
     public override void AddNameProperties(IPropertyList list)
     {
         base.AddNameProperties(list);
