@@ -30,7 +30,7 @@ public static class AccountGold
 
     public static void Configure()
     {
-        Enabled = ServerConfiguration.GetSetting("accountGold.enable", Core.TOL);
+        Enabled = ServerConfiguration.GetSetting("accountGold.enable", false);
         ConvertOnBank = ServerConfiguration.GetSetting("accountGold.convertOnBank", true);
         ConvertOnTrade = ServerConfiguration.GetSetting("accountGold.convertOnTrade", false);
     }

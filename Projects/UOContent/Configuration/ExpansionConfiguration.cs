@@ -6,7 +6,7 @@ namespace Server
     {
         public static void Configure()
         {
-            Mobile.InsuranceEnabled = ServerConfiguration.GetSetting("insurance.enable", Core.AOS);
+            Mobile.InsuranceEnabled = ServerConfiguration.GetSetting("insurance.enable", false);
             ObjectPropertyList.Enabled = ServerConfiguration.GetSetting("opl.enable", Core.AOS);
             var visibleDamage = ServerConfiguration.GetSetting("visibleDamage", Core.AOS);
             Mobile.VisibleDamageType = VisibleDamageType.None;
