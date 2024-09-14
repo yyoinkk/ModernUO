@@ -256,6 +256,16 @@ public class DefBowFletching : CraftSystem
             SetNeededExpansion(index, Expansion.ML);
         }
 
+        SetSubRes(typeof(Log), 1044041);
+
+        AddSubRes(typeof(Log), 1044041, 0.0, 1044041, 1044037);
+        AddSubRes(typeof(OakLog), "Oak", 30.0, 1072533, 1044037);
+        AddSubRes(typeof(AshLog), "Ash", 40.0, 1072534, 1044037);
+        AddSubRes(typeof(YewLog), "Yew", 50.0, 1072535, 1044037);
+        AddSubRes(typeof(HeartwoodLog), "Heartwood", 60.0, 1072536, 1044037);
+        AddSubRes(typeof(BloodwoodLog), "Bloodwood", 70.0, 1072538, 1044037);
+        AddSubRes(typeof(FrostwoodLog), "Frostwood", 80.0, 1072539, 1044037);
+
         MarkOption = true;
         Repair = Core.AOS;
     }
