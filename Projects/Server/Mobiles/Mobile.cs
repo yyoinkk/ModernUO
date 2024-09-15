@@ -59,7 +59,7 @@ public class DamageEntry
 }
 
 [Flags]
-public enum StatType
+public enum StatType : byte
 {
     Str = 1,
     Dex = 2,
@@ -2299,6 +2299,10 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
     [IgnoreDupe]
     [CommandProperty(AccessLevel.Counselor)]
     public Serial Serial { get; }
+
+    public byte SerializedThread { get; set; }
+    public int SerializedPosition { get; set; }
+    public int SerializedLength { get; set; }
 
     public virtual void Serialize(IGenericWriter writer)
     {
