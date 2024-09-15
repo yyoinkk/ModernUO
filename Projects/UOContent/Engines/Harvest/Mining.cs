@@ -237,7 +237,7 @@ namespace Server.Engines.Harvest
                 ConsumedPerFeluccaHarvest = 1,
                 EffectActions = new[] { 11, 26 },
                 EffectSounds = new[] { 0x125, 0x126 },
-                EffectCounts = new[] { 6 },
+                EffectCounts = new[] { 1, 2, 2, 3 },
                 EffectDelay = TimeSpan.FromSeconds(1.6),
                 EffectSoundDelay = TimeSpan.FromSeconds(0.9),
                 NoResourcesMessage = 1044629, // There is no sand here to mine.
@@ -251,7 +251,7 @@ namespace Server.Engines.Harvest
 
             res = new[]
             {
-                new HarvestResource(100.0, 70.0, 400.0, 1044631, typeof(Sand))
+                new HarvestResource(70.0, 40.0, 200.0, 1044631, typeof(Sand))
             };
 
             veins = new[]
@@ -281,7 +281,7 @@ namespace Server.Engines.Harvest
                 return base.GetResourceType(from, tool, def, map, loc, resource);
             }
 
-            if (from.Skills.Mining.Base >= 100.0 && from is PlayerMobile pm && pm.StoneMining && pm.ToggleMiningStone
+            if (from.Skills.Mining.Base >= 80.0 && from is PlayerMobile pm && pm.ToggleMiningStone
                 && Utility.RandomDouble() < 0.1)
             {
                 return resource.Types[1];
@@ -296,12 +296,6 @@ namespace Server.Engines.Harvest
             {
                 return false;
             }
-
-            //if (from.Mounted)
-            //{
-            //    from.SendLocalizedMessage(501864); // You can't mine while riding.
-            //    return false;
-            //}
 
             if (from.IsBodyMod && !from.Body.IsHuman)
             {
@@ -331,18 +325,11 @@ namespace Server.Engines.Harvest
                 return false;
             }
 
-            if (def == Sand && !(from is PlayerMobile mobile && mobile.Skills.Mining.Base >= 100.0 &&
-                                 mobile.SandMining))
+            if ((def == Sand && tool is not Shovel) || (def == OreAndStone && tool is not Pickaxe))
             {
                 OnBadHarvestTarget(from, tool, toHarvest);
                 return false;
             }
-
-            //if (from.Mounted)
-            //{
-            //    from.SendLocalizedMessage(501864); // You can't mine while riding.
-            //    return false;
-            //}
 
             if (from.IsBodyMod && !from.Body.IsHuman)
             {

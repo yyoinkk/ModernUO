@@ -173,7 +173,7 @@ public delegate bool SkillCheckTargetHandler(
     double maxSkill
 );
 
-public delegate bool SkillCheckLocationHandler(Mobile from, SkillName skill, double minSkill, double maxSkill);
+public delegate bool SkillCheckLocationHandler(Mobile from, SkillName skill, double minSkill, double maxSkill, bool noGain);
 
 public delegate bool SkillCheckDirectTargetHandler(Mobile from, SkillName skill, object target, double chance);
 
@@ -8024,8 +8024,8 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
         PrivateOverheadMessage(MessageType.Label, hue, AsciiClickMessage, val, from.NetState);
     }
 
-    public bool CheckSkill(SkillName skill, double minSkill, double maxSkill) =>
-        SkillCheckLocationHandler?.Invoke(this, skill, minSkill, maxSkill) == true;
+    public bool CheckSkill(SkillName skill, double minSkill, double maxSkill, bool noGain = false) =>
+        SkillCheckLocationHandler?.Invoke(this, skill, minSkill, maxSkill, noGain) == true;
 
     public bool CheckSkill(SkillName skill, double chance) =>
         SkillCheckDirectLocationHandler?.Invoke(this, skill, chance) == true;

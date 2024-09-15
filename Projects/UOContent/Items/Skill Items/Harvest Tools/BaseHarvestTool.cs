@@ -134,7 +134,7 @@ public abstract partial class BaseHarvestTool : Item, IUsesRemaining, ICraftable
 
     public static void AddContextMenuEntries(Mobile from, Item item, ref PooledRefList<ContextMenuEntry> list, HarvestSystem system)
     {
-        if (system != Mining.System)
+        if (system != Mining.System || item is Shovel)
         {
             return;
         }
@@ -154,7 +154,7 @@ public abstract partial class BaseHarvestTool : Item, IUsesRemaining, ICraftable
             Color = 0x421F
         });
 
-        var stoneMining = pm.StoneMining && pm.Skills.Mining.Base >= 100.0;
+        var stoneMining = pm.Skills.Mining.Base >= 80.0;
         list.Add(new ToggleMiningStoneEntry(false, pm.ToggleMiningStone, 6176));
         list.Add(new ToggleMiningStoneEntry(true, !pm.ToggleMiningStone && stoneMining, 6177));
     }
@@ -203,7 +203,7 @@ public abstract partial class BaseHarvestTool : Item, IUsesRemaining, ICraftable
                 {
                     pm.SendLocalizedMessage(1054023); // You are already set to mine both ore and stone!
                 }
-                else if (!pm.StoneMining || pm.Skills.Mining.Base < 100.0)
+                else if (pm.Skills.Mining.Base < 80.0)
                 {
                     // You have not learned how to mine stone or you do not have enough skill!
                     pm.SendLocalizedMessage(1054024);

@@ -144,7 +144,10 @@ namespace Server.Engines.Harvest
 
             Type type = null;
 
-            if (skillBase >= resource.ReqSkill && from.CheckSkill(def.Skill, resource.MinSkill, resource.MaxSkill))
+            // Assume we are digging sand. No skillgain on sand mining.
+            bool noGain = tool is Shovel;
+
+            if (skillBase >= resource.ReqSkill && from.CheckSkill(def.Skill, resource.MinSkill, resource.MaxSkill, noGain))
             {
                 type = GetResourceType(from, tool, def, map, loc, resource);
 

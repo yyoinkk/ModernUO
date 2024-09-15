@@ -20,7 +20,7 @@ public static class SkillCheck
 
     public static void Configure()
     {
-        _statMax = ServerConfiguration.GetOrUpdateSetting("stats.statMax", Core.LBR ? 125 : 100);
+        _statMax = ServerConfiguration.GetOrUpdateSetting("stats.statMax", 200);
         _statGainChanceMultiplier = ServerConfiguration.GetOrUpdateSetting("stats.gainChanceMultiplier", 1.0);
         _primaryStatGainChance = ServerConfiguration.GetSetting("stats.primaryStatGainChance", 0.75);
         _statGainDelay = ServerConfiguration.GetSetting("stats.gainDelay", TimeSpan.FromMinutes(Core.ML ? 0.05 : 10));
@@ -32,14 +32,14 @@ public static class SkillCheck
 
     public static void Initialize()
     {
-        Mobile.SkillCheckLocationHandler = Mobile_SkillCheckLocation;
+        Mobile.SkillCheckLocationHandler = Mobile_SkillCheckLocation; 
         Mobile.SkillCheckDirectLocationHandler = Mobile_SkillCheckDirectLocation;
 
         Mobile.SkillCheckTargetHandler = Mobile_SkillCheckTarget;
         Mobile.SkillCheckDirectTargetHandler = Mobile_SkillCheckDirectTarget;
     }
 
-    public static bool Mobile_SkillCheckLocation(Mobile from, SkillName skillName, double minSkill, double maxSkill)
+    public static bool Mobile_SkillCheckLocation(Mobile from, SkillName skillName, double minSkill, double maxSkill, bool noGain = false)
     {
         var skill = from.Skills[skillName];
 
@@ -69,8 +69,8 @@ public static class SkillCheck
 
         var size = AntiMacroSystem.Settings.LocationSize;
         var loc = new Point2D(from.Location.X / size, from.Location.Y / size);
-        return CheckSkill(from, skill, loc, chance);
-    }
+        return CheckSkill(from, skill, loc, chance, noGain);
+    } 
 
     public static bool Mobile_SkillCheckDirectLocation(Mobile from, SkillName skillName, double chance)
     {
@@ -101,7 +101,7 @@ public static class SkillCheck
         return CheckSkill(from, skill, loc, chance);
     }
 
-    public static bool CheckSkill(Mobile from, Skill skill, object amObj, double chance)
+    public static bool CheckSkill(Mobile from, Skill skill, object amObj, double chance, bool noGain = false)
     {
         if (from.Skills.Cap == 0)
         {
@@ -109,6 +109,11 @@ public static class SkillCheck
         }
 
         var success = chance >= Utility.RandomDouble();
+
+        if (noGain)
+        {
+            return success;
+        }
 
         var region = from.Region;
         if (from.Alive && region.AllowGain(from, skill, amObj))
