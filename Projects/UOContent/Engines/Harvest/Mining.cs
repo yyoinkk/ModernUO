@@ -235,7 +235,7 @@ namespace Server.Engines.Harvest
                 MaxRange = 2,
                 ConsumedPerHarvest = 1,
                 ConsumedPerFeluccaHarvest = 1,
-                EffectActions = new[] { 11 },
+                EffectActions = new[] { 11, 26 },
                 EffectSounds = new[] { 0x125, 0x126 },
                 EffectCounts = new[] { 6 },
                 EffectDelay = TimeSpan.FromSeconds(1.6),
