@@ -256,15 +256,17 @@ public class DefBowFletching : CraftSystem
             SetNeededExpansion(index, Expansion.ML);
         }
 
-        SetSubRes(typeof(Log), 1044041);
+        SetSubRes(typeof(Log), 1072643);
 
-        AddSubRes(typeof(Log), 1044041, 0.0, 1044041, 1044037);
-        AddSubRes(typeof(OakLog), "Oak", 30.0, 1072533, 1044037);
-        AddSubRes(typeof(AshLog), "Ash", 40.0, 1072534, 1044037);
-        AddSubRes(typeof(YewLog), "Yew", 50.0, 1072535, 1044037);
-        AddSubRes(typeof(HeartwoodLog), "Heartwood", 60.0, 1072536, 1044037);
-        AddSubRes(typeof(BloodwoodLog), "Bloodwood", 70.0, 1072538, 1044037);
-        AddSubRes(typeof(FrostwoodLog), "Frostwood", 80.0, 1072539, 1044037);
+        // Add every material you want the player to be able to choose from
+        // This will override the overridable material	TODO: Verify the required skill amount
+        AddSubRes(typeof(Log), 1072643, 00.0, 1044041, 1072652);
+        AddSubRes(typeof(OakLog), 1072644, 65.0, 1044041, 1072652);
+        AddSubRes(typeof(AshLog), 1072645, 80.0, 1044041, 1072652);
+        AddSubRes(typeof(YewLog), 1072646, 95.0, 1044041, 1072652);
+        AddSubRes(typeof(HeartwoodLog), 1072647, 100.0, 1044041, 1072652);
+        AddSubRes(typeof(BloodwoodLog), 1072648, 100.0, 1044041, 1072652);
+        AddSubRes(typeof(FrostwoodLog), 1072649, 100.0, 1044041, 1072652);
 
         MarkOption = true;
         Repair = Core.AOS;

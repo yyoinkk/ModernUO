@@ -39,6 +39,7 @@ namespace Server.Spells.Light
 
                     Caster.FixedParticles(0x3763, 15, 16, 0, 0, 0, EffectLayer.Head);
                     Caster.PlaySound(0x1E7);
+                    Caster.Delta(MobileDelta.WeaponDamage);
                 }
                 else
                 {
@@ -56,6 +57,7 @@ namespace Server.Spells.Light
             {
                 token.Cancel();
                 m.SendMessage("Prayer is over.");
+                m.Delta(MobileDelta.WeaponDamage);
             }
         }
 

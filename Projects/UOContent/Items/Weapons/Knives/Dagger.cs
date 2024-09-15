@@ -2,12 +2,11 @@ using ModernUO.Serialization;
 
 namespace Server.Items
 {
-    [Flippable(0xF52, 0xF51)]
     [SerializationGenerator(0, false)]
     public partial class Dagger : BaseKnife
     {
         [Constructible]
-        public Dagger() : base(0xF52) => Weight = 1.0;
+        public Dagger() : base(0xF51) => Weight = 1.0;
 
         public override WeaponAbility PrimaryAbility => WeaponAbility.InfectiousStrike;
         public override WeaponAbility SecondaryAbility => WeaponAbility.ShadowStrike;
