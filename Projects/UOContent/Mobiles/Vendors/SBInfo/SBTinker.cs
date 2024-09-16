@@ -55,6 +55,7 @@ namespace Server.Mobiles
                 // TODO: Sledgehammer
 
                 Add(new GenericBuyInfo(typeof(Shovel), 12, 20, 0xF39, 0));
+                Add(new GenericBuyInfo("1044608", typeof(Blowpipe), 21, 20, 0xE8A, 0x3B9));
 
                 Add(new GenericBuyInfo(typeof(MouldingPlane), 11, 20, 0x102C, 0));
                 Add(new GenericBuyInfo(typeof(JointingPlane), 10, 20, 0x1030, 0));

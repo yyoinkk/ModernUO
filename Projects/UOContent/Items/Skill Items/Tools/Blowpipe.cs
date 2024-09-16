@@ -3,7 +3,6 @@ using Server.Engines.Craft;
 
 namespace Server.Items;
 
-[Flippable(0xE8A, 0xE89)]
 [SerializationGenerator(0, false)]
 public partial class Blowpipe : BaseTool
 {
