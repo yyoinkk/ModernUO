@@ -13,8 +13,7 @@ namespace Server.Spells.Dark
             "An Lor",
             203,
             9051,
-            Reagent.SpidersSilk,
-            Reagent.FertileDirt
+            Reagent.SpidersSilk
         );
 
         public DarknessSpell(Mobile caster, Item scroll) : base(caster, scroll, _info)

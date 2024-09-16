@@ -44,8 +44,9 @@ namespace Server.Mobiles
         public override string CorpseName => "a giant rat corpse";
         public override string DefaultName => "a giant rat";
 
+        public override int Blood => 1;
         public override int Meat => 1;
-        public override int Hides => 6;
+        public override int Hides => 2;
         public override FoodType FavoriteFood => FoodType.Fish | FoodType.Meat | FoodType.FruitsAndVeggies | FoodType.Eggs;
 
         public override void GenerateLoot()

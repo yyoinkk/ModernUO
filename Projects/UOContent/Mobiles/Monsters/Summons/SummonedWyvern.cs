@@ -40,7 +40,6 @@ namespace Server.Mobiles
         }
 
         public override string DefaultName => "a lesser wyvern";
-        public override bool ReacquireOnMovement => true;
         public override Poison PoisonImmune => Poison.Deadly;
         public override Poison HitPoison => Poison.Greater;
         public override bool BleedImmune => false;

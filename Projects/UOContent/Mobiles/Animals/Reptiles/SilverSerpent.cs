@@ -50,6 +50,7 @@ namespace Server.Mobiles
 
         public override bool DeathAdderCharmable => true;
 
+        public override int Blood => 1;
         public override int Meat => 1;
         public override Poison PoisonImmune => Poison.Lethal;
         public override Poison HitPoison => Poison.Lethal;

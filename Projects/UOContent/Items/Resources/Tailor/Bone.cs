@@ -10,7 +10,7 @@ public partial class Bone : Item, ICommodity
     {
         Stackable = true;
         Amount = amount;
-        Weight = 1.0;
+        Weight = 0.1;
     }
 
     int ICommodity.DescriptionNumber => LabelNumber;

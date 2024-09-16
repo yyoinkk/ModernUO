@@ -15,7 +15,7 @@ namespace Server.Spells.Dark
             9051,
             Reagent.Bone,
             Reagent.Nightshade,
-            Reagent.BatWing,
+            Reagent.VialOfBlood,
             Reagent.FertileDirt
         );
 

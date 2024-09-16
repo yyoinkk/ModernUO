@@ -33,7 +33,8 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(SpidersSilk), 3, 20, 0xF8D, 0));
                 Add(new GenericBuyInfo(typeof(SulfurousAsh), 3, 20, 0xF8C, 0));
 
-                Add(new GenericBuyInfo(typeof(Bottle), 5, 100, 0xF0E, 0));
+                Add(new GenericBuyInfo(typeof(Bottle), 5, 20, 0xF0E, 0));
+                Add(new GenericBuyInfo(typeof(EmptyVial), 5, 20, 0x0E24, 0));
 
                 Add(new GenericBuyInfo(typeof(HeatingStand), 2, 100, 0x1849, 0));
 

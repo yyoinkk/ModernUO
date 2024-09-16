@@ -45,8 +45,9 @@ namespace Server.Mobiles
         public override string CorpseName => "a walrus corpse";
         public override string DefaultName => "a walrus";
 
+        public override int Blood => 1;
         public override int Meat => 1;
-        public override int Hides => 12;
+        public override int Hides => 6;
         public override FoodType FavoriteFood => FoodType.Fish;
     }
 }

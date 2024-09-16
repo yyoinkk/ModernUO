@@ -14,7 +14,8 @@ namespace Server.Spells.Dark
             203,
             9051,
             Reagent.BlackPearl,
-            Reagent.Bone
+            Reagent.Bloodmoss,
+            Reagent.Ginseng
         );
 
         public RegenerationSpell(Mobile caster, Item scroll) : base(caster, scroll, _info)

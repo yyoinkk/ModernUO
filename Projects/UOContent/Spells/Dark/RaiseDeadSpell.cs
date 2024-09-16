@@ -10,8 +10,7 @@ namespace Server.Spells.Dark
             203,
             9051,
             Reagent.Bone,
-            Reagent.Bloodmoss,
-            Reagent.BatWing
+            Reagent.VialOfBlood
         );
 
         public RaiseDeadSpell(Mobile caster, Item scroll) : base(caster, scroll, _info)

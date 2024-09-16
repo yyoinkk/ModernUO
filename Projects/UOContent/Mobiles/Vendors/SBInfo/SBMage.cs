@@ -32,6 +32,7 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(AgilityPotion), 15, 10, 0xF08, 0));
                 Add(new GenericBuyInfo(typeof(NightSightPotion), 15, 10, 0xF06, 0));
                 Add(new GenericBuyInfo(typeof(LesserHealPotion), 15, 10, 0xF0C, 0));
+                Add(new GenericBuyInfo(typeof(LesserManaPotion), 60, 5, 0xF0E, 91));
                 Add(new GenericBuyInfo(typeof(StrengthPotion), 15, 10, 0xF09, 0));
                 Add(new GenericBuyInfo(typeof(LesserPoisonPotion), 15, 10, 0xF0A, 0));
                 Add(new GenericBuyInfo(typeof(LesserCurePotion), 15, 10, 0xF07, 0));
@@ -48,12 +49,17 @@ namespace Server.Mobiles
 
                 if (Core.AOS)
                 {
-                    Add(new GenericBuyInfo(typeof(BatWing), 3, 999, 0xF78, 0));
-                    Add(new GenericBuyInfo(typeof(DaemonBlood), 6, 999, 0xF7D, 0));
-                    Add(new GenericBuyInfo(typeof(PigIron), 5, 999, 0xF8A, 0));
-                    Add(new GenericBuyInfo(typeof(NoxCrystal), 6, 999, 0xF8E, 0));
-                    Add(new GenericBuyInfo(typeof(GraveDust), 3, 999, 0xF8F, 0));
+                    Add(new GenericBuyInfo(typeof(BatWing), 3, 20, 0xF78, 0));
+                    Add(new GenericBuyInfo(typeof(DaemonBlood), 6, 20, 0xF7D, 0));
+                    Add(new GenericBuyInfo(typeof(PigIron), 5, 20, 0xF8A, 0));
+                    Add(new GenericBuyInfo(typeof(NoxCrystal), 6, 20, 0xF8E, 0));
+                    Add(new GenericBuyInfo(typeof(GraveDust), 3, 20, 0xF8F, 0));
                 }
+
+                Add(new GenericBuyInfo(typeof(VialOfBlood), 3, 20, 0x0E24, 0x26));
+                Add(new GenericBuyInfo(typeof(Bone), 3, 20, 0xf7e, 0));
+                Add(new GenericBuyInfo(typeof(FertileDirt), 3, 20, 0xF81, 0));
+                Add(new GenericBuyInfo(typeof(GraveDust), 5, 20, 0xF8F, 0));
 
                 var types = Loot.RegularScrollTypes;
 

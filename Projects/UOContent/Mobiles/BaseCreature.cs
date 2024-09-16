@@ -117,6 +117,15 @@ namespace Server.Mobiles
         Barbed
     }
 
+    public enum BloodType
+    {
+        None,
+        Regular,
+        Dragon,
+        Daemon,
+        Vampire
+    }
+
     public class DamageStore : IComparable<DamageStore>
     {
         public int m_Damage;
@@ -1107,6 +1116,10 @@ namespace Server.Mobiles
         public virtual int Scales => 0;
         public virtual ScaleType ScaleType => ScaleType.Red;
 
+        public virtual int Blood => 0;
+
+        public virtual BloodType BloodType => BloodType.Regular;
+
         public virtual bool CanTeach => false;
 
         public virtual bool CanHeal => false;
@@ -1653,8 +1666,14 @@ namespace Server.Mobiles
             var meat = Meat;
             var hides = Hides > 0 ? (int)Math.Ceiling(Hides / 4.0) + Utility.RandomMinMax(1, 3) : Hides;
             var scales = Scales;
+            var blood = 0;
 
-            if (feathers == 0 && wool == 0 && meat == 0 && hides == 0 && scales == 0 || Summoned || IsBonded ||
+            if (BloodType != BloodType.None)
+            {
+                blood = Blood > 0 ? Utility.RandomMinMax(0, 3) + Blood : Blood;
+            }
+
+            if (feathers == 0 && wool == 0 && meat == 0 && hides == 0 && scales == 0 && blood == 0 || Summoned || IsBonded ||
                 corpse.Animated)
             {
                 if (corpse.Animated)
@@ -1820,6 +1839,38 @@ namespace Server.Mobiles
                     }
 
                     from.SendLocalizedMessage(1079284); // You cut away some scales, but they remain on the corpse.
+                }
+
+                if (blood != 0)
+                {
+                    EmptyVial vials = from.Backpack.FindItemByType<EmptyVial>(false);
+                    if (vials != null)
+                    {
+                        int amount = Math.Min(vials.Amount, blood);
+
+                        if (from.Backpack.ConsumeTotal(typeof(EmptyVial), amount, false))
+                        {
+                            var addBlood = BloodType switch
+                            {
+                                BloodType.Regular => (Item)new VialOfBlood(amount),
+                                BloodType.Dragon => new DragonsBlood(amount),
+                                BloodType.Daemon => new DaemonBlood(amount),
+                                _ => null
+                            };
+
+                            if (addBlood != null)
+                            {
+                                if (!from.PlaceInBackpack(addBlood))
+                                {
+                                    corpse.DropItem(addBlood);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        from.SendMessage("You haven`t empty vials to collect blood.");
+                    }
                 }
 
                 corpse.Carved = true;

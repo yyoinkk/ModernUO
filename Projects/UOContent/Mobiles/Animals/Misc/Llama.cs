@@ -40,9 +40,9 @@ namespace Server.Mobiles
 
         public override string CorpseName => "a llama corpse";
         public override string DefaultName => "a llama";
-
+        public override int Blood => 1;
         public override int Meat => 1;
-        public override int Hides => 12;
+        public override int Hides => 4;
         public override FoodType FavoriteFood => FoodType.FruitsAndVeggies | FoodType.GrainsAndHay;
     }
 }

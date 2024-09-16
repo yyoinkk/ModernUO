@@ -44,7 +44,8 @@ namespace Server.Mobiles
         public override string CorpseName => "a giant toad corpse";
         public override string DefaultName => "a giant toad";
 
-        public override int Hides => 12;
+        public override int Blood => 1;
+        public override int Hides => 2;
         public override HideType HideType => HideType.Spined;
         public override FoodType FavoriteFood => FoodType.Fish | FoodType.Meat;
 

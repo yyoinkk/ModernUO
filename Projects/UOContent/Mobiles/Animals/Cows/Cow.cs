@@ -58,9 +58,11 @@ namespace Server.Mobiles
         public override string CorpseName => "a cow corpse";
         public override string DefaultName => "a cow";
 
-        public override int Meat => 6;
-        public override int Hides => 8;
+        public override int Meat => 4;
+        public override int Hides => 6;
         public override FoodType FavoriteFood => FoodType.FruitsAndVeggies | FoodType.GrainsAndHay;
+
+        public override int Blood => 1;
 
         public override void OnDoubleClick(Mobile from)
         {

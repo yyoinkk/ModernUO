@@ -42,8 +42,9 @@ namespace Server.Mobiles
         public override string CorpseName => "a deer corpse";
         public override string DefaultName => "a great hart";
 
+        public override int Blood => 3;
         public override int Meat => 6;
-        public override int Hides => 15;
+        public override int Hides => 11;
         public override FoodType FavoriteFood => FoodType.FruitsAndVeggies | FoodType.GrainsAndHay;
 
         public override int GetAttackSound() => 0x82;

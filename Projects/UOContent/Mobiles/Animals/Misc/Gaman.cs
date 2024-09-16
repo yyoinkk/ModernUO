@@ -43,8 +43,8 @@ namespace Server.Mobiles
         public override string CorpseName => "a gaman corpse";
         public override string DefaultName => "a gaman";
 
-        public override int Meat => 10;
-        public override int Hides => 15;
+        public override int Meat => 4;
+        public override int Hides => 5;
         public override FoodType FavoriteFood => FoodType.GrainsAndHay;
 
         public override int GetAngerSound() => 0x4F8;

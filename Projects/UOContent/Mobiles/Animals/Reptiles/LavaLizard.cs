@@ -48,7 +48,7 @@ namespace Server.Mobiles
 
         public override string CorpseName => "a lava lizard corpse";
         public override string DefaultName => "a lava lizard";
-        public override int Hides => 12;
+        public override int Hides => 6;
         public override HideType HideType => HideType.Spined;
         public override FoodType FavoriteFood => FoodType.Metal | FoodType.Gold;
 

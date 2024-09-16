@@ -10,9 +10,8 @@ namespace Server.Spells.Dark
             203,
             9051,
             Reagent.MandrakeRoot,
-            Reagent.SulfurousAsh,
-            Reagent.Bone,
-            Reagent.FertileDirt
+            Reagent.VialOfBlood,
+            Reagent.Bone
         );
 
         public SacrificeSpell(Mobile caster, Item scroll) : base(caster, scroll, _info)

@@ -43,6 +43,7 @@ namespace Server.Mobiles
         public override string CorpseName => "a pig corpse";
         public override string DefaultName => "a boar";
 
+        public override int Blood => 3;
         public override int Meat => 2;
         public override FoodType FavoriteFood => FoodType.FruitsAndVeggies | FoodType.GrainsAndHay;
     }

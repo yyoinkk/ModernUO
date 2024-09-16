@@ -48,8 +48,10 @@ namespace Server.Mobiles
         public override string DefaultName => "a lava serpent";
 
         public override bool DeathAdderCharmable => true;
-        public override int Meat => 4;
-        public override int Hides => 15;
+
+        public override int Blood => 2;
+        public override int Meat => 2;
+        public override int Hides => 6;
         public override HideType HideType => HideType.Spined;
 
         private static MonsterAbility[] _abilities = { MonsterAbilities.FireBreath };

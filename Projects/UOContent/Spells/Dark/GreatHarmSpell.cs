@@ -11,7 +11,8 @@ namespace Server.Spells.Dark
             9051,
             Reagent.SulfurousAsh,
             Reagent.SpidersSilk,
-            Reagent.BatWing
+            Reagent.VialOfBlood,
+            Reagent.BlackPearl
         );
 
         public GreatHarmSpell(Mobile caster, Item scroll) : base(caster, scroll, _info)

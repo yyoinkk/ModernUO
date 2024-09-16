@@ -17,6 +17,7 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(AgilityPotion), 15, 10, 0xF08, 0));
                 Add(new GenericBuyInfo(typeof(NightSightPotion), 15, 10, 0xF06, 0));
                 Add(new GenericBuyInfo(typeof(LesserHealPotion), 15, 10, 0xF0C, 0));
+                Add(new GenericBuyInfo(typeof(LesserManaPotion), 60, 5, 0xF0E, 91));
                 Add(new GenericBuyInfo(typeof(StrengthPotion), 15, 10, 0xF09, 0));
                 Add(new GenericBuyInfo(typeof(LesserPoisonPotion), 15, 10, 0xF0A, 0));
                 Add(new GenericBuyInfo(typeof(LesserCurePotion), 15, 10, 0xF07, 0));
@@ -32,7 +33,12 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(SpidersSilk), 3, 20, 0xF8D, 0));
                 Add(new GenericBuyInfo(typeof(SulfurousAsh), 3, 20, 0xF8C, 0));
 
+                Add(new GenericBuyInfo(typeof(VialOfBlood), 5, 20, 0x0E24, 0x26));
+                Add(new GenericBuyInfo(typeof(GraveDust), 5, 20, 0xF8F, 0));
+
                 Add(new GenericBuyInfo(typeof(Bottle), 5, 100, 0xF0E, 0));
+                Add(new GenericBuyInfo(typeof(EmptyVial), 5, 20, 0x0E24, 0));
+
                 Add(new GenericBuyInfo(typeof(HeatingStand), 2, 100, 0x1849, 0));
 
                 Add(new GenericBuyInfo("1041060", typeof(HairDye), 37, 10, 0xEFF, 0));

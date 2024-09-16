@@ -37,7 +37,7 @@ namespace Server.Mobiles
 
             VirtualArmor = 16;
 
-            switch (Utility.Random(5))
+            switch (Utility.Random(10))
             {
                 case 0:
                     {
@@ -62,6 +62,12 @@ namespace Server.Mobiles
                 case 4:
                     {
                         PackItem(new BoneHelm());
+                        break;
+                    }
+                default:
+                    {
+                        PackItem(new Bone(Utility.RandomMinMax(2, 8)));
+                        PackItem(new FertileDirt(Utility.RandomMinMax(2, 4)));
                         break;
                     }
             }

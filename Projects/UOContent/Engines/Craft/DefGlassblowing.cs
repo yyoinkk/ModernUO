@@ -104,6 +104,8 @@ public class DefGlassblowing : CraftSystem
     {
         var index = AddCraft(typeof(Bottle), 1044050, 1023854, 52.5, 102.5, typeof(Sand), 1044625, 1, 1044627);
         SetUseAllRes(index, true);
+        var index2 = AddCraft(typeof(EmptyVial), 1044050, 1023620, 65.0, 105.0, typeof(Sand), 1044625, 8, 1044627);
+        SetUseAllRes(index2, true);
 
         AddCraft(typeof(SmallFlask), 1044050, 1044610, 52.5, 102.5, typeof(Sand), 1044625, 2, 1044627);
         AddCraft(typeof(MediumFlask), 1044050, 1044611, 52.5, 102.5, typeof(Sand), 1044625, 3, 1044627);

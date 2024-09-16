@@ -12,7 +12,7 @@ namespace Server.Spells.Dark
             Reagent.SpidersSilk,
             Reagent.SulfurousAsh,
             Reagent.Bloodmoss,
-            Reagent.FertileDirt
+            Reagent.VialOfBlood
         );
 
         public KillSpell(Mobile caster, Item scroll) : base(caster, scroll, _info)

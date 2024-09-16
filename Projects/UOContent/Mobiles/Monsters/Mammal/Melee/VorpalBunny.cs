@@ -50,6 +50,7 @@ namespace Server.Mobiles
         public override string CorpseName => "a vorpal bunny corpse";
         public override string DefaultName => "a vorpal bunny";
 
+        public override int Blood => 1;
         public override int Meat => 1;
         public override int Hides => 1;
         public override bool BardImmune => !Core.AOS;

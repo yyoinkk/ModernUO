@@ -43,7 +43,9 @@ namespace Server.Mobiles
 
         public override string CorpseName => "a hell cat corpse";
         public override string DefaultName => "a hell cat";
-        public override int Hides => 10;
+
+        public override int Blood => 3;
+        public override int Hides => 8;
         public override HideType HideType => HideType.Spined;
         public override FoodType FavoriteFood => FoodType.Meat;
         public override PackInstinct PackInstinct => PackInstinct.Feline;

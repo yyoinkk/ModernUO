@@ -47,6 +47,8 @@ namespace Server.Mobiles
                     _ => new BonePile() // 6-9
                 }
             );
+
+            PackItem(new FertileDirt(Utility.RandomMinMax(2, 4)));
         }
 
         public override string CorpseName => "a rotting corpse";

@@ -23,7 +23,8 @@ namespace Server.Spells
             typeof(Bone),
             typeof(FertileDirt),
             typeof(DragonsBlood),
-            typeof(DaemonBone)
+            typeof(DaemonBone),
+            typeof(VialOfBlood)
         };
 
         public Type[] Types => m_Types;
@@ -129,5 +130,12 @@ namespace Server.Spells
             get => m_Types[16];
             set => m_Types[16] = value;
         }
+
+        public static Type VialOfBlood
+        {
+            get => m_Types[17];
+            set => m_Types[17] = value;
+        }
+
     }
 }

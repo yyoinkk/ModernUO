@@ -15,7 +15,7 @@ namespace Server.Spells.Dark
             9051,
             Reagent.SpidersSilk,
             Reagent.Bone,
-            Reagent.Ginseng
+            Reagent.VialOfBlood
         );
 
         public PainReflectionSpell(Mobile caster, Item scroll) : base(caster, scroll, _info)

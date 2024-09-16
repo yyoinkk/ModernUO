@@ -60,6 +60,7 @@ namespace Server.Mobiles
                     break;
             }
 
+            PackItem(new Bone(Utility.RandomMinMax(2, 11)));
             PackItem(new Scimitar());
             PackItem(new WoodenShield());
         }

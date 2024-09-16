@@ -66,8 +66,9 @@ namespace Server.Mobiles
 
         public override bool DeathAdderCharmable => true;
 
-        public override int Meat => 4;
-        public override int Hides => 15;
+        public override int Blood => 1;
+        public override int Meat => 2;
+        public override int Hides => 5;
         public override HideType HideType => HideType.Spined;
 
         public override void GenerateLoot()

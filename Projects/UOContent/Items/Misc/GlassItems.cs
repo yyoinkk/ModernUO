@@ -288,7 +288,11 @@ public partial class FullVialsWRack : Item
 public partial class EmptyVial : Item
 {
     [Constructible]
-    public EmptyVial() : base(0x0E24) => Weight = 1.0;
+    public EmptyVial() : base(0x0E24)
+    {
+        Weight = 0.1;
+        Stackable = true;
+    }
 }
 
 [SerializationGenerator(0, false)]
