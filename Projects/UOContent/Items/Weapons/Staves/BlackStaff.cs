@@ -2,7 +2,6 @@ using ModernUO.Serialization;
 
 namespace Server.Items
 {
-    [Flippable(0xDF1, 0xDF0)]
     [SerializationGenerator(0, false)]
     public partial class BlackStaff : BaseStaff
     {
