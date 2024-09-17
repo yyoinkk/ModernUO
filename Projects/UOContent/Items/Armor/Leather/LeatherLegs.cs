@@ -3,7 +3,6 @@ using ModernUO.Serialization;
 namespace Server.Items
 {
     [SerializationGenerator(0, false)]
-    [Flippable(0x13cb, 0x13d2)]
     public partial class LeatherLegs : BaseArmor
     {
         [Constructible]

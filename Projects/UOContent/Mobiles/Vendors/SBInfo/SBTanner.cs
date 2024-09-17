@@ -27,14 +27,12 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(StuddedGloves), 45, 20, 0x13D5, 0));
 
                 Add(new GenericBuyInfo(typeof(FemaleStuddedChest), 62, 20, 0x1C02, 0));
-                Add(new GenericBuyInfo(typeof(FemalePlateChest), 207, 20, 0x1C04, 0));
+                
                 Add(new GenericBuyInfo(typeof(FemaleLeatherChest), 116, 20, 0x1C06, 0));
                 Add(new GenericBuyInfo(typeof(LeatherShorts), 86, 20, 0x1C00, 0));
                 Add(new GenericBuyInfo(typeof(LeatherSkirt), 87, 20, 0x1C08, 0));
                 Add(new GenericBuyInfo(typeof(LeatherBustierArms), 97, 20, 0x1C0A, 0));
-                Add(new GenericBuyInfo(typeof(LeatherBustierArms), 97, 20, 0x1C0B, 0));
                 Add(new GenericBuyInfo(typeof(StuddedBustierArms), 97, 20, 0x1C0C, 0));
-                Add(new GenericBuyInfo(typeof(StuddedBustierArms), 97, 20, 0x1C0D, 0));
 
                 Add(new GenericBuyInfo(typeof(Bag), 6, 20, 0xE76, 0));
                 Add(new GenericBuyInfo(typeof(Pouch), 6, 20, 0xE79, 0));

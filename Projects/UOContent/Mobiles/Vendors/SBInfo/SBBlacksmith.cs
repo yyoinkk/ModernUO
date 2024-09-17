@@ -30,6 +30,7 @@ namespace Server.Mobiles
                 Add(new GenericBuyInfo(typeof(PlateLegs), 218, 20, 0x1411, 0));
                 Add(new GenericBuyInfo(typeof(PlateArms), 188, 20, 0x1410, 0));
                 Add(new GenericBuyInfo(typeof(PlateGloves), 155, 20, 0x1414, 0));
+                Add(new GenericBuyInfo(typeof(FemalePlateChest), 207, 20, 0x1C04, 0));
 
                 Add(new GenericBuyInfo(typeof(PlateHelm), 21, 20, 0x1412, 0));
                 Add(new GenericBuyInfo(typeof(CloseHelm), 18, 20, 0x1408, 0));

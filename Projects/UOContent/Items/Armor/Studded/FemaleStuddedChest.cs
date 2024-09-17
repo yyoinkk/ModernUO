@@ -3,7 +3,6 @@ using ModernUO.Serialization;
 namespace Server.Items
 {
     [SerializationGenerator(0, false)]
-    [Flippable(0x1c02, 0x1c03)]
     public partial class FemaleStuddedChest : BaseArmor
     {
         [Constructible]
@@ -28,6 +27,5 @@ namespace Server.Items
 
         public override ArmorMeditationAllowance DefMedAllowance => ArmorMeditationAllowance.Half;
 
-        public override bool AllowMaleWearer => false;
     }
 }

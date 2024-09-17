@@ -2,7 +2,6 @@ using ModernUO.Serialization;
 
 namespace Server.Items
 {
-    [Flippable]
     [SerializationGenerator(2, false)]
     public partial class LeatherGloves : BaseArmor, IArcaneEquip
     {

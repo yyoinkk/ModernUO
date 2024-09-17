@@ -3,7 +3,6 @@ using ModernUO.Serialization;
 namespace Server.Items
 {
     [SerializationGenerator(0, false)]
-    [Flippable(0x1c04, 0x1c05)]
     public partial class FemalePlateChest : BaseArmor
     {
         [Constructible]
@@ -22,8 +21,6 @@ namespace Server.Items
         public override int OldStrReq => 45;
 
         public override int OldDexBonus => -5;
-
-        public override bool AllowMaleWearer => false;
 
         public override int ArmorBase => 30;
 
