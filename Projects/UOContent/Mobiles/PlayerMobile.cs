@@ -2070,7 +2070,8 @@ namespace Server.Mobiles
         public bool AllowCastWhenEquipped(Item item)
         {
             if (item is null or Spellbook or Runebook or BaseStaff or BaseKnife or Buckler or BaseWand
-            || Core.AOS && item is BaseWeapon weapon && weapon.Attributes.SpellChanneling != 0)
+            || Core.AOS && item is BaseWeapon weapon && weapon.Attributes.SpellChanneling != 0
+            || Core.AOS && item is BaseShield shield && shield.Attributes.SpellChanneling != 0)
             //|| Core.AOS && item is BaseArmor armor && armor.Attributes.SpellChanneling != 0;)
             {
                 return true;
