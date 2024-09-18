@@ -516,7 +516,7 @@ public class BandageContext : Timer
 
                 double seconds = patient.Alive ? healer.Skills[primary].Value / 11 : 8.0;
 
-                healer.SendMessage($"Healing time: {seconds}s");
+                healer.SendMessage($"Healing time: {(int)seconds}s");
 
                 seconds *= 1000;
                 var context = new BandageContext(healer, patient, TimeSpan.FromMilliseconds(seconds));
