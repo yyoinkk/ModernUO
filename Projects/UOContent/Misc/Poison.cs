@@ -51,9 +51,9 @@ namespace Server
             {
                 Register(new PoisonImpl("Lesser", 0, 4, 16, 7.5, 3.0, 2.25, 10, 4));
                 Register(new PoisonImpl("Regular", 1, 8, 18, 10.0, 3.0, 3.25, 10, 3));
-                Register(new PoisonImpl("Greater", 2, 12, 20, 15.0, 3.0, 4.25, 10, 2));
-                Register(new PoisonImpl("Deadly", 3, 16, 30, 30.0, 3.0, 5.25, 15, 2));
-                Register(new PoisonImpl("Lethal", 4, 20, 50, 35.0, 3.0, 5.25, 20, 2));
+                Register(new PoisonImpl("Greater", 2, 12, 20, 15.0, 2.25, 4.25, 10, 2));
+                Register(new PoisonImpl("Deadly", 3, 11, 22, 30.0, 1.0, 2.0, 11, 3));
+                Register(new PoisonImpl("Lethal", 4, 16, 30, 35.0, 2.0, 3.25, 15, 3));
             }
             else
             {
