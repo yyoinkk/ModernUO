@@ -10,7 +10,7 @@ namespace Server.Spells.Dark
     {
         private static readonly SpellInfo _info = new(
             "Ghoul touch",
-            "Corm Xen",
+            "Corp Xen",
             203,
             9051,
             Reagent.Nightshade,
