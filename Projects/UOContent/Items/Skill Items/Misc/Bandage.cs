@@ -5,6 +5,7 @@ using Server.Engines.ConPVP;
 using Server.Factions;
 using Server.Gumps;
 using Server.Mobiles;
+using Server.Multis;
 using Server.Targeting;
 
 namespace Server.Items;
@@ -25,6 +26,12 @@ public partial class Bandage : Item
 
     public override void OnDoubleClick(Mobile from)
     {
+        if (from.Paralyzed || from.Frozen)
+        {
+            from.SendLocalizedMessage(1075857); // You cannot use that while paralyzed.
+            return;
+        }
+
         if (BandageContext.GetContext(from) != null)
         {
             from.SendLocalizedMessage(1049616); // You are too busy to do that at the moment.
@@ -52,6 +59,12 @@ public partial class Bandage : Item
     {
         if (item is not Bandage b || b.Deleted)
         {
+            return;
+        }
+
+        if (from.Paralyzed || from.Frozen)
+        {
+            from.SendLocalizedMessage(1075857); // You cannot use that while paralyzed.
             return;
         }
 
@@ -94,6 +107,12 @@ public partial class Bandage : Item
         {
             if (_bandage.Deleted)
             {
+                return;
+            }
+
+            if (from.Paralyzed || from.Frozen)
+            {
+                from.SendLocalizedMessage(1075857); // You cannot use that while paralyzed.
                 return;
             }
 
@@ -230,6 +249,13 @@ public class BandageContext : Timer
         bool checkSkills = false;
 
         var petPatient = Patient as BaseCreature;
+
+        if (Healer.Paralyzed || Healer.Frozen)
+        {
+            Healer.SendLocalizedMessage(1075857); // You cannot use that while paralyzed.
+            StopHeal();
+            return;
+        }
 
         if (!Healer.Alive)
         {
@@ -486,7 +512,11 @@ public class BandageContext : Timer
 
         var creature = patient as BaseCreature;
 
-        if (patient is Golem)
+        if (healer.Paralyzed || healer.Frozen)
+        {
+            healer.SendLocalizedMessage(1075857); // You cannot use that while paralyzed.
+        }
+        else if (patient is Golem)
         {
             healer.SendLocalizedMessage(500970); // Bandages cannot be used on that.
         }

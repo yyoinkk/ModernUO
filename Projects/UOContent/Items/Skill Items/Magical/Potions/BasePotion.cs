@@ -171,6 +171,12 @@ public abstract partial class BasePotion : Item, ICraftable, ICommodity
             return false;
         }
 
+        if (from.Paralyzed || from.Frozen)
+        {
+            from.SendLocalizedMessage(1062725); // You can not use that potion while paralyzed.
+            return false;
+        }
+
         if (!from.InRange(GetWorldLocation(), 1))
         {
             from.SendLocalizedMessage(502138); // That is too far away for you to use
