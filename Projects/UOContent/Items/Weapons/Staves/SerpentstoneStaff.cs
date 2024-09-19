@@ -22,6 +22,7 @@ namespace Server.Items
 
         public override int InitMinHits => 31;
         public override int InitMaxHits => 50;
+        public override int DefMaxRange => 1;
 
         public override int RequiredRaces => Race.AllowGargoylesOnly;
     }

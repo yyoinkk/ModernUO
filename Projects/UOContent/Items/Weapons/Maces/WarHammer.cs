@@ -29,6 +29,7 @@ namespace Server.Items
 
         public override int InitMinHits => 31;
         public override int InitMaxHits => 110;
+        public override int DefMaxRange => 2;
 
         public override WeaponAnimation DefAnimation => WeaponAnimation.Bash2H;
     }

@@ -13,7 +13,7 @@ namespace Server.Items
 
         public override int DefHitSound => 0x23C;
         public override int DefMissSound => 0x238;
-
+        public override int DefMaxRange => 2;
         public override SkillName DefSkill => SkillName.Fencing;
         public override WeaponType DefType => WeaponType.Piercing;
         public override WeaponAnimation DefAnimation => WeaponAnimation.Pierce2H;

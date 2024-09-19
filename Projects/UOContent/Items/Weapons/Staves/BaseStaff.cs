@@ -15,6 +15,7 @@ namespace Server.Items
         public override SkillName DefSkill => SkillName.Macing;
         public override WeaponType DefType => WeaponType.Staff;
         public override WeaponAnimation DefAnimation => WeaponAnimation.Bash2H;
+        public override int DefMaxRange => 2;
 
         public override void OnHit(Mobile attacker, Mobile defender, double damageBonus = 1)
         {

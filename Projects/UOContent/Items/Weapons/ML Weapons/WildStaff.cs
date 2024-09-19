@@ -26,6 +26,7 @@ namespace Server.Items
         public override int OldMinDamage => 10;
         public override int OldMaxDamage => 12;
         public override int OldSpeed => 48;
+        public override int DefMaxRange => 1;
 
         public override int InitMinHits => 30;
         public override int InitMaxHits => 60;

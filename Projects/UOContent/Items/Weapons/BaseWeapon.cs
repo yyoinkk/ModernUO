@@ -1509,7 +1509,7 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
 
             delayInSeconds = 15000.0 / v;
         }
-
+        m.SendMessage($"Attack delay: {delayInSeconds}");
         return TimeSpan.FromSeconds(delayInSeconds);
     }
 

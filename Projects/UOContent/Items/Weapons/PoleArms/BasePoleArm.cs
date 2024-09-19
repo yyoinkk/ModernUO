@@ -25,6 +25,8 @@ namespace Server.Items
         public override int DefHitSound => 0x237;
         public override int DefMissSound => 0x238;
 
+        public override int DefMaxRange => 2;
+
         public override SkillName DefSkill => SkillName.Swords;
         public override WeaponType DefType => WeaponType.Polearm;
         public override WeaponAnimation DefAnimation => WeaponAnimation.Slash2H;
