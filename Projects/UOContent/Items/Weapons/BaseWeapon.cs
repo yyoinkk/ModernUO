@@ -1101,7 +1101,9 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
 
         if (!_enableInstaHit)
         {
-            from.NextCombatTime = Core.TickCount + (int)GetDelay(from).TotalMilliseconds;
+            int delay = (int)GetDelay(from).TotalMilliseconds;
+            from.SendMessage($"Hit delay: {delay}ms");
+            from.NextCombatTime = Core.TickCount + delay;
         }
 
         if (UseSkillMod && _accuracyLevel != WeaponAccuracyLevel.Regular)
@@ -1509,7 +1511,7 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
 
             delayInSeconds = 15000.0 / v;
         }
-        m.SendMessage($"Attack delay: {delayInSeconds}");
+
         return TimeSpan.FromSeconds(delayInSeconds);
     }
 
@@ -2621,8 +2623,18 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
         return damage + damage * totalBonus;
     }
 
-    public virtual int ComputeDamageAOS(Mobile attacker, Mobile defender) =>
-        (int)ScaleDamageAOS(attacker, GetBaseDamage(attacker), true);
+    public virtual int ComputeDamageAOS(Mobile attacker, Mobile defender)
+    {
+        double weapDamage = GetBaseDamage(attacker);
+
+        if (DefMaxRange == 2 && AccuracySkill != SkillName.Archery && attacker.InRange(defender, 1))
+        {
+            attacker.SendMessage("1 tile range, damage halved.");
+            weapDamage /= 2;
+        }
+
+        return (int)ScaleDamageAOS(attacker, weapDamage, true);
+    }
 
     public virtual double ScaleDamageOld(Mobile attacker, double damage, bool checkSkills)
     {
