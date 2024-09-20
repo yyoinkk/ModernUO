@@ -137,7 +137,8 @@ namespace Server.Misc
 
             if (!from.Meditating)
             {
-                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Meditation);
+                // disable passive skill grow for now
+                //CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Meditation);
             }
 
             double rate;
@@ -149,9 +150,11 @@ namespace Server.Misc
 
                 medPoints *= from.Skills.Meditation.Value < 100.0 ? 0.025 : 0.0275;
 
-                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Focus);
+                // disable passive skill grow for now
+                //CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Focus);
 
-                var focusPoints = from.Skills.Focus.Value * 0.05;
+                // disable focus bonus for mana regen
+                var focusPoints = 0;// from.Skills.Focus.Value * 0.05;
 
                 if (armorPenalty > 2)
                 {

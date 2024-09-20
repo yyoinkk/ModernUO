@@ -4338,7 +4338,10 @@ public partial class Mobile : IHued, IComparable<Mobile>, ISpawnable, IObjectPro
                 return false;
             }
 
-            DisruptiveAction();
+            if (!(Player && Skills[SkillName.Meditation].BaseFixedPoint >= 100)) 
+            {
+                DisruptiveAction();
+            }
         }
         else
         {

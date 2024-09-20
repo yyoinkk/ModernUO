@@ -27,12 +27,12 @@ namespace Server.Misc
 
             if (!CheckAggressions(aggressor, aggressed))
             {
-                aggressor.LocalOverheadMessage(
-                    MessageType.Regular,
-                    Hue,
-                    true,
-                    string.Format(AggressorFormat, aggressed.Name)
-                );
+                //aggressor.LocalOverheadMessage(
+                //    MessageType.Regular,
+                //    Hue,
+                //    true,
+                //    string.Format(AggressorFormat, aggressed.Name)
+                //);
                 aggressed.LocalOverheadMessage(
                     MessageType.Regular,
                     Hue,

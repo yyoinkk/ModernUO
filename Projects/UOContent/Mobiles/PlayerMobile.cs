@@ -3571,7 +3571,7 @@ namespace Server.Mobiles
                     {
                         if ((AllowedStealthSteps -= 2) <= 0)
                         {
-                            RevealingAction();
+                            RevealingAction(); 
                         }
                     }
                     else if (AllowedStealthSteps-- <= 0)
