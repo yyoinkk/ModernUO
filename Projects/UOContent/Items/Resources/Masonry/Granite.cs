@@ -140,3 +140,12 @@ public partial class ValoriteGranite : BaseGranite
     {
     }
 }
+
+[SerializationGenerator(0, false)]
+public partial class MythrilGranite : BaseGranite
+{
+    [Constructible]
+    public MythrilGranite() : base(CraftResource.Mythril)
+    {
+    }
+}

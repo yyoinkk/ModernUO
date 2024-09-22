@@ -668,7 +668,7 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
     )
     {
         Quality = (WeaponQuality)quality;
-
+         
         if (makersMark)
         {
             Crafter = from.RawName;
@@ -691,27 +691,20 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
 
             if (tool is BaseRunicTool runicTool)
             {
-                runicTool.ApplyAttributesTo(this);
+                //runicTool.ApplyAttributesTo(this);
             }
 
             if (Quality == WeaponQuality.Exceptional)
             {
-                Attributes.WeaponDamage = 35;
+                Attributes.WeaponDamage = 20;
 
-                if (Core.ML)
+                if (from.CheckSkill(SkillName.ArmsLore, 90, 120))
                 {
-                    Attributes.WeaponDamage += (int)(from.Skills.ArmsLore.Value / 20);
-
-                    if (Attributes.WeaponDamage > 50)
-                    {
-                        Attributes.WeaponDamage = 50;
-                    }
-
-                    from.CheckSkill(SkillName.ArmsLore, 0, 100);
+                    Attributes.WeaponDamage += 5;
                 }
             }
         }
-        else if (tool is BaseRunicTool runicTool)
+        else if (false && tool is BaseRunicTool runicTool)
         {
             var thisResource = CraftResources.GetFromType(resourceType);
 
@@ -792,6 +785,63 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
                         }
                 }
             }
+        }
+
+        switch (Resource)
+        {
+            case CraftResource.Mythril:
+                Attributes[AosAttribute.AttackChance] = 5;
+                Attributes[AosAttribute.WeaponSpeed] = 10;
+                break;
+            case CraftResource.Adamant:
+                WeaponAttributes.HitLowerAttack = 20;
+                MinDamage += 1;
+                MaxDamage += 1;
+                Attributes[AosAttribute.AttackChance] = 10;
+                break;
+            case CraftResource.DeepOcean:
+                MinDamage += 1;
+                MaxDamage += 1;
+                WeaponAttributes.HitLowerDefend = 20;
+                Attributes[AosAttribute.AttackChance] = 10;
+                break;
+            case CraftResource.Aqua:
+                Attributes[AosAttribute.AttackChance] = 10;
+                WeaponAttributes.HitLeechMana = 15;
+                break;
+            case CraftResource.Air:
+                Attributes[AosAttribute.AttackChance] = 10;
+                WeaponAttributes.HitLightning = 10;
+                break;
+            case CraftResource.Sunshine:
+                WeaponAttributes.HitRayOfLight = 10;
+                Attributes[AosAttribute.AttackChance] = 20;
+                break;
+            case CraftResource.PureTitanium:
+                WeaponAttributes.HitImpale = 10;
+                Attributes[AosAttribute.AttackChance] = 10;
+                break;
+            case CraftResource.DruidSilver:
+                WeaponAttributes.HitEntangle = 10;
+                WeaponAttributes.HitLeechStam = 15;
+                break;
+            case CraftResource.PurpleCrystal:
+                MinDamage += 2;
+                MaxDamage += 2;
+                Attributes[AosAttribute.AttackChance] = 10;
+                break;
+            case CraftResource.WyrmEye:
+                MinDamage += 2;
+                MaxDamage += 2;
+                Attributes[AosAttribute.AttackChance] = 10;
+                Attributes[AosAttribute.AttackChance] = 15;
+                break;
+            case CraftResource.BloodRock:
+                MinDamage += 2;
+                MaxDamage += 2;
+                Attributes[AosAttribute.AttackChance] = 15;
+                WeaponAttributes.HitLeechHits = 20;
+                break;
         }
 
         return quality;
@@ -2200,7 +2250,12 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
                     (int)(AosWeaponAttributes.GetValue(attacker, AosWeaponAttribute.HitLightning) * propertyBonus);
                 var dispelChance =
                     (int)(AosWeaponAttributes.GetValue(attacker, AosWeaponAttribute.HitDispel) * propertyBonus);
-
+                var rayOfLightChance =
+                    (int)(AosWeaponAttributes.GetValue(attacker, AosWeaponAttribute.HitRayOfLight) * propertyBonus);
+                var impaleChance =
+                    (int)(AosWeaponAttributes.GetValue(attacker, AosWeaponAttribute.HitImpale) * propertyBonus);
+                var entangleChance =
+                    (int)(AosWeaponAttributes.GetValue(attacker, AosWeaponAttribute.HitEntangle) * propertyBonus);
                 if (maChance != 0 && maChance > Utility.Random(100))
                 {
                     DoMagicArrow(attacker, defender);
@@ -2224,6 +2279,21 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
                 if (dispelChance != 0 && dispelChance > Utility.Random(100))
                 {
                     DoDispel(attacker, defender);
+                }
+
+                if (rayOfLightChance != 0 && rayOfLightChance > Utility.Random(100))
+                {
+                    DoRayOfLight(attacker, defender);
+                }
+                
+                if (impaleChance != 0 && impaleChance > Utility.Random(100))
+                {
+                    DoImpale(attacker, defender);
+                }
+                                
+                if (entangleChance != 0 && entangleChance > Utility.Random(100))
+                {
+                    DoEntangle(attacker, defender);
                 }
 
                 var laChance =
@@ -2894,6 +2964,19 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
             CraftResource.Agapite       => 1053103,
             CraftResource.Verite        => 1053102,
             CraftResource.Valorite      => 1053101,
+
+            CraftResource.Mythril => 1,
+            CraftResource.Adamant => 2,
+            CraftResource.DeepOcean => 3,
+            CraftResource.Aqua => 4,
+            CraftResource.Air => 5,
+            CraftResource.Sunshine => 6,
+            CraftResource.PureTitanium => 7,
+            CraftResource.DruidSilver => 8,
+            CraftResource.PurpleCrystal => 9,
+            CraftResource.WyrmEye => 10,
+            CraftResource.BloodRock => 11,
+
             CraftResource.SpinedLeather => 1061118,
             CraftResource.HornedLeather => 1061117,
             CraftResource.BarbedLeather => 1061116,
@@ -2908,15 +2991,31 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
 
         var name = Name;
 
+        // TODO: remove this. custom ores hardcoded for now
+        string[] ores = { "Mythril", "Adamant", "DeepOcean", "Aqua", "Air", "Sunshine", "PureTitanium", "DruidSilver", "PurpleCrystal", "WyrmEye", "BloodRock" };
+
         if (oreType != 0)
         {
-            if (name != null)
+            var qualityNumber = _quality == WeaponQuality.Exceptional ? 1053100 : 1053099;
+
+            if (oreType < 12)
             {
-                list.Add(1053099, $"{oreType:#}\t{name}"); // ~1_oretype~ ~2_armortype~
+                if (name != null)
+                {
+                    list.Add(qualityNumber, $"{ores[oreType - 1]}\t{Name}");
+                }
+                else
+                {
+                    list.Add(qualityNumber, $"{ores[oreType - 1]}\t{LabelNumber:#}");
+                }
+            }
+            else if (name != null)
+            {
+                list.Add(qualityNumber, $"{oreType:#}\t{name}"); // ~1_oretype~ ~2_armortype~
             }
             else
             {
-                list.Add(1053099, $"{oreType:#}\t{LabelNumber:#}"); // ~1_oretype~ ~2_armortype~
+                list.Add(qualityNumber, $"{oreType:#}\t{LabelNumber:#}"); // ~1_oretype~ ~2_armortype~
             }
         }
         else if (name == null)
@@ -3098,10 +3197,25 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
         {
             list.Add(1060422, prop); // hit life leech ~1_val~%
         }
-
+         
         if ((prop = WeaponAttributes.HitLightning) != 0)
         {
             list.Add(1060423, prop); // hit lightning ~1_val~%
+        }
+        
+        if ((prop = WeaponAttributes.HitRayOfLight) != 0)
+        {
+            list.Add($"hit RayOfLight {prop}%");
+        }
+                
+        if ((prop = WeaponAttributes.HitImpale) != 0)
+        {
+            list.Add($"hit Impale {prop}%");
+        }
+                        
+        if ((prop = WeaponAttributes.HitEntangle) != 0)
+        {
+            list.Add($"hit Entangle {prop}%");
         }
 
         if ((prop = WeaponAttributes.HitLowerAttack) != 0)
@@ -3545,6 +3659,63 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
         defender.BoltEffect(0);
 
         SpellHelper.Damage(TimeSpan.Zero, defender, attacker, damage, 0, 0, 0, 0, 100);
+    }
+    
+    public virtual void DoRayOfLight(Mobile attacker, Mobile defender)
+    {
+        if (!attacker.CanBeHarmful(defender, false))
+        {
+            return;
+        }
+
+        attacker.DoHarmful(defender);
+
+        var damage = GetAosDamage(attacker, 17, 1, 9);
+
+        defender.FixedEffect(0x37B9, 14, 22, 2733, 0);
+        defender.FixedEffect(0x374A, 14, 14, 2733, 0);
+        defender.PlaySound(0x1E9);
+
+        SpellHelper.Damage(TimeSpan.Zero, defender, attacker, damage, 0, 50, 0, 0, 50);
+    }
+        
+    public virtual void DoImpale(Mobile attacker, Mobile defender)
+    {
+        if (!attacker.CanBeHarmful(defender, false))
+        {
+            return;
+        }
+
+        attacker.DoHarmful(defender);
+
+        var damage = GetAosDamage(attacker, 17, 1, 9);
+
+        defender.FixedParticles(0x37C4, 10, 15, 5013, EffectLayer.Waist);
+        defender.PlaySound(Core.AOS ? 0x15E : 0x44B);
+
+        SpellHelper.Damage(TimeSpan.Zero, defender, attacker, damage, 0, 20, 20, 0, 60);
+    }
+            
+    public virtual void DoEntangle(Mobile attacker, Mobile defender)
+    {
+        if (!attacker.CanBeHarmful(defender, false))
+        {
+            return;
+        }
+        if (defender.Entangled)
+        {
+            return;
+        }
+
+        attacker.DoHarmful(defender);
+
+        var ticks = Utility.RandomMinMax(1, 4);
+
+        if (SpellHelper.Entangle(defender, TimeSpan.FromSeconds(ticks * 0.25)))
+        {
+            defender.FixedEffect(0x0D40, 1, 6);
+            defender.PlaySound(0x204);
+        }
     }
 
     public virtual void DoDispel(Mobile attacker, Mobile defender)

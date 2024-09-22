@@ -176,3 +176,113 @@ public partial class ValoriteIngot : BaseIngot
     {
     }
 }
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class MythrilIngot : BaseIngot
+{
+    [Constructible]
+    public MythrilIngot(int amount = 1) : base(CraftResource.Mythril, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class AdamantIngot : BaseIngot
+{
+    [Constructible]
+    public AdamantIngot(int amount = 1) : base(CraftResource.Adamant, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class DeepOceanIngot : BaseIngot
+{
+    [Constructible]
+    public DeepOceanIngot(int amount = 1) : base(CraftResource.DeepOcean, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class AquaIngot : BaseIngot
+{
+    [Constructible]
+    public AquaIngot(int amount = 1) : base(CraftResource.Aqua, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class AirIngot : BaseIngot
+{
+    [Constructible]
+    public AirIngot(int amount = 1) : base(CraftResource.Air, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class SunshineIngot : BaseIngot
+{
+    [Constructible]
+    public SunshineIngot(int amount = 1) : base(CraftResource.Sunshine, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class PureTitaniumIngot : BaseIngot
+{
+    [Constructible]
+    public PureTitaniumIngot(int amount = 1) : base(CraftResource.PureTitanium, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class DruidSilverIngot : BaseIngot
+{
+    [Constructible]
+    public DruidSilverIngot(int amount = 1) : base(CraftResource.DruidSilver, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class PurpleCrystalIngot : BaseIngot
+{
+    [Constructible]
+    public PurpleCrystalIngot(int amount = 1) : base(CraftResource.PurpleCrystal, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class WyrmEyeIngot : BaseIngot
+{
+    [Constructible]
+    public WyrmEyeIngot(int amount = 1) : base(CraftResource.WyrmEye, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+[Flippable(0x1BF2, 0x1BEF)]
+public partial class BloodRockIngot : BaseIngot
+{
+    [Constructible]
+    public BloodRockIngot(int amount = 1) : base(CraftResource.BloodRock, amount)
+    {
+    }
+}

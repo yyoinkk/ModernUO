@@ -107,12 +107,22 @@ public partial class ProspectorsTool : BaseBashing, IUsesRemaining
         }
         else if (veinIndex >= def.Veins.Length - 1)
         {
-            from.SendLocalizedMessage(1049061); // You cannot improve valorite ore through prospecting.
+            from.SendMessage("You cannot improve wyrm eye ore through prospecting.");
         }
         else
         {
             bank.Vein = def.Veins[veinIndex + 1];
-            from.SendLocalizedMessage(1049050 + veinIndex);
+
+            if (veinIndex < 9)
+            {
+                from.SendLocalizedMessage(1049050 + veinIndex);
+            }
+            else 
+            {
+                // TODO: remove this. custom ores hardcoded for now
+                string[] ores = { "Mythril", "Adamant", "DeepOcean", "Aqua", "Air", "Sunshine", "PureTitanium", "DruidSilver", "PurpleCrystal", "WyrmEye" };
+                from.SendMessage($"You sift through the ore and find {ores[veinIndex-9]} can be mined there.");
+            }
 
             --UsesRemaining;
 

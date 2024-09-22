@@ -569,16 +569,23 @@ namespace Server.Items
 
             if (Quality == ArmorQuality.Exceptional)
             {
+                PhysicalBonus++;
+
+                if (from.CheckSkill(SkillName.ArmsLore, 90, 120))
+                {
+                    PhysicalBonus++;
+                }
+
                 // Guessed Core.ML removed exceptional resist bonuses from crafted shields
                 if (!(Core.ML && this is BaseShield))
                 {
-                    DistributeBonuses(
-                        tool is BaseRunicTool ? 6 :
-                        Core.SE ? 15 : 14
-                    ); // Not sure since when, but right now 15 points are added, not 14.
+                    //DistributeBonuses(
+                    //    tool is BaseRunicTool ? 6 :
+                    //    Core.SE ? 15 : 14
+                    //); // Not sure since when, but right now 15 points are added, not 14.
                 }
 
-                if (Core.ML && this is not BaseShield)
+                if (false && Core.ML && this is not BaseShield)
                 {
                     var bonus = (int)(from.Skills.ArmsLore.Value / 20);
 
@@ -610,7 +617,41 @@ namespace Server.Items
 
             if (Core.AOS)
             {
-                (tool as BaseRunicTool)?.ApplyAttributesTo(this);
+                //(tool as BaseRunicTool)?.ApplyAttributesTo(this);
+            }
+
+            switch (Resource)
+            {
+                case CraftResource.Mythril:
+                    break;
+                case CraftResource.Adamant:
+                    break;
+                case CraftResource.DeepOcean:
+                    break;
+                case CraftResource.Aqua:
+                    Attributes[AosAttribute.RegenMana] = 1;
+                    Attributes[AosAttribute.BonusInt] = 4;
+                    break;
+                case CraftResource.Air:
+                    Attributes[AosAttribute.BonusDex] = 4;
+                    break;
+                case CraftResource.Sunshine:
+                    break;
+                case CraftResource.PureTitanium:
+                    //Attributes[AosAttribute.DefendChance] = 5;
+                    break;
+                case CraftResource.DruidSilver:
+                    SkillBonuses.SetValues(0, SkillName.MagicResist, 5.0);
+                    break;
+                case CraftResource.PurpleCrystal:
+                    Attributes[AosAttribute.BonusStr] = 4;
+                    break;
+                case CraftResource.WyrmEye:
+                    Attributes[AosAttribute.RegenHits] = 1;
+                    break;
+                case CraftResource.BloodRock:
+                    Attributes[AosAttribute.ReflectPhysical] = 5;
+                    break;
             }
 
             return quality;
@@ -1203,6 +1244,19 @@ namespace Server.Items
                 CraftResource.Agapite       => 1053103,
                 CraftResource.Verite        => 1053102,
                 CraftResource.Valorite      => 1053101,
+
+                CraftResource.Mythril => 1,
+                CraftResource.Adamant => 2,
+                CraftResource.DeepOcean => 3,
+                CraftResource.Aqua => 4,
+                CraftResource.Air => 5,
+                CraftResource.Sunshine => 6,
+                CraftResource.PureTitanium => 7,
+                CraftResource.DruidSilver => 8,
+                CraftResource.PurpleCrystal => 9,
+                CraftResource.WyrmEye => 10,
+                CraftResource.BloodRock => 11,
+
                 CraftResource.SpinedLeather => 1061118,
                 CraftResource.HornedLeather => 1061117,
                 CraftResource.BarbedLeather => 1061116,
@@ -1217,11 +1271,25 @@ namespace Server.Items
 
             var name = Name;
 
+            // TODO: remove this. custom ores hardcoded for now
+            string[] ores = { "Mythril", "Adamant", "DeepOcean", "Aqua", "Air", "Sunshine", "PureTitanium", "DruidSilver", "PurpleCrystal", "WyrmEye", "BloodRock"};
+
             if (oreType != 0)
             {
                 var qualityNumber = _quality == ArmorQuality.Exceptional ? 1053100 : 1053099;
 
-                if (name != null)
+                if (oreType < 12)
+                {
+                    if (name != null)
+                    {
+                        list.Add(qualityNumber, $"{ores[oreType - 1]}\t{Name}");
+                    }
+                    else
+                    {
+                        list.Add(qualityNumber, $"{ores[oreType - 1]}\t{LabelNumber:#}");
+                    }
+                }
+                else if (name != null)
                 {
                     list.Add(qualityNumber, $"{oreType:#}\t{Name}");
                 }

@@ -673,14 +673,25 @@ public class DefBlacksmithy : CraftSystem
         // Add every material you want the player to be able to choose from
         // This will override the overridable material
         AddSubRes(typeof(IronIngot), 1044022, 00.0, 1044036, 1044267);
-        AddSubRes(typeof(DullCopperIngot), 1044023, 65.0, 1044036, 1044268);
-        AddSubRes(typeof(ShadowIronIngot), 1044024, 70.0, 1044036, 1044268);
-        AddSubRes(typeof(CopperIngot), 1044025, 75.0, 1044036, 1044268);
-        AddSubRes(typeof(BronzeIngot), 1044026, 80.0, 1044036, 1044268);
-        AddSubRes(typeof(GoldIngot), 1044027, 85.0, 1044036, 1044268);
-        AddSubRes(typeof(AgapiteIngot), 1044028, 90.0, 1044036, 1044268);
-        AddSubRes(typeof(VeriteIngot), 1044029, 95.0, 1044036, 1044268);
-        AddSubRes(typeof(ValoriteIngot), 1044030, 99.0, 1044036, 1044268);
+        AddSubRes(typeof(DullCopperIngot), 1044023, 55.0, 1044036, 1044268);
+        AddSubRes(typeof(ShadowIronIngot), 1044024, 60.0, 1044036, 1044268);
+        AddSubRes(typeof(CopperIngot), 1044025, 65.0, 1044036, 1044268);
+        AddSubRes(typeof(BronzeIngot), 1044026, 70.0, 1044036, 1044268);
+        AddSubRes(typeof(GoldIngot), 1044027, 75.0, 1044036, 1044268);
+        AddSubRes(typeof(AgapiteIngot), 1044028, 80.0, 1044036, 1044268);
+        AddSubRes(typeof(VeriteIngot), 1044029, 85.0, 1044036, 1044268);
+        AddSubRes(typeof(ValoriteIngot), 1044030, 89.0, 1044036, 1044268);
+
+        AddSubRes(typeof(MythrilIngot), "Mythril", 95.0, 1044036, 1044268);
+        AddSubRes(typeof(AdamantIngot), "Adamant", 100.0, 1044036, 1044268);
+        AddSubRes(typeof(DeepOceanIngot), "DeepOcean", 100.0, 1044036, 1044268);
+        AddSubRes(typeof(AquaIngot), "Aqua", 100.0, 1044036, 1044268);
+        AddSubRes(typeof(AirIngot), "Air", 105.0, 1044036, 1044268);
+        AddSubRes(typeof(SunshineIngot), "Sunshine", 105.0, 1044036, 1044268);
+        AddSubRes(typeof(PureTitaniumIngot), "PureTitanium", 105.0, 1044036, 1044268);
+        AddSubRes(typeof(DruidSilverIngot), "DruidSilver", 110.0, 1044036, 1044268);
+        AddSubRes(typeof(PurpleCrystalIngot), "PurpleCrystal", 110.0, 1044036, 1044268);
+        AddSubRes(typeof(WyrmEyeIngot), "WyrmEye", 115.0, 1044036, 1044268);
 
         SetSubRes2(typeof(RedScales), 1060875);
 
