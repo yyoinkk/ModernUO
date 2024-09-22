@@ -83,10 +83,10 @@ namespace Server.Engines.Harvest
         {
             OreAndStone = new HarvestDefinition
             {
-                BankWidth = 8,
-                BankHeight = 8,
-                MinTotal = 10,
-                MaxTotal = 34,
+                BankWidth = 3,
+                BankHeight = 3,
+                MinTotal = 8,
+                MaxTotal = 24,
                 MinRespawn = TimeSpan.FromMinutes(10.0),
                 MaxRespawn = TimeSpan.FromMinutes(20.0),
                 Skill = SkillName.Mining,
@@ -98,7 +98,7 @@ namespace Server.Engines.Harvest
                 ConsumedPerFeluccaHarvest = 2,
                 EffectActions = new[] { 11, 26 },
                 EffectSounds = new[] { 0x125, 0x126 },
-                EffectCounts = new[] { 1 },
+                EffectCounts = new[] { 1, 1, 2, 2, 2, 3 },
                 EffectDelay = TimeSpan.FromSeconds(1.6),
                 EffectSoundDelay = TimeSpan.FromSeconds(0.9),
                 NoResourcesMessage = 503040,     // There is no metal here to mine.
@@ -114,7 +114,7 @@ namespace Server.Engines.Harvest
             {
                 new(00.0, 00.0, 100.0, 1007072, typeof(IronOre), typeof(Granite)),
                 new(
-                    65.0,
+                    55.0,
                     25.0,
                     105.0,
                     1007073,
@@ -123,7 +123,7 @@ namespace Server.Engines.Harvest
                     typeof(DullCopperElemental)
                 ),
                 new(
-                    70.0,
+                    60.0,
                     30.0,
                     110.0,
                     1007074,
@@ -132,7 +132,7 @@ namespace Server.Engines.Harvest
                     typeof(ShadowIronElemental)
                 ),
                 new(
-                    75.0,
+                    65.0,
                     35.0,
                     115.0,
                     1007075,
@@ -141,7 +141,7 @@ namespace Server.Engines.Harvest
                     typeof(CopperElemental)
                 ),
                 new(
-                    80.0,
+                    70.0,
                     40.0,
                     120.0,
                     1007076,
@@ -150,7 +150,7 @@ namespace Server.Engines.Harvest
                     typeof(BronzeElemental)
                 ),
                 new(
-                    85.0,
+                    75.0,
                     45.0,
                     125.0,
                     1007077,
@@ -159,7 +159,7 @@ namespace Server.Engines.Harvest
                     typeof(GoldenElemental)
                 ),
                 new(
-                    90.0,
+                    80.0,
                     50.0,
                     130.0,
                     1007078,
@@ -168,36 +168,148 @@ namespace Server.Engines.Harvest
                     typeof(AgapiteElemental)
                 ),
                 new(
-                    95.0,
+                    85.0,
                     55.0,
                     135.0,
                     1007079,
                     typeof(VeriteOre),
-                    typeof(VeriteGranite),
+                    typeof(VeriteGranite), 
                     typeof(VeriteElemental)
                 ),
                 new(
-                    99.0,
+                    89.0,
                     59.0,
                     139.0,
                     1007080,
                     typeof(ValoriteOre),
                     typeof(ValoriteGranite),
                     typeof(ValoriteElemental)
+                ),
+                new(
+                    95.0,
+                    69.0,
+                    149.0,
+                    "You dig some mythril ore and put it in your backpack.",
+                    typeof(MythrilOre),
+                    typeof(MythrilGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    100.0,
+                    79.0,
+                    159.0,
+                    "You dig some adamant ore and put it in your backpack.",
+                    typeof(AdamantOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    100.0,
+                    79.0,
+                    159.0,
+                    "You dig some deep ocean ore and put it in your backpack.",
+                    typeof(DeepOceanOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    100.0,
+                    79.0,
+                    159.0,
+                    "You dig some aqua ore and put it in your backpack.",
+                    typeof(AquaOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    105.0,
+                    84.0,
+                    164.0,
+                    "You dig some air ore and put it in your backpack.",
+                    typeof(AirOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    105.0,
+                    84.0,
+                    164.0,
+                    "You dig some sunshine ore and put it in your backpack.",
+                    typeof(SunshineOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    105.0,
+                    84.0,
+                    164.0,
+                    "You dig some pure titainum ore and put it in your backpack.",
+                    typeof(PureTitaniumOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    110.0,
+                    90.0,
+                    170.0,
+                    "You dig some pure titanium ore and put it in your backpack.",
+                    typeof(PureTitaniumOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    110.0,
+                    94.0,
+                    174.0,
+                    "You dig some druid silver ore and put it in your backpack.",
+                    typeof(DruidSilverOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    115.0,
+                    94.0,
+                    174.0,
+                    "You dig some purple crystal ore and put it in your backpack.",
+                    typeof(PurpleCrystalOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
+                ),
+                new(
+                    119.0,
+                    95.0,
+                    175.0,
+                    "You dig some wyrm eye ore and put it in your backpack.",
+                    typeof(WyrmEyeOre),
+                    //typeof(ValoriteGranite),
+                    typeof(ValoriteElemental)
                 )
             };
 
             HarvestVein[] veins =
             {
-                new(496, 0.0, res[0], null),   // Iron
+                //880 here
+                new(330, 0.0, res[0], null),   // Iron
                 new(112, 0.5, res[1], res[0]), // Dull Copper
-                new(098, 0.5, res[2], res[0]), // Shadow Iron
-                new(084, 0.5, res[3], res[0]), // Copper
-                new(070, 0.5, res[4], res[0]), // Bronze
-                new(056, 0.5, res[5], res[0]), // Gold
-                new(042, 0.5, res[6], res[0]), // Agapite
-                new(028, 0.5, res[7], res[0]), // Verite
-                new(014, 0.5, res[8], res[0])  // Valorite
+                new(104, 0.5, res[2], res[0]), // Shadow Iron
+                new(090, 0.5, res[3], res[0]), // Copper
+                new(076, 0.5, res[4], res[0]), // Bronze
+                new(062, 0.5, res[5], res[0]), // Gold
+                new(048, 0.5, res[6], res[0]), // Agapite
+                new(034, 0.5, res[7], res[0]), // Verite
+                new(024, 0.5, res[8], res[0]), // Valorite 
+
+                //120 here
+                new(017, 0.5, res[9],  res[0]), // Mythril
+                new(014, 0.5, res[10], res[0]), // Adamant
+                new(014, 0.5, res[11], res[0]), // DeepOcean
+                new(014, 0.5, res[12], res[0]), // Aqua
+                new(011, 0.5, res[13], res[0]), // Air
+                new(011, 0.5, res[14], res[0]), // Sunshine
+                new(011, 0.5, res[15], res[0]), // PureTitauim
+                new(010, 0.5, res[16], res[0]), // DruidSilver
+                new(010, 0.5, res[17], res[0]), // PurpleCrystal
+                new(008, 0.5, res[18], res[0]), // WyrmEye
             };
 
             OreAndStone.Resources = res;
@@ -222,8 +334,8 @@ namespace Server.Engines.Harvest
 
             Sand = new HarvestDefinition
             {
-                BankWidth = 8,
-                BankHeight = 8,
+                BankWidth = 5,
+                BankHeight = 5,
                 MinTotal = 6,
                 MaxTotal = 12,
                 MinRespawn = TimeSpan.FromMinutes(10.0),

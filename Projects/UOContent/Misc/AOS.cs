@@ -856,7 +856,10 @@ namespace Server
         ResistEnergyBonus = 0x00200000,
         UseBestSkill = 0x00400000,
         MageWeapon = 0x00800000,
-        DurabilityBonus = 0x01000000
+        DurabilityBonus = 0x01000000,
+        HitRayOfLight = 0x02000000,
+        HitImpale = 0x04000000,
+        HitEntangle = 0x08000000
     }
 
     public sealed class AosWeaponAttributes : BaseAttributes
@@ -1048,6 +1051,27 @@ namespace Server
         {
             get => this[AosWeaponAttribute.DurabilityBonus];
             set => this[AosWeaponAttribute.DurabilityBonus] = value;
+        }
+        
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int HitRayOfLight
+        {
+            get => this[AosWeaponAttribute.HitRayOfLight];
+            set => this[AosWeaponAttribute.HitRayOfLight] = value;
+        }
+                
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int HitImpale
+        {
+            get => this[AosWeaponAttribute.HitImpale];
+            set => this[AosWeaponAttribute.HitImpale] = value;
+        }
+                        
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int HitEntangle
+        {
+            get => this[AosWeaponAttribute.HitEntangle];
+            set => this[AosWeaponAttribute.HitEntangle] = value;
         }
 
         public static int GetValue(Mobile m, AosWeaponAttribute attribute)

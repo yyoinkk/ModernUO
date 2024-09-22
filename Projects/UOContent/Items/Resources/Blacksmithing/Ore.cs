@@ -163,15 +163,27 @@ public abstract partial class BaseOre : Item
             {
                 var difficulty = m_Ore._resource switch
                 {
-                    CraftResource.DullCopper => 65.0,
-                    CraftResource.ShadowIron => 70.0,
-                    CraftResource.Copper     => 75.0,
-                    CraftResource.Bronze     => 80.0,
-                    CraftResource.Gold       => 85.0,
-                    CraftResource.Agapite    => 90.0,
-                    CraftResource.Verite     => 95.0,
-                    CraftResource.Valorite   => 99.0,
-                    _                        => 50.0
+                    CraftResource.DullCopper => 55.0,
+                    CraftResource.ShadowIron => 60.0,
+                    CraftResource.Copper     => 65.0,
+                    CraftResource.Bronze     => 70.0,
+                    CraftResource.Gold       => 75.0,
+                    CraftResource.Agapite    => 80.0,
+                    CraftResource.Verite     => 85.0,
+                    CraftResource.Valorite   => 89.0,
+
+                    CraftResource.Mythril       => 95.0,
+                    CraftResource.Adamant       => 100.0,
+                    CraftResource.DeepOcean     => 100.0,
+                    CraftResource.Aqua          => 100.0,
+                    CraftResource.Air           => 105.0,
+                    CraftResource.Sunshine      => 105.0,
+                    CraftResource.PureTitanium  => 105.0,
+                    CraftResource.DruidSilver   => 110.0,
+                    CraftResource.PurpleCrystal => 110.0,
+                    CraftResource.WyrmEye       => 115.0,
+
+                    _                           => 50.0
                 };
 
                 var minSkill = difficulty - 25.0;
@@ -342,4 +354,114 @@ public partial class ValoriteOre : BaseOre
     }
 
     public override BaseIngot GetIngot() => new ValoriteIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class MythrilOre : BaseOre
+{
+    [Constructible]
+    public MythrilOre(int amount = 1) : base(CraftResource.Mythril, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new MythrilIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class AdamantOre : BaseOre
+{
+    [Constructible]
+    public AdamantOre(int amount = 1) : base(CraftResource.Adamant, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new AdamantIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class DeepOceanOre : BaseOre
+{
+    [Constructible]
+    public DeepOceanOre(int amount = 1) : base(CraftResource.DeepOcean, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new DeepOceanIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class AquaOre : BaseOre
+{
+    [Constructible]
+    public AquaOre(int amount = 1) : base(CraftResource.Aqua, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new AquaIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class AirOre : BaseOre
+{
+    [Constructible]
+    public AirOre(int amount = 1) : base(CraftResource.Air, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new AirIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class SunshineOre : BaseOre
+{
+    [Constructible]
+    public SunshineOre(int amount = 1) : base(CraftResource.Sunshine, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new SunshineIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class PureTitaniumOre : BaseOre
+{
+    [Constructible]
+    public PureTitaniumOre(int amount = 1) : base(CraftResource.PureTitanium, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new PureTitaniumIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class DruidSilverOre : BaseOre
+{
+    [Constructible]
+    public DruidSilverOre(int amount = 1) : base(CraftResource.DruidSilver, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new DruidSilverIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class PurpleCrystalOre : BaseOre
+{
+    [Constructible]
+    public PurpleCrystalOre(int amount = 1) : base(CraftResource.PurpleCrystal, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new PurpleCrystalIngot();
+}
+
+[SerializationGenerator(0, false)]
+public partial class WyrmEyeOre : BaseOre
+{
+    [Constructible]
+    public WyrmEyeOre(int amount = 1) : base(CraftResource.WyrmEye, amount)
+    {
+    }
+
+    public override BaseIngot GetIngot() => new WyrmEyeIngot();
 }

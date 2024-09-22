@@ -16,6 +16,18 @@ namespace Server.Items
         Verite,
         Valorite,
 
+        Mythril,
+        Adamant,
+        DeepOcean,
+        Aqua,     
+        Air,
+        Sunshine,
+        PureTitanium,
+        DruidSilver,
+        PurpleCrystal,
+        WyrmEye,
+        BloodRock,
+
         RegularLeather = 101,
         SpinedLeather,
         HornedLeather,
@@ -49,7 +61,8 @@ namespace Server.Items
     public class CraftAttributeInfo
     {
         public static readonly CraftAttributeInfo Blank;
-        public static readonly CraftAttributeInfo DullCopper, ShadowIron, Copper, Bronze, Golden, Agapite, Verite, Valorite;
+        public static readonly CraftAttributeInfo DullCopper, ShadowIron, Copper, Bronze, Golden, Agapite, Verite, Valorite, Mythril, Adamant,
+            DeepOcean, Aqua, Air, Sunshine, PureTitanium, DruidSilver, PurpleCrystal, WyrmEye, BloodRock;
         public static readonly CraftAttributeInfo Spined, Horned, Barbed;
         public static readonly CraftAttributeInfo RedScales, YellowScales, BlackScales, GreenScales, WhiteScales, BlueScales;
         public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood;
@@ -60,9 +73,10 @@ namespace Server.Items
 
             var dullCopper = DullCopper = new CraftAttributeInfo();
 
-            dullCopper.ArmorPhysicalResist = 6;
+            dullCopper.ArmorPhysicalResist = 2;
             dullCopper.ArmorDurability = 50;
             dullCopper.ArmorLowerRequirements = 20;
+
             dullCopper.WeaponDurability = 100;
             dullCopper.WeaponLowerRequirements = 50;
             dullCopper.RunicMinAttributes = 1;
@@ -81,9 +95,10 @@ namespace Server.Items
             var shadowIron = ShadowIron = new CraftAttributeInfo();
 
             shadowIron.ArmorPhysicalResist = 2;
-            shadowIron.ArmorFireResist = 1;
-            shadowIron.ArmorEnergyResist = 5;
+            shadowIron.ArmorFireResist = 2;
+            shadowIron.ArmorEnergyResist = 2;
             shadowIron.ArmorDurability = 100;
+
             shadowIron.WeaponColdDamage = 20;
             shadowIron.WeaponDurability = 50;
             shadowIron.RunicMinAttributes = 2;
@@ -101,10 +116,10 @@ namespace Server.Items
 
             var copper = Copper = new CraftAttributeInfo();
 
-            copper.ArmorPhysicalResist = 1;
-            copper.ArmorFireResist = 1;
-            copper.ArmorPoisonResist = 5;
-            copper.ArmorEnergyResist = 2;
+            copper.ArmorPhysicalResist = 2;
+            copper.ArmorPoisonResist = 2;
+            copper.ArmorColdResist = 2;
+
             copper.WeaponPoisonDamage = 10;
             copper.WeaponEnergyDamage = 20;
             copper.RunicMinAttributes = 2;
@@ -122,11 +137,12 @@ namespace Server.Items
 
             var bronze = Bronze = new CraftAttributeInfo();
 
-            bronze.ArmorPhysicalResist = 3;
-            bronze.ArmorColdResist = 5;
-            bronze.ArmorPoisonResist = 1;
-            bronze.ArmorEnergyResist = 1;
-            bronze.WeaponFireDamage = 40;
+            bronze.ArmorPhysicalResist = 2;
+            bronze.ArmorColdResist = 1;
+            bronze.ArmorPoisonResist = 2;
+            bronze.ArmorEnergyResist = 2;
+
+            bronze.WeaponFireDamage = 20;
             bronze.RunicMinAttributes = 3;
             bronze.RunicMaxAttributes = 3;
             if (Core.ML)
@@ -146,9 +162,10 @@ namespace Server.Items
             golden.ArmorFireResist = 1;
             golden.ArmorColdResist = 2;
             golden.ArmorEnergyResist = 2;
-            golden.ArmorLuck = 40;
+            golden.ArmorLuck = 20;
             golden.ArmorLowerRequirements = 30;
-            golden.WeaponLuck = 40;
+
+            golden.WeaponLuck = 20;
             golden.WeaponLowerRequirements = 50;
             golden.RunicMinAttributes = 3;
             golden.RunicMaxAttributes = 4;
@@ -166,12 +183,13 @@ namespace Server.Items
             var agapite = Agapite = new CraftAttributeInfo();
 
             agapite.ArmorPhysicalResist = 2;
-            agapite.ArmorFireResist = 3;
-            agapite.ArmorColdResist = 2;
-            agapite.ArmorPoisonResist = 2;
-            agapite.ArmorEnergyResist = 2;
-            agapite.WeaponColdDamage = 30;
-            agapite.WeaponEnergyDamage = 20;
+            agapite.ArmorFireResist = 1;
+            agapite.ArmorColdResist = 1;
+            agapite.ArmorPoisonResist = 1;
+            agapite.ArmorEnergyResist = 1;
+
+            agapite.WeaponColdDamage = 10;
+            agapite.WeaponEnergyDamage = 10;
             agapite.RunicMinAttributes = 4;
             agapite.RunicMaxAttributes = 4;
             if (Core.ML)
@@ -188,12 +206,11 @@ namespace Server.Items
             var verite = Verite = new CraftAttributeInfo();
 
             verite.ArmorPhysicalResist = 3;
-            verite.ArmorFireResist = 3;
-            verite.ArmorColdResist = 2;
-            verite.ArmorPoisonResist = 3;
-            verite.ArmorEnergyResist = 1;
-            verite.WeaponPoisonDamage = 40;
-            verite.WeaponEnergyDamage = 20;
+            verite.ArmorFireResist = 1;
+            verite.ArmorColdResist = 1;
+
+            verite.WeaponPoisonDamage = 20;
+            verite.WeaponEnergyDamage = 10;
             verite.RunicMinAttributes = 4;
             verite.RunicMaxAttributes = 5;
             if (Core.ML)
@@ -209,15 +226,15 @@ namespace Server.Items
 
             var valorite = Valorite = new CraftAttributeInfo();
 
-            valorite.ArmorPhysicalResist = 4;
-            valorite.ArmorColdResist = 3;
-            valorite.ArmorPoisonResist = 3;
-            valorite.ArmorEnergyResist = 3;
-            valorite.ArmorDurability = 50;
+            valorite.ArmorPhysicalResist = 3;
+            valorite.ArmorColdResist = 2;
+            valorite.ArmorEnergyResist = 2;
+            valorite.ArmorDurability = 20;
+
             valorite.WeaponFireDamage = 10;
-            valorite.WeaponColdDamage = 20;
+            valorite.WeaponColdDamage = 10;
             valorite.WeaponPoisonDamage = 10;
-            valorite.WeaponEnergyDamage = 20;
+            valorite.WeaponEnergyDamage = 10;
             valorite.RunicMinAttributes = 5;
             valorite.RunicMaxAttributes = 5;
             if (Core.ML)
@@ -229,6 +246,239 @@ namespace Server.Items
             {
                 valorite.RunicMinIntensity = 50;
                 valorite.RunicMaxIntensity = 100;
+            }
+
+            var mythril = Mythril = new CraftAttributeInfo();
+
+            mythril.ArmorPhysicalResist = 4;
+            mythril.ArmorPoisonResist = 2;
+
+            mythril.RunicMinAttributes = 5;
+            mythril.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                mythril.RunicMinIntensity = 85;
+                mythril.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                mythril.RunicMinIntensity = 50;
+                mythril.RunicMaxIntensity = 100;
+            }
+            
+            var adamant = Adamant = new CraftAttributeInfo();
+
+            adamant.ArmorPhysicalResist = 5;
+            adamant.ArmorColdResist = 2;
+            adamant.ArmorLowerRequirements = 20;
+            adamant.ArmorDurability = 50;   
+
+            adamant.WeaponDurability = 50;
+            adamant.WeaponLuck = 30;
+
+            adamant.RunicMinAttributes = 5;
+            adamant.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                adamant.RunicMinIntensity = 85;
+                adamant.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                adamant.RunicMinIntensity = 50;
+                adamant.RunicMaxIntensity = 100;
+            }
+                        
+            var deepocean = DeepOcean = new CraftAttributeInfo();
+
+            deepocean.ArmorPhysicalResist = 5;
+            deepocean.ArmorFireResist = 1;
+            deepocean.ArmorDurability = 20;
+
+            deepocean.WeaponDurability = 20;
+            deepocean.RunicMinAttributes = 5;
+            deepocean.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                deepocean.RunicMinIntensity = 85;
+                deepocean.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                deepocean.RunicMinIntensity = 50;
+                deepocean.RunicMaxIntensity = 100;
+            }
+                                    
+            var aqua = Aqua = new CraftAttributeInfo();
+
+            aqua.ArmorPhysicalResist = 2;
+            aqua.ArmorColdResist = 3;
+            aqua.ArmorPoisonResist = 3;
+            aqua.ArmorEnergyResist = 3;
+
+            aqua.WeaponEnergyDamage = 10;
+            aqua.RunicMinAttributes = 5;
+            aqua.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                aqua.RunicMinIntensity = 85;
+                aqua.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                aqua.RunicMinIntensity = 50;
+                aqua.RunicMaxIntensity = 100;
+            }
+                                                
+            var air = Air = new CraftAttributeInfo();
+
+            air.ArmorPhysicalResist = 2;
+            air.ArmorColdResist = 3;
+            air.ArmorPoisonResist = 3;
+            air.ArmorEnergyResist = 3;
+
+            air.WeaponEnergyDamage = 30;
+            air.RunicMinAttributes = 5;
+            air.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                air.RunicMinIntensity = 85;
+                air.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                air.RunicMinIntensity = 50;
+                air.RunicMaxIntensity = 100;
+            }
+                                                            
+            var sunshine = Sunshine = new CraftAttributeInfo();
+
+            sunshine.ArmorPhysicalResist = 2;
+            sunshine.ArmorEnergyResist = 3;
+            sunshine.ArmorFireResist = 3;
+            sunshine.ArmorLuck = 30;
+
+            sunshine.WeaponFireDamage = 30;
+            sunshine.RunicMinAttributes = 5;
+            sunshine.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                sunshine.RunicMinIntensity = 85;
+                sunshine.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                sunshine.RunicMinIntensity = 50;
+                sunshine.RunicMaxIntensity = 100;
+            }
+                                                                        
+            var puretitanium = PureTitanium = new CraftAttributeInfo();
+
+            puretitanium.ArmorPhysicalResist = 3;
+            puretitanium.ArmorColdResist = 3;
+            puretitanium.ArmorEnergyResist = 1;
+
+            puretitanium.WeaponColdDamage = 30;
+            puretitanium.RunicMinAttributes = 5;
+            puretitanium.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                puretitanium.RunicMinIntensity = 85;
+                puretitanium.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                puretitanium.RunicMinIntensity = 50;
+                puretitanium.RunicMaxIntensity = 100;
+            }
+                                                                                    
+            var druidsilver = DruidSilver = new CraftAttributeInfo();
+
+            druidsilver.ArmorPhysicalResist = 1;
+            druidsilver.ArmorColdResist = 2;
+            druidsilver.ArmorPoisonResist = 2;
+            druidsilver.ArmorEnergyResist = 2;
+            druidsilver.ArmorFireResist = 2;
+
+            druidsilver.WeaponPoisonDamage = 20;
+            druidsilver.RunicMinAttributes = 5;
+            druidsilver.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                druidsilver.RunicMinIntensity = 85;
+                druidsilver.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                druidsilver.RunicMinIntensity = 50;
+                druidsilver.RunicMaxIntensity = 100;
+            }
+                                                                                                
+            var purplecrystal = PurpleCrystal = new CraftAttributeInfo();
+
+            purplecrystal.ArmorPhysicalResist = 3;
+            purplecrystal.ArmorColdResist = 3;
+            purplecrystal.ArmorPoisonResist = 3;
+            purplecrystal.ArmorEnergyResist = 3;
+
+            purplecrystal.WeaponFireDamage = 15;
+            purplecrystal.WeaponColdDamage = 15;
+            purplecrystal.WeaponPoisonDamage = 15;
+            purplecrystal.WeaponEnergyDamage = 15;
+            purplecrystal.RunicMinAttributes = 5;
+            purplecrystal.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                purplecrystal.RunicMinIntensity = 85;
+                purplecrystal.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                purplecrystal.RunicMinIntensity = 50;
+                purplecrystal.RunicMaxIntensity = 100;
+            }
+                                                                                                            
+            var wyrmeye = WyrmEye = new CraftAttributeInfo();
+
+            wyrmeye.ArmorPhysicalResist = 4;
+            wyrmeye.ArmorPoisonResist = 3;
+
+            wyrmeye.WeaponFireDamage = 20;
+            wyrmeye.WeaponEnergyDamage = 20;
+            wyrmeye.RunicMinAttributes = 5;
+            wyrmeye.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                wyrmeye.RunicMinIntensity = 85;
+                wyrmeye.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                wyrmeye.RunicMinIntensity = 50;
+                wyrmeye.RunicMaxIntensity = 100;
+            }
+                                                                                                                        
+            var bloodrock = BloodRock = new CraftAttributeInfo();
+
+            bloodrock.ArmorPhysicalResist = 4;
+            bloodrock.ArmorColdResist = 3;
+
+            bloodrock.ArmorDurability = 50;
+            bloodrock.WeaponFireDamage = 10;
+            bloodrock.WeaponColdDamage = 20;
+            bloodrock.WeaponPoisonDamage = 10;
+            bloodrock.WeaponEnergyDamage = 20;
+            bloodrock.RunicMinAttributes = 5;
+            bloodrock.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                bloodrock.RunicMinIntensity = 85;
+                bloodrock.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                bloodrock.RunicMinIntensity = 50;
+                bloodrock.RunicMaxIntensity = 100;
             }
 
             var spined = Spined = new CraftAttributeInfo();
@@ -506,6 +756,105 @@ namespace Server.Items
                 typeof(ValoriteIngot),
                 typeof(ValoriteOre),
                 typeof(ValoriteGranite)
+            ),
+            new(
+                0x255,
+                0,
+                "Mythril",
+                CraftAttributeInfo.Mythril,
+                CraftResource.Mythril,
+                typeof(MythrilIngot),
+                typeof(MythrilOre)
+            ),
+            new(
+                0x9C2,
+                0,
+                "Adamant",
+                CraftAttributeInfo.Adamant,
+                CraftResource.Adamant,
+                typeof(AdamantIngot),
+                typeof(AdamantOre)
+            ),
+            new(
+                0x502,
+                0,
+                "DeepOcean",
+                CraftAttributeInfo.DeepOcean,
+                CraftResource.DeepOcean,
+                typeof(DeepOceanIngot),
+                typeof(DeepOceanOre)
+            ),
+            new(
+                0x495,
+                0,
+                "Aqua",
+                CraftAttributeInfo.Aqua,
+                CraftResource.Aqua,
+                typeof(AquaIngot),
+                typeof(AquaOre)
+            ),
+            new(
+                0x4F2,
+                0,
+                "Air",
+                CraftAttributeInfo.Air,
+                CraftResource.Air,
+                typeof(AirIngot),
+                typeof(AirOre)
+            ),
+            new(
+                0xAA1,
+                0,
+                "Sunshine",
+                CraftAttributeInfo.Sunshine,
+                CraftResource.Sunshine,
+                typeof(SunshineIngot),
+                typeof(SunshineOre)
+            ),
+            new(
+                0x78D,
+                0,
+                "PureTitanium",
+                CraftAttributeInfo.PureTitanium,
+                CraftResource.PureTitanium,
+                typeof(PureTitaniumIngot),
+                typeof(PureTitaniumOre)
+            ),
+            new(
+                0xAC3,
+                0,
+                "DruidSilver",
+                CraftAttributeInfo.DruidSilver,
+                CraftResource.DruidSilver,
+                typeof(DruidSilverIngot),
+                typeof(DruidSilverOre)
+            ),
+            new(
+                0x492,
+                0,
+                "PurpleCrystal",
+                CraftAttributeInfo.PurpleCrystal,
+                CraftResource.PurpleCrystal,
+                typeof(PurpleCrystalIngot),
+                typeof(PurpleCrystalOre)
+            ),
+            new(
+                0xABF,
+                0,
+                "WyrmEye",
+                CraftAttributeInfo.WyrmEye,
+                CraftResource.WyrmEye,
+                typeof(WyrmEyeIngot),
+                typeof(WyrmEyeOre)
+            ),
+            new(
+                0xAC0,
+                0,
+                "BloodRock",
+                CraftAttributeInfo.BloodRock,
+                CraftResource.BloodRock,
+                typeof(BloodRockIngot)
+                //typeof(BloodRockOre)
             )
         };
 
@@ -778,7 +1127,7 @@ namespace Server.Items
         public static CraftResourceType GetType(CraftResource resource) =>
             resource switch
             {
-                >= CraftResource.Iron and <= CraftResource.Valorite                => CraftResourceType.Metal,
+                >= CraftResource.Iron and <= CraftResource.BloodRock               => CraftResourceType.Metal,
                 >= CraftResource.RegularLeather and <= CraftResource.BarbedLeather => CraftResourceType.Leather,
                 >= CraftResource.RedScales and <= CraftResource.BlueScales         => CraftResourceType.Scales,
                 >= CraftResource.RegularWood and <= CraftResource.Frostwood        => CraftResourceType.Wood,
