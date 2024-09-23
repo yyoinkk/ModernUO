@@ -789,6 +789,7 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
 
         switch (Resource)
         {
+            // Metal
             case CraftResource.Mythril:
                 Attributes[AosAttribute.AttackChance] = 5;
                 Attributes[AosAttribute.WeaponSpeed] = 10;
@@ -841,6 +842,44 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
                 MaxDamage += 2;
                 Attributes[AosAttribute.AttackChance] = 15;
                 WeaponAttributes.HitLeechHits = 20;
+                break;
+
+            // Wood
+            case CraftResource.Frostwood:
+                WeaponAttributes.HitHarm = 10;
+                Attributes[AosAttribute.AttackChance] = 5;
+                break;
+            case CraftResource.Angerwood:
+                Attributes[AosAttribute.AttackChance] = 5;
+                break;
+            case CraftResource.Owlvinewood:
+                MaxDamage += 1;
+                Attributes[AosAttribute.WeaponSpeed] = 5;
+                Attributes[AosAttribute.AttackChance] = 15;
+                break;
+            case CraftResource.Flamingwood:
+                WeaponAttributes.HitFireball = 10;
+                Attributes[AosAttribute.AttackChance] = 5;
+                break;
+            case CraftResource.Jinxwood:
+                MinDamage += 1;
+                MaxDamage += 1;
+                Attributes[AosAttribute.AttackChance] = 10;
+                WeaponAttributes.HitLowerDefend = 20;
+                break;
+            case CraftResource.Blackwood:
+                Attributes[AosAttribute.AttackChance] = 15;
+                MinDamage += 2;
+                MaxDamage += 2;
+
+                if (this is BaseRanged ranged)
+                {
+                    ranged.Velocity = 10;
+                }
+                else 
+                {
+                    WeaponAttributes.HitPhysicalArea = 10;
+                }
                 break;
         }
 
@@ -2954,68 +2993,22 @@ public abstract partial class BaseWeapon : Item, IWeapon, IFactionItem, ICraftab
 
     public override void AddNameProperty(IPropertyList list)
     {
-        var oreType = _resource switch
-        {
-            CraftResource.DullCopper    => 1053108,
-            CraftResource.ShadowIron    => 1053107,
-            CraftResource.Copper        => 1053106,
-            CraftResource.Bronze        => 1053105,
-            CraftResource.Gold          => 1053104,
-            CraftResource.Agapite       => 1053103,
-            CraftResource.Verite        => 1053102,
-            CraftResource.Valorite      => 1053101,
-
-            CraftResource.Mythril => 1,
-            CraftResource.Adamant => 2,
-            CraftResource.DeepOcean => 3,
-            CraftResource.Aqua => 4,
-            CraftResource.Air => 5,
-            CraftResource.Sunshine => 6,
-            CraftResource.PureTitanium => 7,
-            CraftResource.DruidSilver => 8,
-            CraftResource.PurpleCrystal => 9,
-            CraftResource.WyrmEye => 10,
-            CraftResource.BloodRock => 11,
-
-            CraftResource.SpinedLeather => 1061118,
-            CraftResource.HornedLeather => 1061117,
-            CraftResource.BarbedLeather => 1061116,
-            CraftResource.RedScales     => 1060814,
-            CraftResource.YellowScales  => 1060818,
-            CraftResource.BlackScales   => 1060820,
-            CraftResource.GreenScales   => 1060819,
-            CraftResource.WhiteScales   => 1060821,
-            CraftResource.BlueScales    => 1060815,
-            _                           => 0
-        };
-
         var name = Name;
+        int[] defResources = { 0, 1, 101, 201, 301 };
 
-        // TODO: remove this. custom ores hardcoded for now
-        string[] ores = { "Mythril", "Adamant", "DeepOcean", "Aqua", "Air", "Sunshine", "PureTitanium", "DruidSilver", "PurpleCrystal", "WyrmEye", "BloodRock" };
-
-        if (oreType != 0)
+        if (Array.IndexOf(defResources, (int)Resource) == -1)
         {
             var qualityNumber = _quality == WeaponQuality.Exceptional ? 1053100 : 1053099;
 
-            if (oreType < 12)
+            string resName = CraftResources.GetName(_resource);
+
+            if (name != null)
             {
-                if (name != null)
-                {
-                    list.Add(qualityNumber, $"{ores[oreType - 1]}\t{Name}");
-                }
-                else
-                {
-                    list.Add(qualityNumber, $"{ores[oreType - 1]}\t{LabelNumber:#}");
-                }
-            }
-            else if (name != null)
-            {
-                list.Add(qualityNumber, $"{oreType:#}\t{name}"); // ~1_oretype~ ~2_armortype~
+                list.Add(qualityNumber, $"{resName}\t{name}"); // ~1_oretype~ ~2_armortype~
             }
             else
             {
-                list.Add(qualityNumber, $"{oreType:#}\t{LabelNumber:#}"); // ~1_oretype~ ~2_armortype~
+                list.Add(qualityNumber, $"{resName}\t{LabelNumber:#}"); // ~1_oretype~ ~2_armortype~
             }
         }
         else if (name == null)

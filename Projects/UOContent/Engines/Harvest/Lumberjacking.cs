@@ -69,23 +69,37 @@ namespace Server.Engines.Harvest
                 res = new[]
                 {
                     new HarvestResource(00.0, 00.0, 100.0, 1072540, typeof(Log)),
-                    new HarvestResource(65.0, 25.0, 105.0, 1072541, typeof(OakLog)),
+                    new HarvestResource(60.0, 25.0, 105.0, 1072541, typeof(OakLog)),
                     new HarvestResource(80.0, 40.0, 120.0, 1072542, typeof(AshLog)),
-                    new HarvestResource(95.0, 55.0, 135.0, 1072543, typeof(YewLog)),
-                    new HarvestResource(100.0, 60.0, 140.0, 1072544, typeof(HeartwoodLog)),
-                    new HarvestResource(100.0, 60.0, 140.0, 1072545, typeof(BloodwoodLog)),
-                    new HarvestResource(100.0, 60.0, 140.0, 1072546, typeof(FrostwoodLog))
+                    new HarvestResource(90.0, 55.0, 135.0, 1072543, typeof(YewLog)),
+                    new HarvestResource(95.0, 60.0, 140.0, 1072544, typeof(HeartwoodLog)),
+                    new HarvestResource(95.0, 60.0, 140.0, 1072545, typeof(BloodwoodLog)),
+                    new HarvestResource(95.0, 60.0, 140.0, 1072546, typeof(FrostwoodLog)),
+
+                    new HarvestResource(95.0, 60.0, 140.0, 1072546, typeof(AngerLog)),
+                    new HarvestResource(100.0, 65.0, 140.0, 1072546, typeof(OwlvineLog)),
+                    new HarvestResource(100.0, 70.0, 140.0, 1072546, typeof(FlamingLog)),
+                    new HarvestResource(110.0, 70.0, 150.0, 1072546, typeof(JinxLog)),
+                    new HarvestResource(115.0, 75.0, 155.0, 1072546, typeof(BlackwoodLog))
                 };
 
                 veins = new[]
                 {
-                    new HarvestVein(490, 0.0, res[0], null),   // Ordinary Logs
-                    new HarvestVein(300, 0.5, res[1], res[0]), // Oak
-                    new HarvestVein(100, 0.5, res[2], res[0]), // Ash
-                    new HarvestVein(050, 0.5, res[3], res[0]), // Yew
-                    new HarvestVein(030, 0.5, res[4], res[0]), // Heartwood
-                    new HarvestVein(020, 0.5, res[5], res[0]), // Bloodwood
-                    new HarvestVein(010, 0.5, res[6], res[0])  // Frostwood
+                    // 870
+                    new HarvestVein(350, 0.0, res[0], null),    // Ordinary Logs
+                    new HarvestVein(110, 0.5, res[1], res[0]),  // Oak
+                    new HarvestVein(100, 0.5, res[2], res[0]),  // Ash
+                    new HarvestVein(090, 0.5, res[3], res[0]),  // Yew
+                    new HarvestVein(085, 0.5, res[4], res[0]),  // Heartwood
+                    new HarvestVein(075, 0.5, res[5], res[0]),  // Bloodwood
+                    new HarvestVein(060, 0.5, res[6], res[0]),  // Frostwood
+
+                    // 130
+                    new HarvestVein(050, 0.5, res[7], res[0]),  // Anger
+                    new HarvestVein(020, 0.5, res[8], res[0]),  // Owlvine
+                    new HarvestVein(030, 0.5, res[9], res[0]),  // Flaming
+                    new HarvestVein(020, 0.5, res[10], res[0]), // Jinx
+                    new HarvestVein(010, 0.5, res[11], res[0]), // Blackwood
                 };
 
                 lumber.BonusResources = new[]

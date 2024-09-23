@@ -138,3 +138,48 @@ public partial class YewBoard : Board
     {
     }
 }
+
+[SerializationGenerator(0, false)]
+public partial class AngerBoard : Board
+{
+    [Constructible]
+    public AngerBoard(int amount = 1) : base(CraftResource.Angerwood, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+public partial class OwlvineBoard : Board
+{
+    [Constructible]
+    public OwlvineBoard(int amount = 1) : base(CraftResource.Owlvinewood, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+public partial class FlamingBoard : Board
+{
+    [Constructible]
+    public FlamingBoard(int amount = 1) : base(CraftResource.Flamingwood, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+public partial class JinxBoard : Board
+{
+    [Constructible]
+    public JinxBoard(int amount = 1) : base(CraftResource.Jinxwood, amount)
+    {
+    }
+}
+
+[SerializationGenerator(0, false)]
+public partial class BlackwoodBoard : Board
+{
+    [Constructible]
+    public BlackwoodBoard(int amount = 1) : base(CraftResource.Blackwood, amount)
+    {
+    }
+}

@@ -46,7 +46,13 @@ namespace Server.Items
         YewWood,
         Heartwood,
         Bloodwood,
-        Frostwood
+        Frostwood,
+
+        Angerwood,
+        Owlvinewood,
+        Flamingwood,
+        Jinxwood,
+        Blackwood
     }
 
     public enum CraftResourceType
@@ -65,7 +71,7 @@ namespace Server.Items
             DeepOcean, Aqua, Air, Sunshine, PureTitanium, DruidSilver, PurpleCrystal, WyrmEye, BloodRock;
         public static readonly CraftAttributeInfo Spined, Horned, Barbed;
         public static readonly CraftAttributeInfo RedScales, YellowScales, BlackScales, GreenScales, WhiteScales, BlueScales;
-        public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood;
+        public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood, Angerwood, Owlvinewood, Flamingwood, Jinxwood, Blackwood;
 
         static CraftAttributeInfo()
         {
@@ -581,6 +587,118 @@ namespace Server.Items
             var blood = Bloodwood = new CraftAttributeInfo();
 
             var frost = Frostwood = new CraftAttributeInfo();
+
+            frost.ArmorPhysicalResist = 1;
+            frost.ArmorColdResist = 2;
+
+            frost.WeaponColdDamage = 25;
+            frost.RunicMinAttributes = 5;
+            frost.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                frost.RunicMinIntensity = 85;
+                frost.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                frost.RunicMinIntensity = 50;
+                frost.RunicMaxIntensity = 100;
+            }
+
+            var anger = Angerwood = new CraftAttributeInfo();
+
+            anger.ArmorPhysicalResist = 1;
+            anger.ArmorPoisonResist = 2;
+
+            anger.WeaponPoisonDamage = 40;
+            anger.RunicMinAttributes = 5;
+            anger.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                anger.RunicMinIntensity = 85;
+                anger.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                anger.RunicMinIntensity = 50;
+                anger.RunicMaxIntensity = 100;
+            }
+
+            var owlvine = Owlvinewood = new CraftAttributeInfo();
+
+            owlvine.ArmorPhysicalResist = 2;
+            owlvine.ArmorLuck = 25;
+            owlvine.ArmorDurability = 50;
+
+            owlvine.WeaponLuck = 40;
+            owlvine.RunicMinAttributes = 5;
+            owlvine.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                owlvine.RunicMinIntensity = 85;
+                owlvine.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                owlvine.RunicMinIntensity = 50;
+                owlvine.RunicMaxIntensity = 100;
+            }
+
+            var flame = Flamingwood = new CraftAttributeInfo();
+
+            flame.ArmorPhysicalResist = 1;
+            flame.ArmorFireResist = 2;
+
+            flame.WeaponFireDamage = 40;
+            flame.RunicMinAttributes = 5;
+            flame.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                flame.RunicMinIntensity = 85;
+                flame.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                flame.RunicMinIntensity = 50;
+                flame.RunicMaxIntensity = 100;
+            }
+
+            var jinxwood = Jinxwood = new CraftAttributeInfo();
+
+            jinxwood.ArmorPhysicalResist = 2;
+
+            jinxwood.WeaponEnergyDamage = 25;
+            jinxwood.RunicMinAttributes = 5;
+            jinxwood.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                jinxwood.RunicMinIntensity = 85;
+                jinxwood.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                jinxwood.RunicMinIntensity = 50;
+                jinxwood.RunicMaxIntensity = 100;
+            }
+
+            var blackwood = Blackwood = new CraftAttributeInfo();
+
+            blackwood.ArmorPhysicalResist = 3;
+
+            blackwood.ArmorDurability = 50;
+            blackwood.WeaponChaosDamage = 50;
+            blackwood.RunicMinAttributes = 5;
+            blackwood.RunicMaxAttributes = 5;
+            if (Core.ML)
+            {
+                blackwood.RunicMinIntensity = 85;
+                blackwood.RunicMaxIntensity = 100;
+            }
+            else
+            {
+                blackwood.RunicMinIntensity = 50;
+                blackwood.RunicMaxIntensity = 100;
+            }
         }
 
         public int WeaponFireDamage { get; set; }
@@ -1054,6 +1172,51 @@ namespace Server.Items
                 CraftResource.Frostwood,
                 typeof(FrostwoodLog),
                 typeof(FrostwoodBoard)
+            ),
+            new(
+                0xAB1,
+                0,
+                "Angerwood",
+                CraftAttributeInfo.Angerwood,
+                CraftResource.Angerwood,
+                typeof(AngerLog),
+                typeof(AngerBoard)
+            ),
+            new(
+                0xAC4,
+                0,
+                "Owlvinewood",
+                CraftAttributeInfo.Owlvinewood,
+                CraftResource.Owlvinewood,
+                typeof(OwlvineLog),
+                typeof(OwlvineBoard)
+            ),
+            new(
+                0xAB0,
+                0,
+                "Flamingwood",
+                CraftAttributeInfo.Flamingwood,
+                CraftResource.Flamingwood,
+                typeof(FlamingLog),
+                typeof(FlamingBoard)
+            ),
+            new(
+                0xAB7,
+                0,
+                "Jinxwood",
+                CraftAttributeInfo.Jinxwood,
+                CraftResource.Jinxwood,
+                typeof(JinxLog),
+                typeof(JinxBoard)
+            ),
+            new(
+                0x770,
+                0,
+                "Blackwood",
+                CraftAttributeInfo.Blackwood,
+                CraftResource.Blackwood,
+                typeof(BlackwoodLog),
+                typeof(BlackwoodBoard)
             )
         };
 
@@ -1130,7 +1293,7 @@ namespace Server.Items
                 >= CraftResource.Iron and <= CraftResource.BloodRock               => CraftResourceType.Metal,
                 >= CraftResource.RegularLeather and <= CraftResource.BarbedLeather => CraftResourceType.Leather,
                 >= CraftResource.RedScales and <= CraftResource.BlueScales         => CraftResourceType.Scales,
-                >= CraftResource.RegularWood and <= CraftResource.Frostwood        => CraftResourceType.Wood,
+                >= CraftResource.RegularWood and <= CraftResource.Blackwood        => CraftResourceType.Wood,
                 _                                                                  => CraftResourceType.None
             };
 

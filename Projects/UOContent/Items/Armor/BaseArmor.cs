@@ -1234,79 +1234,22 @@ namespace Server.Items
 
         public override void AddNameProperty(IPropertyList list)
         {
-            var oreType = _resource switch
-            {
-                CraftResource.DullCopper    => 1053108,
-                CraftResource.ShadowIron    => 1053107,
-                CraftResource.Copper        => 1053106,
-                CraftResource.Bronze        => 1053105,
-                CraftResource.Gold          => 1053104,
-                CraftResource.Agapite       => 1053103,
-                CraftResource.Verite        => 1053102,
-                CraftResource.Valorite      => 1053101,
-
-                CraftResource.Mythril => 1,
-                CraftResource.Adamant => 2,
-                CraftResource.DeepOcean => 3,
-                CraftResource.Aqua => 4,
-                CraftResource.Air => 5,
-                CraftResource.Sunshine => 6,
-                CraftResource.PureTitanium => 7,
-                CraftResource.DruidSilver => 8,
-                CraftResource.PurpleCrystal => 9,
-                CraftResource.WyrmEye => 10,
-                CraftResource.BloodRock => 11,
-
-                CraftResource.SpinedLeather => 1061118,
-                CraftResource.HornedLeather => 1061117,
-                CraftResource.BarbedLeather => 1061116,
-                CraftResource.RedScales     => 1060814,
-                CraftResource.YellowScales  => 1060818,
-                CraftResource.BlackScales   => 1060820,
-                CraftResource.GreenScales   => 1060819,
-                CraftResource.WhiteScales   => 1060821,
-                CraftResource.BlueScales    => 1060815,
-                _                           => 0
-            };
-
+            int[] defResources = { 0, 1, 101, 201, 301 };
             var name = Name;
 
-            // TODO: remove this. custom ores hardcoded for now
-            string[] ores = { "Mythril", "Adamant", "DeepOcean", "Aqua", "Air", "Sunshine", "PureTitanium", "DruidSilver", "PurpleCrystal", "WyrmEye", "BloodRock"};
-
-            if (oreType != 0)
+            if (Array.IndexOf(defResources, (int)Resource) == -1)
             {
                 var qualityNumber = _quality == ArmorQuality.Exceptional ? 1053100 : 1053099;
 
-                if (oreType < 12)
-                {
-                    if (name != null)
-                    {
-                        list.Add(qualityNumber, $"{ores[oreType - 1]}\t{Name}");
-                    }
-                    else
-                    {
-                        list.Add(qualityNumber, $"{ores[oreType - 1]}\t{LabelNumber:#}");
-                    }
-                }
-                else if (name != null)
-                {
-                    list.Add(qualityNumber, $"{oreType:#}\t{Name}");
-                }
-                else
-                {
-                    list.Add(qualityNumber, $"{oreType:#}\t{LabelNumber:#}");
-                }
-            }
-            else if (_quality == ArmorQuality.Exceptional)
-            {
+                string resName = CraftResources.GetName(_resource);
+
                 if (name != null)
                 {
-                    list.Add(1050040, name); // exceptional ~1_ITEMNAME~
+                    list.Add(qualityNumber, $"{resName}\t{name}"); // ~1_oretype~ ~2_armortype~
                 }
                 else
                 {
-                    list.AddLocalized(1050040, LabelNumber); // exceptional ~1_ITEMNAME~
+                    list.Add(qualityNumber, $"{resName}\t{LabelNumber:#}"); // ~1_oretype~ ~2_armortype~
                 }
             }
             else if (name == null)

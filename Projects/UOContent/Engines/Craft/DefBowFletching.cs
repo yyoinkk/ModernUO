@@ -261,12 +261,17 @@ public class DefBowFletching : CraftSystem
         // Add every material you want the player to be able to choose from
         // This will override the overridable material	TODO: Verify the required skill amount
         AddSubRes(typeof(Log), 1072643, 00.0, 1044041, 1072652);
-        AddSubRes(typeof(OakLog), 1072644, 65.0, 1044041, 1072652);
+        AddSubRes(typeof(OakLog), 1072644, 60.0, 1044041, 1072652);
         AddSubRes(typeof(AshLog), 1072645, 80.0, 1044041, 1072652);
-        AddSubRes(typeof(YewLog), 1072646, 95.0, 1044041, 1072652);
-        AddSubRes(typeof(HeartwoodLog), 1072647, 100.0, 1044041, 1072652);
-        AddSubRes(typeof(BloodwoodLog), 1072648, 100.0, 1044041, 1072652);
-        AddSubRes(typeof(FrostwoodLog), 1072649, 100.0, 1044041, 1072652);
+        AddSubRes(typeof(YewLog), 1072646, 90.0, 1044041, 1072652);
+        AddSubRes(typeof(HeartwoodLog), 1072647, 95.0, 1044041, 1072652);
+        AddSubRes(typeof(BloodwoodLog), 1072648, 95.0, 1044041, 1072652);
+        AddSubRes(typeof(FrostwoodLog), 1072649, 95.0, 1044041, 1072652);
+        AddSubRes(typeof(AngerLog), "Anger", 95.0, 1044041, 1072652);
+        AddSubRes(typeof(OwlvineLog), "Owlvine", 100.0, 1044041, 1072652);
+        AddSubRes(typeof(FlamingLog), "Flaming", 100.0, 1044041, 1072652);
+        AddSubRes(typeof(JinxLog), "Jinx", 110.0, 1044041, 1072652);
+        AddSubRes(typeof(BlackwoodLog), "Blackwood", 115.0, 1044041, 1072652);
 
         MarkOption = true;
         Repair = Core.AOS;

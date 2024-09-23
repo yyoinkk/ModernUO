@@ -91,7 +91,7 @@ public partial class Log : Item, ICommodity, IAxe
         if (from.Skills.Carpentry.Value < skill &&
             from.Skills.Lumberjacking.Value < skill)
         {
-            item.Delete();
+            // item.Delete();
             from.SendLocalizedMessage(1072652); // You cannot work this strange and unusual wood.
             return false;
         }
@@ -109,7 +109,7 @@ public partial class HeartwoodLog : Log
     {
     }
 
-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new HeartwoodBoard());
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 95, new HeartwoodBoard());
 }
 
 [SerializationGenerator(0, false)]
@@ -120,7 +120,7 @@ public partial class BloodwoodLog : Log
     {
     }
 
-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new BloodwoodBoard());
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 95, new BloodwoodBoard());
 }
 
 [SerializationGenerator(0, false)]
@@ -131,7 +131,7 @@ public partial class FrostwoodLog : Log
     {
     }
 
-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new FrostwoodBoard());
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 95, new FrostwoodBoard());
 }
 
 [SerializationGenerator(0, false)]
@@ -164,5 +164,60 @@ public partial class YewLog : Log
     {
     }
 
-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 95, new YewBoard());
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 90, new YewBoard());
+}
+
+[SerializationGenerator(0, false)]
+public partial class AngerLog : Log
+{
+    [Constructible]
+    public AngerLog(int amount = 1) : base(CraftResource.Angerwood, amount)
+    {
+    }
+     
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 95, new AngerBoard());
+}
+
+[SerializationGenerator(0, false)]
+public partial class OwlvineLog : Log
+{
+    [Constructible]
+    public OwlvineLog(int amount = 1) : base(CraftResource.Owlvinewood, amount)
+    {
+    }
+
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new OwlvineBoard());
+}
+
+[SerializationGenerator(0, false)]
+public partial class FlamingLog : Log
+{
+    [Constructible]
+    public FlamingLog(int amount = 1) : base(CraftResource.Flamingwood, amount)
+    {
+    }
+
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new FlamingBoard());
+}
+
+[SerializationGenerator(0, false)]
+public partial class JinxLog : Log
+{
+    [Constructible]
+    public JinxLog(int amount = 1) : base(CraftResource.Jinxwood, amount)
+    {
+    }
+
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 110, new JinxBoard());
+}
+
+[SerializationGenerator(0, false)]
+public partial class BlackwoodLog : Log
+{
+    [Constructible]
+    public BlackwoodLog(int amount = 1) : base(CraftResource.Blackwood, amount)
+    {
+    }
+
+    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 115, new BlackwoodBoard());
 }
